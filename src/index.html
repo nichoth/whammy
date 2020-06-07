@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stripe Checkout + Netlify Functions!</title>
+    <link rel="stylesheet" href="/main.css">
+  </head>
+
+  <body>
+    <header>
+      <a href="/" rel="home">Serverless Workflow for Stripe Checkout</a>
+    </header>
+
+    <main>
+      <h1>Buy Our Products!</h1>
+      <div class="products"></div>
+      <button id="foo">do something</button>
+    </main>
+
+    <template id="product">
+        <div class="product">
+          <img src="" alt="" />
+          <h2>name</h2>
+          <p class="description">description</p>
+          <p class="price">price</p>
+          <form action="" method="post">
+            <label for="quantity">Quantity</label>
+            <input
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              max="10"
+            />
+            <input type="hidden" name="sku" value="" />
+            <button type="submit">Buy Now</button>
+          </form>
+        </div>
+    </template>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="module" src="/js/load-products.js"></script>
+
+    <!-- <script type="module"> -->
+    <!--     import { loadProducts } from './js/load-products.js'; -->
+    <!--     loadProducts(); -->
+    <!-- </script> -->
+
+    <script src="/js/create.js"></script>
+  </body>
+</html>
+

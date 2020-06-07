@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "faunadb": "^2.14.1",
+    "stripe": "^8.54.0"
+  }
+}

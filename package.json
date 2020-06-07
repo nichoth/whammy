@@ -1,0 +1,27 @@
+{
+  "name": "whammy",
+  "description": "",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "ntl dev",
+    "copy": "rm -rf public && mkdir public && cp -r src/* public/",
+    "build": "npm run copy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^2.51.0"
+  },
+  "author": "Nick Thomas <nichoth@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nichoth/whammy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nichoth/whammy/issues"
+  },
+  "homepage": "https://github.com/nichoth/whammy#readme"
+}

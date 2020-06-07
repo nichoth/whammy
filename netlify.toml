@@ -1,0 +1,9 @@
+[build]
+    command = "npm run build && cd functions && npm i && cd .."
+    publish = "public"
+    functions = "functions"
+
+[dev]
+    port = 8888
+    publish="public"
+
