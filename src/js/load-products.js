@@ -13,7 +13,7 @@ function createProductFromTemplate(item) {
     }).format((item.amount / 100).toFixed(2));
 
     const img = product.querySelector('img');
-    img.src = item.image;
+    img.src = item.images[0];
     img.alt = item.name;
 
     const form = product.querySelector('form');
