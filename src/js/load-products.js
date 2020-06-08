@@ -9,7 +9,7 @@ function createProductFromTemplate(item) {
     product.querySelector('[name=sku]').value = item.sku;
     product.querySelector('.price').innerText = new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: item.currency,
+      currency: 'USD'
     }).format((item.amount / 100).toFixed(2));
 
     const img = product.querySelector('img');
@@ -23,16 +23,16 @@ function createProductFromTemplate(item) {
 }
 
 export async function loadProducts() {
-  const data = await fetch('/.netlify/functions/get-products')
+  const res = await fetch('/.netlify/functions/get-products')
     .then((res) => res.json())
     .catch((err) => console.error(err));
 
-    console.log('daaataaaaaaa', data)
+    console.log('daaataaaaaaa', res)
 
     const container = document.querySelector('.products');
 
     // products.appendChild(pre);
-    data.forEach((item) => {
+    res.data.forEach((item) => {
         const product = createProductFromTemplate(item);
         container.appendChild(product);
     });
