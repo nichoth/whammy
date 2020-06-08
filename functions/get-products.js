@@ -16,6 +16,15 @@ exports.handler = function (ev, ctx, cb) {
         allDone()
     });
 
+  // {
+  //   "sku": "DEMO001",
+  //   "name": "This Pretty Plant",
+  //   "description": "Look at this pretty plant. Photo by Galina N on Unsplash.",
+  //   "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=600&h=600&q=80",
+  //   "amount": 1000,
+  //   "currency": "USD"
+  // },
+
     stripe.prices.list({}, function (err, prices) {
         if (err) return cb(null, {
             statusCode: 400,
@@ -32,8 +41,8 @@ exports.handler = function (ev, ctx, cb) {
         cb(null, {
             statusCode: 200,
             body: JSON.stringify({
-                products: _products,
-                prices: _prices
+                products: _products.data,
+                prices: _prices.data
             })
         })
     }
