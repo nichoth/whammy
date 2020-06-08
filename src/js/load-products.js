@@ -27,6 +27,8 @@ export async function loadProducts() {
     .then((res) => res.json())
     .catch((err) => console.error(err));
 
+    console.log('daaataaaaaaa', data)
+
     const container = document.querySelector('.products');
 
     // products.appendChild(pre);

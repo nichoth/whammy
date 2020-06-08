@@ -6,6 +6,8 @@ exports.handler = function (ev, ctx, cb) {
     var stripe = require('stripe')(process.env.STRIPE_SECRET);
 
     stripe.products.list({ limit: 3 }, function (err, products) {
+        console.log('woooooo', err, products)
+
         if (err) return cb(null, {
             statusCode: 400,
             body: JSON.stringify(err)
