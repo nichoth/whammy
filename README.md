@@ -16,8 +16,21 @@ stripe.products.list({ limit: 3 }, function (err, products) {
 });
 ```
 
-> Before billing a customer, you need to create a Customer object that you can configure with a name, email, and payment method.
 [Create a customer](https://stripe.com/docs/billing/prices-guide#create-customer)
+> Before billing a customer, you need to create a Customer object that you can configure with a name, email, and payment method.
+```js
+// Set your secret key. Remember to switch to your live secret key in production!
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+const stripe = require('stripe')('sk_test_51GrU9fGmvbUUvDLHxIdVkGP7SsJv9Re4AY6gJ4E9rR55pEIozVyX0BF2H8CO2mpYuZg3eDr4ftjjmTD9GNKsJoMk00wn6cXykX');
+
+const customer = await stripe.customers.create({
+  email: 'jenny.rosen@example.com',
+  payment_method: 'pm_card_visa',
+  invoice_settings: {
+    default_payment_method: 'pm_card_visa',
+  },
+});
+```
 
 ------------------------------------
 
