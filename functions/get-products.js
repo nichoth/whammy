@@ -38,12 +38,16 @@ exports.handler = function (ev, ctx, cb) {
     function allDone () {
         if (!_products || !_prices) return
 
+        var withPrices = _prices.data.reduce(function (acc, price) {
+            var product = _products.data.find(prod => prod.id = price.product)
+            product.amount = price.unit_amount
+            acc.push(product)
+            return acc;
+        }, [])
+
         cb(null, {
             statusCode: 200,
-            body: JSON.stringify({
-                products: _products.data,
-                prices: _prices.data
-            })
+            body: JSON.stringify(withPrices)
         })
     }
 }

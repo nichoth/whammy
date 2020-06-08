@@ -32,7 +32,7 @@ export async function loadProducts() {
     const container = document.querySelector('.products');
 
     // products.appendChild(pre);
-    res.data.forEach((item) => {
+    res.products.forEach((item) => {
         const product = createProductFromTemplate(item);
         container.appendChild(product);
     });
