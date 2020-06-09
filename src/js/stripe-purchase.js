@@ -1,27 +1,37 @@
 export async function handleFormSubmission(event) {
-  event.preventDefault();
-  const form = new FormData(event.target);
 
-  const data = {
-    sku: form.get('sku'),
-    quantity: Number(form.get('quantity')),
-  };
+    var els = event.target.elements
+    console.log('here', els)
 
-  const response = await fetch('/.netlify/functions/create-checkout', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  }).then((res) => res.json());
+    event.preventDefault();
+    const form = new FormData(event.target);
+    var stuff = {
+        // sku: event.target.elements.sku.value,
+        quantity: event.target.elements.quantity.value
+    }
 
-  const stripe = Stripe(response.publishableKey);
-  const { error } = await stripe.redirectToCheckout({
-    sessionId: response.sessionId,
-  });
+    console.log('stuff', stuff)
 
-  if (error) {
-    console.error(error);
-  }
+    // const data = {
+    //     sku: form.get('sku'),
+    //     quantity: Number(form.get('quantity')),
+    // };
+
+    const response = await fetch('/.netlify/functions/create-checkout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(stuff),
+    }).then((res) => res.json());
+
+    const stripe = Stripe(response.publishableKey);
+    const { error } = await stripe.redirectToCheckout({
+        sessionId: response.sessionId,
+    });
+
+    if (error) {
+        console.error(error);
+    }
 }
 
