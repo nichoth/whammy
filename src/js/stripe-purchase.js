@@ -1,7 +1,5 @@
 export async function handleFormSubmission(event) {
-
     var els = event.target.elements
-    console.log('here', els)
 
     event.preventDefault();
     const form = new FormData(event.target);
