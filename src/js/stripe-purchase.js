@@ -1,13 +1,14 @@
-export async function handleFormSubmission(event) {
+export async function handleFormSubmission (event) {
     var els = event.target.elements
 
     event.preventDefault();
-    const form = new FormData(event.target);
+    // const form = new FormData(event.target);
     var stuff = {
-        // sku: event.target.elements.sku.value,
-        quantity: event.target.elements.quantity.value
+        sku: els.sku.value,
+        quantity: els.quantity.value
     }
 
+    console.log('target.els', els)
     console.log('stuff', stuff)
 
     // const data = {
