@@ -1,14 +1,25 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const inventory = require('./data/products.json');
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
+// const inventory = require('./data/products.json');
 
 exports.handler = async (event) => {
     const { sku, quantity } = JSON.parse(event.body);
 
     // @TODO -- change this
     // get products from stripe
-    const product = inventory.find((p) => p.sku === sku);
-
+    // const product = inventory.find((p) => p.sku === sku);
     const validatedQuantity = quantity > 0 && quantity < 11 ? quantity : 1;
+    console.log('*****sku******', sku)
+    var product = await stripe.products.retrieve(sku)
+    console.log('****product*****', product)
+
+    try {
+        var prices = await stripe.prices.list({})
+    } catch (err) {
+        console.log('erererererer', err)
+    }
+
+    var price = prices.data.find(p => p.product === product.id)
+    console.log('*****price*****', price)
 
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -23,8 +34,10 @@ exports.handler = async (event) => {
                 name: product.name,
                 description: product.description,
                 images: [product.image],
-                amount: product.amount,
-                currency: product.currency,
+                // TODO next -- get price
+                amount: price.unit_amount,
+                // price: price,
+                currency: 'USD',
                 quantity: validatedQuantity,
             },
         ],

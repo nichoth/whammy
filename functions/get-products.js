@@ -1,9 +1,10 @@
+var stripe = require('stripe')(process.env.STRIPE_SECRET);
 // const products = require('./data/products.json');
 // require('dotenv').config()
 
 // [https://stripe.com/docs/api/products/list](List all products)
+
 exports.handler = function (ev, ctx, cb) {
-    var stripe = require('stripe')(process.env.STRIPE_SECRET);
     var _products, _prices
 
     stripe.products.list({ limit: 3 }, function (err, products) {
