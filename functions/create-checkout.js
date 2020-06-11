@@ -4,8 +4,6 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET);
 exports.handler = async (event) => {
     const { sku, quantity } = JSON.parse(event.body);
 
-    // @TODO -- change this
-    // get products from stripe
     // const product = inventory.find((p) => p.sku === sku);
     const validatedQuantity = quantity > 0 && quantity < 11 ? quantity : 1;
     console.log('*****sku******', sku)
@@ -34,9 +32,8 @@ exports.handler = async (event) => {
                 name: product.name,
                 description: product.description,
                 images: [product.image],
-                // TODO next -- get price
-                amount: price.unit_amount,
-                // price: price,
+                // amount: price.unit_amount,
+                price: price.id,
                 currency: 'USD',
                 quantity: validatedQuantity,
             },
