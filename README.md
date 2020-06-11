@@ -48,7 +48,7 @@ const customer = await stripe.customers.create({
 ## TODO today
 
 for the checkout
-[Retrieve a product](https://stripe.com/docs/api/products/retrieve)
+* [Retrieve a product](https://stripe.com/docs/api/products/retrieve)
 
 ```js
 var stripe = require('stripe')('sk_test_51GrU9fGmvbUUvDLHxIdVkGP7SsJv9Re4AY6gJ4E9rR55pEIozVyX0BF2H8CO2mpYuZg3eDr4ftjjmTD9GNKsJoMk00wn6cXykX');
@@ -58,5 +58,10 @@ stripe.products.retrieve('prod_HQTNO4cLeDwzDX', function (err, product) {
 });
 ```
 
------------------------------
-* 
+-----------------------
+
+## todo
+* forward to a good place after purchase
+* make sure product stock is ok
+
+
