@@ -25,15 +25,15 @@ exports.handler = async (event) => {
         shipping_address_collection: {
             allowed_countries: ['US', 'CA'],
         },
-        success_url: `${process.env.URL}/success.html`,
+        success_url: `${process.env.URL}/success`,
         cancel_url: process.env.URL,
         line_items: [
             {
                 name: product.name,
                 description: product.description,
                 images: [product.image],
-                // amount: price.unit_amount,
-                price: price.id,
+                amount: price.unit_amount,
+                // price: price.id,
                 currency: 'USD',
                 quantity: validatedQuantity,
             },
