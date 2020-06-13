@@ -71,7 +71,7 @@ stripe.products.retrieve('prod_HQTNO4cLeDwzDX', function (err, product) {
 [Email receipts](https://stripe.com/docs/receipts)
 
 > Stripe can automatically send email receipts after a successful payment, or when you refund one. This is done by providing an email address when making the API request, using the email address of a Customer object, or updating a PaymentIntent with a customer’s email address after checkout
-
+> Receipts for payments created using your test API keys are not sent automatically. Instead, you can view or manually send a receipt using the Dashboard.
 
 ------------------------------
 * could get products at build time instead of on page load. But that doesn't work because the stock needs to be up to date.
