@@ -19,6 +19,14 @@ function createProductFromTemplate (item) {
     const form = product.querySelector('form');
     form.addEventListener('submit', handleFormSubmission);
 
+    var style = {
+        base: { color: "#32325d" }
+    }
+
+    var cardEl = product.querySelector('.card-element')
+    var card = elements.create('card', { style });
+    card.mount(cardEl);
+
     return product;
 }
 
