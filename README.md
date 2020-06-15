@@ -60,7 +60,7 @@ stripe.products.retrieve('prod_HQTNO4cLeDwzDX', function (err, product) {
 -----------------------
 
 ## todo
-- [ ] redirect to a good place after purchase
+- [x] redirect to a good place after purchase
 - [ ] make sure product stock is ok
 - [ ] sku has a specific meaning. should change it's use in the code
 - [ ] use the lookup_key for prices to relate them to a product
@@ -78,4 +78,24 @@ stripe.products.retrieve('prod_HQTNO4cLeDwzDX', function (err, product) {
 * make the sucess/cancel pages
 ----------------------------------
 
+## should maybe use fauna + netlify CMS like originally planned b/c stripe doesn't keep stock for us
 
+on product create:
+netlify CMS -> ntl function -- create fauna doc
+
+on Purchase:
+ntl fn -> stock -1 in fauna, purchase in stripe 
+Need to use some kind of listener on stripe to know when to -1 the stock
+
+## comerce.js
+3% transaction fee -- $2000/month sales
+[commerce.js](https://commercejs.com/)
+[commerce.js docs](https://commercejs.com/docs/) -- cart api
+[capture order](https://commercejs.com/docs/api/?javascript#capture-order)
+[get cart contents](https://commercejs.com/docs/api/?javascript#get-cart-contents)
+
+----------------------------------
+
+[Accept a payment](https://stripe.com/docs/payments/accept-a-payment#web)
+
+Use `elements` in the browser & `paymentIntent` on the server to make a payment. Use `paymentIntent.client_secret`
