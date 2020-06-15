@@ -1,6 +1,7 @@
 import { handleFormSubmission } from './stripe-purchase.js';
 
 function createProductFromTemplate (item) {
+    const stripe = Stripe('pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID');
     const template = document.querySelector('#product');
     const product = template.content.cloneNode(true);
 
@@ -23,6 +24,7 @@ function createProductFromTemplate (item) {
         base: { color: "#32325d" }
     }
 
+    var elements = stripe.elements();
     var cardEl = product.querySelector('.card-element')
     var card = elements.create('card', { style });
     card.mount(cardEl);
