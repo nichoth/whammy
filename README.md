@@ -99,3 +99,13 @@ Need to use some kind of listener on stripe to know when to -1 the stock
 [Accept a payment](https://stripe.com/docs/payments/accept-a-payment#web)
 
 Use `elements` in the browser & `paymentIntent` on the server to make a payment. Use `paymentIntent.client_secret`
+
+---------------------------------
+
+And it's back to using the netlify CMS to create docs in fauna I guess.
+
+[Registering to CMS Events](https://www.netlifycms.org/docs/beta-features/#registering-to-cms-events)
+
+> Supported events are `prePublish`, `postPublish`, `preUnpublish`, `postUnpublish`, `preSave` and `postSave`
+
+
