@@ -9,7 +9,7 @@ exports.handler = function (ev, ctx, cb) {
 
     stripe.products.list({ limit: 3 }, function (err, products) {
         if (err) return cb(null, {
-            statusCode: 400,
+            statusCode: 500,
             body: JSON.stringify(err)
         })
 
@@ -28,7 +28,7 @@ exports.handler = function (ev, ctx, cb) {
 
     stripe.prices.list({}, function (err, prices) {
         if (err) return cb(null, {
-            statusCode: 400,
+            statusCode: 500,
             body: JSON.stringify(err)
         })
 

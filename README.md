@@ -150,7 +150,9 @@ adminClient.query(
 .then((ret) => console.log(ret))
 ```
 
-[Create a document in a collection](https://docs.fauna.com/fauna/current/cookbook/#collection-create-document)
+[Create a document in a collection](https://docs.fauna.com/fauna/current/cookbook/#collection-create-document) -- spells example
+
+[Create a post](https://docs.fauna.com/fauna/current/tutorials/crud#post)
 
 
 
