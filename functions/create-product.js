@@ -3,6 +3,7 @@ var key = process.env.FAUNA_ADMIN_KEY
 
 var client = new faunadb.Client({ secret: key })
 
+
 // client.query(q.Create(q.Collection('spells'), {
 //     data: {
 //         name: 'Fire Beak',
@@ -15,6 +16,9 @@ var client = new faunadb.Client({ secret: key })
 exports.handler = function (ev, ctx, cb) {
     const product = JSON.parse(ev.body)
     var { name, pic, description } = product.data
+
+    console.log('context', ctx, ctx.clientContext)
+
     if (!name || !pic || !description) {
         return cb(null, {
             statusCode: 400,
@@ -40,26 +44,3 @@ exports.handler = function (ev, ctx, cb) {
             })
         })
 }
-
-
-    // client.query(q.Create(q.Collection('spells'), {
-    //     data: {
-    //         name: 'Fire Beak',
-    //         element: ['air', 'fire'],
-    //     }
-    // }))
-    // .then((ret) => console.log(ret))
-
-
-// client.query(
-// q.Create(
-//     q.Collection('spells'),
-//     {
-//     data: {
-//         name: 'Fire Beak',
-//         element: ['air', 'fire'],
-//     },
-//     },
-// )
-// )
-// .then((ret) => console.log(ret))
