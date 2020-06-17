@@ -108,4 +108,49 @@ And it's back to using the netlify CMS to create docs in fauna I guess.
 
 > Supported events are `prePublish`, `postPublish`, `preUnpublish`, `postUnpublish`, `preSave` and `postSave`
 
+```js
+CMS.registerEventListener({
+    name: 'prePublish',
+    handler: function ({ author, entry }) {
+        var str = JSON.stringify({ author, data: entry.get('data') })
+        console.log('prepublish', str)
+    }
+});
+
+{
+  "author":{"login":"nichoth@gmail.com","name":"nichoth"},
+  "data":{
+    "name":"two",
+    "pic":"images/uploads/vag-eye.jpg",
+    "description":"woo two description"
+  }
+}
+```
+
+----------------------------------------
+
+[Create, retrieve, update, and delete documents in FaunaDB](https://docs.fauna.com/fauna/current/tutorials/crud.html)
+
+[Quick start with FaunaDB](https://docs.fauna.com/fauna/current/start/cloud.html)
+
+[Create](https://docs.fauna.com/fauna/current/api/fql/functions/create)
+
+-------------------------------------
+
+[FaunaDB/Cookbook/Overview](https://docs.fauna.com/fauna/current/cookbook/)
+> Reading or writing database definitions requires an admin key.
+```js
+var adminClient = new faunadb.Client({
+  secret: adminKey
+})
+
+adminClient.query(
+  q.CreateDatabase({ name: 'annuvin' })
+)
+.then((ret) => console.log(ret))
+```
+
+[Create a document in a collection](https://docs.fauna.com/fauna/current/cookbook/#collection-create-document)
+
+
 
