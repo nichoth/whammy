@@ -15,9 +15,12 @@ CMS.registerEventListener({
 
         // var user 
         var token
+        console.log('current user', netlifyIdentity.currentUser())
+        console.log('id', netlifyIdentity)
         if (netlifyIdentity.currentUser()) {
             netlifyIdentity.currentUser().jwt().then((_token) => {
                 token = _token
+                console.log('in here', _token)
                 // user = { Authorization: `Bearer ${token}` };
             })
         }

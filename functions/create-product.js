@@ -18,9 +18,6 @@ exports.handler = function (ev, ctx, cb) {
     const product = JSON.parse(ev.body)
     var { name, pic, description } = product.data
 
-    console.log('context', ctx)
-    console.log('cient context', ctx.clientContext)
-
     if (!name || !pic || !description) {
         return cb(null, {
             statusCode: 400,
@@ -30,12 +27,15 @@ exports.handler = function (ev, ctx, cb) {
         })
     }
 
-    const claims = context.clientContext && context.clientContext.user;
+    console.log('event', ev)
+    console.log('context', ctx)
+    console.log('cient context', ctx.clientContext)
+    const claims = ctx.clientContext && ctx.clientContext.user;
     console.log('claims', claims)
     if (!claims) {
         return cb(null, {
             statusCode: 401,
-            body: 'You must be signed in to call this function'
+            body: JSON.stringify('You must be signed in to call this function')
         });
     }
 
