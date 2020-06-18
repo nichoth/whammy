@@ -40,10 +40,10 @@ export async function loadProducts() {
       const container = document.querySelector('.products');
 
       console.log('products', res.products)
-      res.products.forEach((item) => {
-          const product = createProductFromTemplate(item);
-          container.appendChild(product);
-      });
+    //   res.products.forEach((item) => {
+    //       const product = createProductFromTemplate(item);
+    //       container.appendChild(product);
+    //   });
 }
 
 loadProducts()
