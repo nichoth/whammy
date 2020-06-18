@@ -1,4 +1,5 @@
-import faunadb, { query as q } from 'faunadb'
+var faunadb = require('faunadb')
+var q = faunadb.query
 var key = process.env.FAUNA_ADMIN_KEY
 
 var client = new faunadb.Client({ secret: key })
@@ -17,7 +18,8 @@ exports.handler = function (ev, ctx, cb) {
     const product = JSON.parse(ev.body)
     var { name, pic, description } = product.data
 
-    console.log('context', ctx, ctx.clientContext)
+    console.log('context', ctx)
+    console.log('cient context', ctx.clientContext)
 
     if (!name || !pic || !description) {
         return cb(null, {
@@ -26,6 +28,15 @@ exports.handler = function (ev, ctx, cb) {
                 message: 'missing name, pic, or description'
             })
         })
+    }
+
+    const claims = context.clientContext && context.clientContext.user;
+    console.log('claims', claims)
+    if (!claims) {
+        return cb(null, {
+            statusCode: 401,
+            body: 'You must be signed in to call this function'
+        });
     }
 
     client.query(q.Create(q.Collection('products'), product))

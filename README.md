@@ -161,4 +161,9 @@ You can use this object to add a little guard clause to the handler method in sl
 [JAMstack architecture on Netlify: How Identity and Functions work together](https://www.netlify.com/blog/2018/03/29/jamstack-architecture-on-netlify-how-identity-and-functions-work-together/)
 
 
+------------------------------------------
+
+Thur 6-18
+Authenticate users before allowing product create URL call.
+
 
