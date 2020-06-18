@@ -23,7 +23,7 @@ exports.handler = function (ev, ctx, cb) {
         return cb(null, {
             statusCode: 400,
             body: JSON.stringify({
-                missing: 'name, pic, or description'
+                message: 'missing name, pic, or description'
             })
         })
     }

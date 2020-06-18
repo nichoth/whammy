@@ -154,5 +154,11 @@ adminClient.query(
 
 [Create a post](https://docs.fauna.com/fauna/current/tutorials/crud#post)
 
+[Building Serverless CRUD apps with Netlify Functions & FaunaDB](https://www.netlify.com/blog/2018/07/09/building-serverless-crud-apps-with-netlify-functions-faunadb/)
+
+> If it’s a valid token issued by the Identity instance linked to the site, Netlify will add the user’s claims in a `context.clientContext.user` object.
+You can use this object to add a little guard clause to the handler method in slack.js, blocking access for users who haven’t logged in
+[JAMstack architecture on Netlify: How Identity and Functions work together](https://www.netlify.com/blog/2018/03/29/jamstack-architecture-on-netlify-how-identity-and-functions-work-together/)
+
 
 
