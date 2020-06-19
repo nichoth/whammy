@@ -7,15 +7,15 @@ var stripe = require('stripe')(process.env.STRIPE_SECRET);
 exports.handler = function (ev, ctx, cb) {
     var _products, _prices
 
-    stripe.products.list({ limit: 3 }, function (err, products) {
-        if (err) return cb(null, {
-            statusCode: 500,
-            body: JSON.stringify(err)
-        })
+    // stripe.products.list({ limit: 3 }, function (err, products) {
+    //     if (err) return cb(null, {
+    //         statusCode: 500,
+    //         body: JSON.stringify(err)
+    //     })
 
-        _products = products
-        allDone()
-    });
+    //     _products = products
+    //     allDone()
+    // });
 
   // {
   //   "sku": "DEMO001",
@@ -26,15 +26,15 @@ exports.handler = function (ev, ctx, cb) {
   //   "currency": "USD"
   // },
 
-    stripe.prices.list({}, function (err, prices) {
-        if (err) return cb(null, {
-            statusCode: 500,
-            body: JSON.stringify(err)
-        })
+    // stripe.prices.list({}, function (err, prices) {
+    //     if (err) return cb(null, {
+    //         statusCode: 500,
+    //         body: JSON.stringify(err)
+    //     })
 
-        _prices = prices
-        allDone()
-    })
+    //     _prices = prices
+    //     allDone()
+    // })
 
     function allDone () {
         if (!_products || !_prices) return
