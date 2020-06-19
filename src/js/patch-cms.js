@@ -13,7 +13,6 @@ CMS.registerEventListener({
 
         console.log('prepublish', str)
 
-        // var user 
         var token
         console.log('current user', netlifyIdentity.currentUser())
         console.log('id', netlifyIdentity)
@@ -21,14 +20,12 @@ CMS.registerEventListener({
             netlifyIdentity.currentUser().jwt().then((_token) => {
                 token = _token
                 console.log('in here', _token)
-                // user = { Authorization: `Bearer ${token}` };
             })
         }
 
         const res = await fetch('/.netlify/functions/create-product', {
             method: 'POST',
             headers: {
-                // ...user,
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },

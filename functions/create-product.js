@@ -35,7 +35,9 @@ exports.handler = function (ev, ctx, cb) {
     if (!claims) {
         return cb(null, {
             statusCode: 401,
-            body: JSON.stringify('You must be signed in to call this function')
+            body: JSON.stringify({
+                message: 'You must be signed in to call this function'
+            })
         });
     }
 
