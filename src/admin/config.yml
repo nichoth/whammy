@@ -1,7 +1,7 @@
 backend:
     name: git-gateway
     branch: master # Branch to update (optional; defaults to master)
-    repo: nichoth/jessica
+    repo: nichoth/whammy
 media_folder: "src/uploads"
 public_folder: "images/uploads"
 collections:
