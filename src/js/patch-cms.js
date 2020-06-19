@@ -8,10 +8,13 @@ console.log('id', netlifyIdentity)
 console.log('ident', window.netlifyIdentity,
     window.netlifyIdentity.currentUser())
 
+var accessToken
+
 window.netlifyIdentity.on('init', user => {
     console.log('uussseerrr', user)
     console.log('token', user.token)
     console.log('access token', user.token.access_token)
+    accessToken = user.token.access_token
     // if (!user) {
     //     window.netlifyIdentity.on("login", () => {
     //     document.location.href = "/admin/";
@@ -30,18 +33,18 @@ CMS.registerEventListener({
 
         console.log('prepublish', str)
 
-        var token
-        if (netlifyIdentity.currentUser()) {
-            netlifyIdentity.currentUser().jwt().then((_token) => {
-                token = _token
-                console.log('in here', _token)
-            })
-        }
+        // var token
+        // if (netlifyIdentity.currentUser()) {
+        //     netlifyIdentity.currentUser().jwt().then((_token) => {
+        //         token = _token
+        //         console.log('in here', _token)
+        //     })
+        // }
 
         const res = await fetch('/.netlify/functions/create-product', {
             method: 'POST',
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${accessToken}`,
                 'Content-Type': 'application/json'
             },
             body: str
