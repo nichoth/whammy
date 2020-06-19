@@ -166,4 +166,4 @@ You can use this object to add a little guard clause to the handler method in sl
 Thur 6-18
 Authenticate users before allowing product create URL call.
 
-
+[identity](https://www.netlifycms.org/docs/add-to-your-site/#authentication) -- example of event listeners on global identity
