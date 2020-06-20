@@ -15,6 +15,7 @@ window.netlifyIdentity.on('init', user => {
     console.log('token', user.token)
     console.log('access token', user.token.access_token)
     accessToken = user.token.access_token
+    console.log('current user', netlifyIdentity.currentUser())
     // if (!user) {
     //     window.netlifyIdentity.on("login", () => {
     //     document.location.href = "/admin/";
@@ -23,7 +24,7 @@ window.netlifyIdentity.on('init', user => {
 });
 
 
-CMS.registerEventListener({
+cms.registerEventListener({
     name: 'prePublish',
     handler: async function ({ author, entry }) {
         var str = JSON.stringify({
@@ -32,12 +33,13 @@ CMS.registerEventListener({
         })
 
         console.log('prepublish', str)
+        console.log('entry', entry)
 
         // var token
         // if (netlifyIdentity.currentUser()) {
         //     netlifyIdentity.currentUser().jwt().then((_token) => {
-        //         token = _token
         //         console.log('in here', _token)
+        //         token = _token
         //     })
         // }
 

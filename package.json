@@ -8,7 +8,7 @@
     "copy": "rm -rf public && mkdir public && cp -r src/* public/",
     "build": "npm run copy && npm run build-js",
     "build-js": "browserify src/js/patch-cms.js -p esmify > public/js/patch-cms.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run build-js && browserify test-browser/index.js | htmlify src/admin/index.html | tape-run --static=public --input html | tap-spec"
   },
   "dependencies": {
     "@chec/commerce.js": "^2.0.1",
@@ -18,7 +18,11 @@
   "devDependencies": {
     "browserify": "^16.5.1",
     "esmify": "^2.1.1",
-    "netlify-cli": "^2.51.0"
+    "inline-htmlify": "^2.0.1",
+    "netlify-cli": "^2.51.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^5.0.1",
+    "tape-run": "^6.0.1"
   },
   "author": "Nick Thomas <nichoth@gmail.com>",
   "repository": {

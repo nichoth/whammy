@@ -167,3 +167,11 @@ Thur 6-18
 Authenticate users before allowing product create URL call.
 
 [identity](https://www.netlifycms.org/docs/add-to-your-site/#authentication) -- example of event listeners on global identity
+
+---------------------------------------
+
+## today
+* automated tests -- need to know which directory is served as root from tape-run
+* list the products
+* make a quantity field in the products
+
