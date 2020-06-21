@@ -4,6 +4,8 @@ backend:
     repo: nichoth/whammy
 media_folder: "src/uploads"
 public_folder: "/uploads"
+site_url: https://whammy.netlify.app
+logo_url: https://whammy.netlify.app/image/logo.jpeg
 collections:
   - name: "product"
     label: "products"
@@ -41,4 +43,3 @@ collections:
       - {label: "Date range", name: "dates", widget: "string"}
       - {label: "Company name", name: "coName", widget: "string"}
       - {label: "Stuff I did", name: "stuffIDid", widget: "list", field: {label: Stuff, name: stuff, widget: string}}
-

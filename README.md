@@ -171,7 +171,18 @@ Authenticate users before allowing product create URL call.
 ---------------------------------------
 
 ## today
-* automated tests -- need to know which directory is served as root from tape-run
-* list the products
-* make a quantity field in the products
+* [ ] automated testsr
+    - [x] need to know which directory is served as root from tape-run
+    - [ ] write tests
+* [ ] list the products
+* [ ] make a quantity field in the products
+
+---------------------------------------------
+
+* [ ] list the products
+* [ ] write a test
+
+
+
+
 
