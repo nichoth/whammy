@@ -3,7 +3,7 @@ backend:
     branch: master # Branch to update (optional; defaults to master)
     repo: nichoth/whammy
 media_folder: "src/uploads"
-public_folder: "images/uploads"
+public_folder: "/uploads"
 collections:
   - name: "product"
     label: "products"
