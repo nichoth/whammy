@@ -179,8 +179,11 @@ Authenticate users before allowing product create URL call.
 
 ---------------------------------------------
 
-* [ ] list the products
+* [x] list the products
+* [ ] front-end can display products
 * [ ] write a test
+
+[Building Serverless CRUD apps with Netlify Functions & FaunaDB](https://www.netlify.com/blog/2018/07/09/building-serverless-crud-apps-with-netlify-functions-faunadb/#setting-up-functions-for-local-development)
 
 
 

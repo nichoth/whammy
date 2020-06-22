@@ -2,6 +2,7 @@ import { handleFormSubmission } from './stripe-purchase.js';
 var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 
 function createProductFromTemplate (item) {
+    console.log('item', item)
     const stripe = Stripe(stripeKey);
     const template = document.querySelector('#product');
     const product = template.content.cloneNode(true);
@@ -15,7 +16,9 @@ function createProductFromTemplate (item) {
     }).format((item.amount / 100).toFixed(2));
 
     const img = product.querySelector('img');
-    img.src = item.images[0];
+    // img.src = item.images[0];
+    var imgSrc = item.pic.split('/')
+    img.src = '/' + imgSrc[1] + '/' + imgSrc[2]
     img.alt = item.name;
 
     const form = product.querySelector('form');
@@ -40,11 +43,16 @@ export async function loadProducts() {
 
     const container = document.querySelector('.products');
 
-    console.log('products', res.products)
-    res.products.forEach((item) => {
-        const product = createProductFromTemplate(item);
-        container.appendChild(product);
-    });
+    console.log('products', res)
+    // res.products.forEach((item) => {
+    //     const product = createProductFromTemplate(item);
+    //     container.appendChild(product);
+    // });
+
+    res.map(item => item.data).forEach(function (product) {
+        var content = createProductFromTemplate(product)
+        container.appendChild(content)
+    })
 }
 
 loadProducts()
