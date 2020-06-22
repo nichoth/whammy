@@ -1,7 +1,8 @@
 import { handleFormSubmission } from './stripe-purchase.js';
+var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 
 function createProductFromTemplate (item) {
-    const stripe = Stripe('pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID');
+    const stripe = Stripe(stripeKey);
     const template = document.querySelector('#product');
     const product = template.content.cloneNode(true);
 
@@ -33,17 +34,17 @@ function createProductFromTemplate (item) {
 }
 
 export async function loadProducts() {
-//   const res = await fetch('/.netlify/functions/get-products')
-//       .then((res) => res.json())
-//       .catch((err) => console.error(err));
+    const res = await fetch('/.netlify/functions/get-products')
+        .then((res) => res.json())
+        .catch((err) => console.error(err));
 
-//       const container = document.querySelector('.products');
+    const container = document.querySelector('.products');
 
-//       console.log('products', res.products)
-    //   res.products.forEach((item) => {
-    //       const product = createProductFromTemplate(item);
-    //       container.appendChild(product);
-    //   });
+    console.log('products', res.products)
+    res.products.forEach((item) => {
+        const product = createProductFromTemplate(item);
+        container.appendChild(product);
+    });
 }
 
 loadProducts()
