@@ -10,10 +10,11 @@ function createProductFromTemplate (item) {
     product.querySelector('h2').innerText = item.name;
     product.querySelector('.description').innerText = item.description;
     product.querySelector('[name=sku]').value = item.id;
+    // product.querySelector('.price').innerText = item.price;
     product.querySelector('.price').innerText = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD'
-    }).format((item.amount / 100).toFixed(2));
+    }).format((item.price || 0).toFixed(2));
 
     const img = product.querySelector('img');
     // img.src = item.images[0];
@@ -44,10 +45,6 @@ export async function loadProducts() {
     const container = document.querySelector('.products');
 
     console.log('products', res)
-    // res.products.forEach((item) => {
-    //     const product = createProductFromTemplate(item);
-    //     container.appendChild(product);
-    // });
 
     res.map(item => item.data).forEach(function (product) {
         var content = createProductFromTemplate(product)
@@ -56,4 +53,3 @@ export async function loadProducts() {
 }
 
 loadProducts()
-
