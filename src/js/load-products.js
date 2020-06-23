@@ -9,7 +9,7 @@ function createProductFromTemplate (item) {
 
     product.querySelector('h2').innerText = item.name;
     product.querySelector('.description').innerText = item.description;
-    product.querySelector('[name=sku]').value = item.id;
+    // product.querySelector('[name=sku]').value = item.id;
     // product.querySelector('.price').innerText = item.price;
     product.querySelector('.price').innerText = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -22,17 +22,17 @@ function createProductFromTemplate (item) {
     img.src = '/' + imgSrc[1] + '/' + imgSrc[2]
     img.alt = item.name;
 
-    const form = product.querySelector('form');
-    form.addEventListener('submit', handleFormSubmission);
+    // const form = product.querySelector('form');
+    // form.addEventListener('submit', handleFormSubmission);
 
-    var style = {
-        base: { color: "#32325d" }
-    }
+    // var style = {
+    //     base: { color: "#32325d" }
+    // }
 
-    var elements = stripe.elements();
-    var cardEl = product.querySelector('.card-element')
-    var card = elements.create('card', { style });
-    card.mount(cardEl);
+    // var elements = stripe.elements();
+    // var cardEl = product.querySelector('.card-element')
+    // var card = elements.create('card', { style });
+    // card.mount(cardEl);
 
     return product;
 }

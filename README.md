@@ -180,12 +180,13 @@ Authenticate users before allowing product create URL call.
 ---------------------------------------------
 
 * [x] list the products
-* [ ] front-end can display products
+* [x] front-end can display products
 * [ ] write a test
+* [ ] there is a slug for the product URL
 
 [Building Serverless CRUD apps with Netlify Functions & FaunaDB](https://www.netlify.com/blog/2018/07/09/building-serverless-crud-apps-with-netlify-functions-faunadb/#setting-up-functions-for-local-development)
 
-
-
+[Create, retrieve, update, and delete documents in FaunaDB](https://docs.fauna.com/fauna/current/tutorials/crud.html#retrieve)
+> You can query for posts with a specific title using the match function and the index we created earlier
 
 
