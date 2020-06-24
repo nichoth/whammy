@@ -56,5 +56,4 @@ export async function loadProducts() {
     })
 }
 
-
 loadProducts()
