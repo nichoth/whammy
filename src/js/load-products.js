@@ -70,7 +70,7 @@ export async function loadProducts() {
 
     // const container = document.querySelector('.products');
     const container = document.querySelector('.products');
-    document.querySelector('.single-product').remove()
+    document.querySelector('.single-product-container').remove()
 
     console.log('products', res)
 
@@ -93,9 +93,8 @@ async function loadSingleProduct (slug) {
 
     console.log('woooooo', res)
 
-    var container = document.querySelector('.single-product')
+    var container = document.querySelector('.single-product-container')
     document.querySelector('.products').remove()
-    console.log('container', container)
     var content = createSingleProduct(res)
     container.appendChild(content)
 }

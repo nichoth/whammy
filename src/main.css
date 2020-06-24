@@ -73,7 +73,7 @@ main {
    padding: 0.25rem;
 }
 
-#single-product img {
+.single-product img {
   max-width: 22em;
 }
 
