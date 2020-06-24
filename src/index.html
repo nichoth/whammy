@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>whammy analog</title>
     <link rel="stylesheet" href="/main.css">
-  </head>
+</head>
 
-  <body>
+<body>
     <!-- <header> -->
     <!--   <a href="/" rel="home">whammy</a> -->
     <!-- </header> -->
@@ -17,8 +17,23 @@
     </div>
 
     <main>
-      <div class="products"></div>
+        <div class="products"></div>
+        <div class="single-product"></div>
     </main>
+
+    <template id="single-product">
+        <div id="single-product">
+            <img src="" alt="">
+            <h2>name</h2>
+            <p class="description">description</p>
+            <p class="price">price</p>
+
+            <form action="" method="post">
+                <div>purchase form here</div>
+                <button type="submit">Buy Now</button>
+            </form>
+        </div>
+    </template>
 
     <template id="product">
         <div class="product">
@@ -59,6 +74,6 @@
     <!-- </script> -->
 
     <!-- <script src="/js/create.js"></script> -->
-  </body>
+</body>
 </html>
 

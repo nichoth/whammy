@@ -43,11 +43,10 @@ exports.handler = function (ev, ctx, cb) {
         });
     }
 
-    // TODO -- create slug here
     var slug = slugify(name)
-    var _product = xtend(product, { slug })
+    product.data = xtend(product.data, { slug })
 
-    client.query(q.Create(q.Collection('products'), _product))
+    client.query(q.Create(q.Collection('products'), product))
         .then(function (res) {
             console.log('create', res)
             cb(null, {

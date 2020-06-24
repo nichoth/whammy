@@ -200,3 +200,7 @@ Need to do it at run time so stock is up to date
 ---------------------------------------
 
 
+* [ ] has a 404 page for missing slug
+* [ ] make page for single product
+
+
