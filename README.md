@@ -205,5 +205,6 @@ Need to do it at run time so stock is up to date
 
 ------------------------------------------
 
-* [ ] use a separate html page for the product page. Without the logo
+* [x] use a separate html page for the product page. Without the logo
 
+* [ ] css for single product page
