@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>whammy analog</title>
+    <link rel="stylesheet" href="/single-product.css">
+</head>
+
+<body>
+    <main>
+        <div class="single-product-container"></div>
+    </main>
+
+    <template id="single-product">
+        <div class="single-product">
+            <img src="" alt="">
+            <h2>name</h2>
+            <p class="description">description</p>
+            <p class="price">price</p>
+
+            <form action="" method="post">
+                <div>purchase form here</div>
+                <button type="submit">Buy Now</button>
+            </form>
+        </div>
+    </template>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="module" src="/js/load-single-product.js"></script>
+</body>
+</html>
+
