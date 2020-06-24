@@ -49,3 +49,8 @@ main {
 .single-product img {
     max-width: 22em;
 }
+
+.card-elements {
+    background-color: white;
+    padding: 1em;
+}

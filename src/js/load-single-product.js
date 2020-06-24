@@ -1,9 +1,10 @@
 // import { handleFormSubmission } from './stripe-purchase.js';
-// var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
+var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 
 function createSingleProduct (item) {
     const template = document.querySelector('#single-product');
     const product = template.content.cloneNode(true);
+    const stripe = Stripe(stripeKey);
 
     // todo -- put content in the template
     product.querySelector('h2').innerText = item.name;
@@ -20,6 +21,18 @@ function createSingleProduct (item) {
     var imgSrc = item.pic.split('/')
     img.src = '/' + imgSrc[1] + '/' + imgSrc[2]
     img.alt = item.name;
+
+    // const form = product.querySelector('form');
+    // form.addEventListener('submit', handleFormSubmission);
+
+    var style = {
+        base: { color: "#32325d" }
+    }
+
+    var elements = stripe.elements();
+    var cardEl = product.querySelector('.card-element')
+    var card = elements.create('card', { style });
+    card.mount(cardEl);
 
     return product
 }
@@ -45,5 +58,4 @@ async function loadSingleProduct (slug) {
 var href = window.location.href
 var segments = href.split('/')
 var path = segments[3]
-console.log('single product', path)
 loadSingleProduct(path)
