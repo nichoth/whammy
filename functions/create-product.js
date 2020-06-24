@@ -1,6 +1,8 @@
 var faunadb = require('faunadb')
 var q = faunadb.query
 var key = process.env.FAUNA_ADMIN_KEY
+var slugify = require('slugify')
+var xtend = require('xtend')
 
 var client = new faunadb.Client({ secret: key })
 
@@ -41,7 +43,11 @@ exports.handler = function (ev, ctx, cb) {
         });
     }
 
-    client.query(q.Create(q.Collection('products'), product))
+    // TODO -- create slug here
+    var slug = slugify(name)
+    var _product = xtend(product, { slug })
+
+    client.query(q.Create(q.Collection('products'), _product))
         .then(function (res) {
             console.log('create', res)
             cb(null, {

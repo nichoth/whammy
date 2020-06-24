@@ -182,11 +182,21 @@ Authenticate users before allowing product create URL call.
 * [x] list the products
 * [x] front-end can display products
 * [ ] write a test
-* [ ] there is a slug for the product URL
+* [ ] there is a slug for the product URL -- put it in DB
+  slug = URL
+  fetch('get-product', { body: { slug } })
 
-[Building Serverless CRUD apps with Netlify Functions & FaunaDB](https://www.netlify.com/blog/2018/07/09/building-serverless-crud-apps-with-netlify-functions-faunadb/#setting-up-functions-for-local-development)
+  or
+
+  --get them all in eleventy and make a separate page for each with the slug as path--
+
+Need to do it at run time so stock is up to date
+
+[Building Serverless CRUD apps with Netlify Functions & FaunaDB](https://www.netlify.com/blog/2018/07/09/building-serverless-crud-apps-with-netlify-functions-faunadb/)
 
 [Create, retrieve, update, and delete documents in FaunaDB](https://docs.fauna.com/fauna/current/tutorials/crud.html#retrieve)
 > You can query for posts with a specific title using the match function and the index we created earlier
+
+---------------------------------------
 
 

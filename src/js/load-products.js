@@ -1,9 +1,9 @@
-import { handleFormSubmission } from './stripe-purchase.js';
-var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
+// import { handleFormSubmission } from './stripe-purchase.js';
+// var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 
 function createProductFromTemplate (item) {
     console.log('item', item)
-    const stripe = Stripe(stripeKey);
+    // const stripe = Stripe(stripeKey);
     const template = document.querySelector('#product');
     const product = template.content.cloneNode(true);
 
@@ -15,6 +15,9 @@ function createProductFromTemplate (item) {
         style: 'currency',
         currency: 'USD'
     }).format((item.price || 0).toFixed(2));
+
+    var a = product.querySelector('a')
+    a.href = `/${item.name}`
 
     const img = product.querySelector('img');
     // img.src = item.images[0];
@@ -52,4 +55,9 @@ export async function loadProducts() {
     })
 }
 
-loadProducts()
+var href = window.location.href
+var segments = href.split('/')
+var path = segments[4]
+if (path.length === 0) {
+    loadProducts()
+}

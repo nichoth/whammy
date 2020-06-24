@@ -38,6 +38,10 @@ main {
    max-width: 100%;
 }
 
+.product a {
+  display: block;
+}
+
 .product form {
    align-items: baseline;
    display: grid;
