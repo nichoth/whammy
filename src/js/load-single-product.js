@@ -41,3 +41,9 @@ async function loadSingleProduct (slug) {
     var content = createSingleProduct(res)
     container.appendChild(content)
 }
+
+var href = window.location.href
+var segments = href.split('/')
+var path = segments[3]
+console.log('single product', path)
+loadSingleProduct(path)

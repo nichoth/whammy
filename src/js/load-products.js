@@ -2,7 +2,6 @@
 // var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 
 function createProductFromTemplate (item) {
-    // console.log('item', item)
     // const stripe = Stripe(stripeKey);
     const template = document.querySelector('#product');
     const product = template.content.cloneNode(true);
@@ -45,7 +44,6 @@ export async function loadProducts() {
         .then((res) => res.json())
         .catch((err) => console.error(err));
 
-    // const container = document.querySelector('.products');
     const container = document.querySelector('.products');
 
     console.log('products', res)
