@@ -1,10 +1,10 @@
 import { handleFormSubmission } from './stripe-purchase.js';
 var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
+const stripe = Stripe(stripeKey);
 
 function createSingleProduct (item) {
     const template = document.querySelector('#single-product');
     const product = template.content.cloneNode(true);
-    const stripe = Stripe(stripeKey);
 
     // todo -- put content in the template
     product.querySelector('h2').innerText = item.name;
@@ -21,9 +21,6 @@ function createSingleProduct (item) {
     img.src = '/' + imgSrc[1] + '/' + imgSrc[2]
     img.alt = item.name;
 
-    const form = product.querySelector('form');
-    form.addEventListener('submit', handleFormSubmission);
-
     var style = {
         base: { color: "#32325d" }
     }
@@ -32,6 +29,11 @@ function createSingleProduct (item) {
     var cardEl = product.querySelector('#card-element')
     var card = elements.create('card', { style });
     card.mount(cardEl);
+
+    const form = product.querySelector('form');
+    form.addEventListener('submit', function (ev) {
+        handleFormSubmission(ev, card, stripe, item.client_secret)
+    })
 
     // TODO
     // listen for change, validate input

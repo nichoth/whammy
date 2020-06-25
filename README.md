@@ -201,13 +201,18 @@ Need to do it at run time so stock is up to date
 
 
 * [ ] has a 404 page for missing slug
-* [ ] make page for single product
+* [x] make page for single product
 
 ------------------------------------------
 
 * [x] use a separate html page for the product page. Without the logo
 * [x] css for single product page
-* [ ] stripe purchase works
+* [x] stripe purchase works
 
 https://stripe.com/docs/payments/accept-a-payment#web
+
+------------------------------------------
+
+* [ ] show a success page after payment
+* [ ] should show error messages for bad payment
 

@@ -1,40 +1,23 @@
-export async function handleFormSubmission (ev) {
+
+export async function handleFormSubmission (ev, card, stripe, clientSecret) {
+    ev.preventDefault();
     var els = ev.target.elements
+    console.log('form submit', ev, els)
+    console.log('card', card)
 
-    event.preventDefault();
-    // const form = new FormData(event.target);
-    // var stuff = {
-    //     sku: els.sku.value,
-    //     quantity: els.quantity.value
-    // }
-
-    // console.log('hererere', els.sku.value)
-    // console.log('stuff', stuff)
-    console.log('form submit', ev, ev.target.elements)
-    // console.log('target.els', els)
-
-    // const data = {
-    //     sku: form.get('sku'),
-    //     quantity: Number(form.get('quantity')),
-    // };
-
-    // const response = await fetch('/.netlify/functions/create-checkout', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(stuff),
-    // }).then((res) => res.json());
-
-    // console.log('*****response****', response)
-
-    // const stripe = Stripe(response.publishableKey);
-    // const { error } = await stripe.redirectToCheckout({
-    //     sessionId: response.sessionId,
-    // });
-
-    // if (error) {
-    //     console.error(error);
-    // }
+    stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+            card: card,
+            billing_details: {
+                name: 'Jenny Rosen'
+            }
+        }
+    })
+        .then(function (res) {
+            console.log('res here', res)
+        })
+        .catch(function (err) {
+            console.log('oh no', err)
+        })
 }
 
