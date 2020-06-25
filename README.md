@@ -206,4 +206,8 @@ Need to do it at run time so stock is up to date
 ------------------------------------------
 
 * [x] use a separate html page for the product page. Without the logo
-* [ ] css for single product page
+* [x] css for single product page
+* [ ] stripe purchase works
+
+https://stripe.com/docs/payments/accept-a-payment#web
+
