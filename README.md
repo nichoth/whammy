@@ -171,10 +171,10 @@ Authenticate users before allowing product create URL call.
 ---------------------------------------
 
 ## today
-* [ ] automated testsr
+* [ ] automated tests
     - [x] need to know which directory is served as root from tape-run
     - [ ] write tests
-* [ ] list the products
+* [x] list the products
 * [ ] make a quantity field in the products
 
 ---------------------------------------------
@@ -182,7 +182,7 @@ Authenticate users before allowing product create URL call.
 * [x] list the products
 * [x] front-end can display products
 * [ ] write a test
-* [ ] there is a slug for the product URL -- put it in DB
+* [x] there is a slug for the product URL -- put it in DB
   slug = URL
   fetch('get-product', { body: { slug } })
 
