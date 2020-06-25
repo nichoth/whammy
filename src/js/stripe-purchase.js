@@ -3,13 +3,13 @@ export async function handleFormSubmission (ev) {
 
     event.preventDefault();
     // const form = new FormData(event.target);
-    var stuff = {
-        sku: els.sku.value,
-        quantity: els.quantity.value
-    }
+    // var stuff = {
+    //     sku: els.sku.value,
+    //     quantity: els.quantity.value
+    // }
 
     // console.log('hererere', els.sku.value)
-    console.log('stuff', stuff)
+    // console.log('stuff', stuff)
     console.log('form submit', ev, ev.target.elements)
     // console.log('target.els', els)
 

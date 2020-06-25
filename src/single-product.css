@@ -20,11 +20,17 @@ main {
     display: block;
 }
 
-.single-product form {
-    align-items: baseline;
+/* .single-product form { */
+    /* align-items: baseline;
     display: grid;
     gap: 0.5rem;
-    grid-template-columns: 70px 50px 1fr;
+    grid-template-columns: 70px 50px 1fr; */
+/* } */
+
+#card-element {
+    margin-bottom: 1em;
+    background-color: white;
+    padding: 1em;
 }
 
 .single-product input {
