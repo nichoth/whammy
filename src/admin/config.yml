@@ -1,0 +1,49 @@
+backend:
+    name: git-gateway
+    branch: master # Branch to update (optional; defaults to master)
+    repo: nichoth/whammy
+media_folder: "src/uploads"
+public_folder: "/uploads"
+site_url: https://whammy.netlify.app
+logo_url: https://whammy.netlify.app/image/logo.jpeg
+collections:
+  - name: "product"
+    label: "products"
+    label_singular: "product"
+    folder: "src/_posts/products"
+    create: true
+    identifier_field: name
+    fields:
+        - {label: "Name", name: "name", widget: "string"}
+        - {label: "pic", name: "pic", widget: "image"}
+        - {label: "Description", name: "description", widget: "markdown"}
+        - { label: "Quantity available", name: "quantity", widget: "number",
+          default: 1, valueType: "int", min: 1, step: 1 }
+        - { label: "Price", name: "price", widget: "number", default: 1,
+          valueType: "float", step: 1, min: 1 }
+  - name: "video" # Used in routes, e.g., /admin/collections/blog
+    label: "videos" # Used in the UI
+    label_singular: "video" # Used in the UI
+    folder: "src/_posts/videos" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    # slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      # - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Band/credit", name: "band", widget: "string"}
+      - {label: "Date", name: "date", widget: "string"}
+      - {label: "Embed Code", name: "embedCode", widget: "code", "output_code_only": true }
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Description", name: "description", widget: "markdown"}
+      # - {label: "Featured Image", name: "thumbnail", widget: "image"}
+      # - {label: "Rating (scale of 1-5)", name: "rating", widget: "number"}
+      # - {label: "Body", name: "body", widget: "markdown"}
+  - name: "job"
+    label: "jobs"
+    label_singular: "job"
+    folder: "src/_posts/jobs"
+    create: true
+    fields:
+      - {label: "Date range", name: "dates", widget: "string"}
+      - {label: "Company name", name: "coName", widget: "string"}
+      - {label: "Stuff I did", name: "stuffIDid", widget: "list", field: {label: Stuff, name: stuff, widget: string}}
