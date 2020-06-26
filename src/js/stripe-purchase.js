@@ -5,6 +5,7 @@ export async function handleFormSubmission (ev, card, stripe, clientSecret) {
     console.log('card', card)
 
     // https://stripe.com/docs/payments/accept-a-payment#web
+    // https://github.com/stripe-samples/accept-a-card-payment/blob/master/using-webhooks/client/web/script.js#L67-L85
 
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
