@@ -1,28 +1,28 @@
-import netlifyIdentity from "netlify-identity-widget"
+// import netlifyIdentity from "netlify-identity-widget"
 var cms = window.CMS
 
 console.log('cms', cms)
 
 // console.log('current user', netlifyIdentity.currentUser())
-console.log('id', netlifyIdentity)
-console.log('ident', window.netlifyIdentity,
-    window.netlifyIdentity.currentUser())
+// console.log('id', netlifyIdentity)
+console.log('ident', window.netlifyIdentity)
+    // window.netlifyIdentity.currentUser())
 
 var accessToken
 
 window.netlifyIdentity.on('init', user => {
     console.log('uussseerrr', user)
-    if (user && user.token) {
+    if (user && (user ||{}).token) {
         console.log('token', user.token)
         console.log('access token', user.token.access_token)
         accessToken = user.token.access_token
     }
     console.log('current user', netlifyIdentity.currentUser())
-    // if (!user) {
-    //     window.netlifyIdentity.on("login", () => {
-    //     document.location.href = "/admin/";
-    //     });
-    // }
+    if (!user) {
+        window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+        });
+    }
 });
 
 
