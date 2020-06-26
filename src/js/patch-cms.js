@@ -3,7 +3,7 @@ var cms = window.CMS
 
 console.log('cms', cms)
 
-console.log('current user', netlifyIdentity.currentUser())
+// console.log('current user', netlifyIdentity.currentUser())
 console.log('id', netlifyIdentity)
 console.log('ident', window.netlifyIdentity,
     window.netlifyIdentity.currentUser())
