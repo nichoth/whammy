@@ -12,7 +12,7 @@ var accessToken
 
 window.netlifyIdentity.on('init', user => {
     console.log('uussseerrr', user)
-    if (user && user.toekn) {
+    if (user && user.token) {
         console.log('token', user.token)
         console.log('access token', user.token.access_token)
         accessToken = user.token.access_token
