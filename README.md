@@ -228,5 +228,15 @@ https://stripe.com/docs/payments/accept-a-payment#web
 
 > Supported events are prePublish, postPublish, preUnpublish, postUnpublish, preSave and postSave.
 
-
+https://github.com/netlify/netlify-cms/blob/2b46608f86d22c8ad34f75e396be7c34462d9e99/packages/netlify-cms-core/src/lib/registry.js#L6
+```js
+const allowedEvents = [
+  'prePublish',
+  'postPublish',
+  'preUnpublish',
+  'postUnpublish',
+  'preSave',
+  'postSave',
+];
+```
 

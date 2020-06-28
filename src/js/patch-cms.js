@@ -26,24 +26,33 @@ window.netlifyIdentity.on('init', user => {
 });
 
 
+// cms.registerEventListener({
+//     name: 'preSave',
+//     handler: function (opts) {
+//         console.log('presave', opts)
+//     }
+// })
+
+// this event works somehow
 cms.registerEventListener({
-    name: 'preSave',
-    handler: function (opts) {
-        console.log('presave', opts)
+    name: 'preUnpublish',
+    handler: function ({ author, entry }) {
+        console.log('preUnpublish', entry.toJS())
+        // TODO -- del from fauna here
     }
 })
 
 
 cms.registerEventListener({
     name: 'prePublish',
-    handler: async function ({ author, entry }) {
+    handler: async function (opts) {
+        var { author, entry } = opts
         var str = JSON.stringify({
             author,
             data: entry.get('data')
         })
 
-        console.log('prepublish', str)
-        console.log('entry', entry)
+        console.log('entry.js', entry.toJS())
 
         // var token
         // if (netlifyIdentity.currentUser()) {
