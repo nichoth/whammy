@@ -212,7 +212,21 @@ Need to do it at run time so stock is up to date
 https://stripe.com/docs/payments/accept-a-payment#web
 
 ------------------------------------------
+6-28
 
 * [ ] show a success page after payment
 * [ ] should show error messages for bad payment
+
+* [ ] can del things
+* [ ] should show CMS error states
+* [ ] diff pages by genre
+* [ ] can "tag" things
+* [ ] description in CMS is optional
+* [ ] localhost `identity` forwards to the right place
+
+[Registering to CMS Events](https://www.netlifycms.org/docs/beta-features/#registering-to-cms-events) -- list of CMS events
+
+> Supported events are prePublish, postPublish, preUnpublish, postUnpublish, preSave and postSave.
+
+
 

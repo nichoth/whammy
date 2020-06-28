@@ -27,6 +27,14 @@ window.netlifyIdentity.on('init', user => {
 
 
 cms.registerEventListener({
+    name: 'preSave',
+    handler: function (opts) {
+        console.log('presave', opts)
+    }
+})
+
+
+cms.registerEventListener({
     name: 'prePublish',
     handler: async function ({ author, entry }) {
         var str = JSON.stringify({
