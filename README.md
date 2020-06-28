@@ -219,10 +219,10 @@ https://stripe.com/docs/payments/accept-a-payment#web
 
 * [ ] can del things
 * [ ] should show CMS error states
-* [ ] diff pages by genre
+* [ ] diff pages by genre. Need genre input in CMS
 * [ ] can "tag" things
 * [ ] description in CMS is optional
-* [ ] localhost `identity` forwards to the right place
+* [x] localhost `identity` widget forwards to the right place
 
 [Registering to CMS Events](https://www.netlifycms.org/docs/beta-features/#registering-to-cms-events) -- list of CMS events
 
@@ -239,4 +239,6 @@ const allowedEvents = [
   'postSave',
 ];
 ```
+
+
 

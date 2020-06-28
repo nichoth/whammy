@@ -27,40 +27,4 @@ exports.handler = function (ev, ctx, cb) {
                 body: JSON.stringify(err)
             })
         })
-
-
-    // client.query(
-    //     q.Paginate( q.Match(q.Index("all_products")) )
-    // )
-    //     .then(function (res) {
-    //         var docs = res.data
-    //         const contentQuery = docs.map((ref) => {
-    //             return q.Get(ref)
-    //         })
-
-    //         client.query(contentQuery)
-    //             .then(function (res) {
-    //                 console.log('aaaaaa', res)
-    //                 return cb(null, {
-    //                     statusCode: 200,
-    //                     body: JSON.stringify(res)
-    //                 })
-    //             })
-    //             .catch(function (err) {
-    //                 return cb(null, {
-    //                     statusCode: 500,
-    //                     body: JSON.stringify(err)
-    //                 })
-    //             })
-    //     })
-    //     .catch(function (err) {
-    //         console.log('errrr here', err)
-    //         cb(null, {
-    //             statusCode: 500,
-    //             body: JSON.stringify({
-    //                 message: err.message
-    //             })
-    //         })
-    //     })
-
 }

@@ -12,7 +12,7 @@ var accessToken
 
 window.netlifyIdentity.on('init', user => {
     console.log('uussseerrr', user)
-    if (user && (user ||{}).token) {
+    if (user && (user || {}).token) {
         console.log('token', user.token)
         console.log('access token', user.token.access_token)
         accessToken = user.token.access_token
@@ -52,7 +52,8 @@ cms.registerEventListener({
             data: entry.get('data')
         })
 
-        console.log('entry.js', entry.toJS())
+        console.log('prePublish', entry.toJS())
+        console.log('slug', entry.get('slug'))
 
         // var token
         // if (netlifyIdentity.currentUser()) {
