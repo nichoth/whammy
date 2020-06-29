@@ -1,7 +1,7 @@
 ---
-name: foooo
+name: woooooooo
 pic: images/uploads/vag-eye.jpg
-description: woo fooo description
+description: woo woooo description
 quantity: 2
 price: 10
 ---
