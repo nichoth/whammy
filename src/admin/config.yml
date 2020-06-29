@@ -10,13 +10,15 @@ collections:
   - name: "product"
     label: "products"
     label_singular: "product"
+    description: "stuff you're selling"
     folder: "src/_posts/products"
     create: true
     identifier_field: name
     fields:
         - {label: "Name", name: "name", widget: "string"}
         - {label: "pic", name: "pic", widget: "image"}
-        - {label: "Description", name: "description", widget: "markdown"}
+        - {label: "Description", required: false, name: "description",
+          widget: "markdown"}
         - { label: "Quantity available", name: "quantity", widget: "number",
           default: 1, valueType: "int", min: 1, step: 1 }
         - { label: "Price", name: "price", widget: "number", default: 1,
