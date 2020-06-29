@@ -38,6 +38,7 @@ cms.registerEventListener({
     name: 'preUnpublish',
     handler: function ({ author, entry }) {
         console.log('preUnpublish', entry.toJS())
+        console.log('slug', entry.get('slug'))
         // TODO -- del from fauna here
     }
 })
@@ -53,7 +54,6 @@ cms.registerEventListener({
         })
 
         console.log('prePublish', entry.toJS())
-        console.log('slug', entry.get('slug'))
 
         // var token
         // if (netlifyIdentity.currentUser()) {

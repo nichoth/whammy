@@ -9,7 +9,9 @@ var client = new faunadb.Client({ secret: key })
 exports.handler = function (ev, ctx, cb) {
     client.query(
         q.Map(
-            q.Paginate( q.Match(q.Index("all_products")) ),
+            q.Paginate( q.Match(q.Index("all_products")), {
+                size: 1000
+            } ),
             q.Lambda((ref) => q.Get(ref))
         )
     )

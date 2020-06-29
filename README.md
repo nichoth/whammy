@@ -216,13 +216,14 @@ https://stripe.com/docs/payments/accept-a-payment#web
 
 * [ ] show a success page after payment
 * [ ] should show error messages for bad payment
-
-* [ ] can del things
+* [ ] can delete things
 * [ ] should show CMS error states
 * [ ] diff pages by genre. Need genre input in CMS
 * [ ] can "tag" things
 * [ ] description in CMS is optional
 * [x] localhost `identity` widget forwards to the right place
+* [ ] shipping cost calculator
+* [ ] pagination is ok in fauna query
 
 [Registering to CMS Events](https://www.netlifycms.org/docs/beta-features/#registering-to-cms-events) -- list of CMS events
 
@@ -240,5 +241,12 @@ const allowedEvents = [
 ];
 ```
 
+```js
+  console.log('slug', entry.get('slug'))
+```
 
+https://docs.fauna.com/fauna/current/tutorials/indexes/pagination.html#query-large
+> The Paginate function defaults to returning up to 64 documents in a "page", which is a subset of the results.
+
+If you use the github or google button on the identity login, it will redirect to the live site URL instead of localhost, but it works with the password.
 
