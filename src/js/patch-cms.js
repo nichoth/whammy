@@ -26,20 +26,32 @@ window.netlifyIdentity.on('init', user => {
 });
 
 
-// cms.registerEventListener({
-//     name: 'preSave',
-//     handler: function (opts) {
-//         console.log('presave', opts)
-//     }
-// })
-
-// this event works somehow
 cms.registerEventListener({
     name: 'preUnpublish',
-    handler: function ({ author, entry }) {
+    handler: async function ({ entry }) {
+        var slug = entry.get('slug')
         console.log('preUnpublish', entry.toJS())
-        console.log('slug', entry.get('slug'))
+        console.log('slug', slug)
         // TODO -- del from fauna here
+
+        const res = await fetch('/.netlify/functions/delete-product', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ slug })
+        })
+            .then(function (res) {
+                try {
+                    res.json()
+                } catch (err) {
+                    console.log('ruh roh', err)
+                }
+            })
+            .catch((err) => console.error('errrrrrr', err));
+        
+        console.log('res', res)
     }
 })
 

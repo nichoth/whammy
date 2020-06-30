@@ -250,3 +250,10 @@ https://docs.fauna.com/fauna/current/tutorials/indexes/pagination.html#query-lar
 
 If you use the github or google button on the identity login, it will redirect to the live site URL instead of localhost, but it works with the password.
 
+--------------------------
+
+[fauna ecommerce](https://docs.fauna.com/fauna/current/tutorials/ecommerce)
+[delete a post](https://docs.fauna.com/fauna/current/tutorials/crud.html#delete)
+[delete](https://docs.fauna.com/fauna/current/api/fql/functions/delete)
+
+
