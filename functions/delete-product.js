@@ -7,12 +7,13 @@ var client = new faunadb.Client({ secret: key })
 exports.handler = function (ev, ctx, cb) {
     const body = JSON.parse(ev.body)
     var { slug } = body
-    console.log('**slug**', slug)
+    console.log('delete **slug**', slug)
 
     client.query(
         q.Delete(
-            q.Select(['ref']),
-            q.Get( q.Match(q.Index('slug'), slug) )
+            q.Select(['ref'],
+                q.Get( q.Match(q.Index('slug'), slug) )
+            )
         )
     )
         .then(function (res) {

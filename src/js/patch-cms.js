@@ -42,13 +42,7 @@ cms.registerEventListener({
             },
             body: JSON.stringify({ slug })
         })
-            .then(function (res) {
-                try {
-                    res.json()
-                } catch (err) {
-                    console.log('ruh roh', err)
-                }
-            })
+            .then(res => res.json())
             .catch((err) => console.error('errrrrrr', err));
         
         console.log('res', res)
