@@ -25,14 +25,12 @@ window.netlifyIdentity.on('init', user => {
     }
 });
 
-
 cms.registerEventListener({
     name: 'preUnpublish',
     handler: async function ({ entry }) {
         var slug = entry.get('slug')
         console.log('preUnpublish', entry.toJS())
         console.log('slug', slug)
-        // TODO -- del from fauna here
 
         const res = await fetch('/.netlify/functions/delete-product', {
             method: 'POST',
@@ -48,7 +46,6 @@ cms.registerEventListener({
         console.log('res', res)
     }
 })
-
 
 cms.registerEventListener({
     name: 'prePublish',
@@ -80,6 +77,6 @@ cms.registerEventListener({
             .then((res) => res.json())
             .catch((err) => console.error('errrrrrr', err));
         
-        console.log('res', res)
+        console.log('pre pub res', res)
     }
 });

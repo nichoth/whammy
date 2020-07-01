@@ -216,7 +216,7 @@ https://stripe.com/docs/payments/accept-a-payment#web
 
 * [ ] show a success page after payment
 * [ ] should show error messages for bad payment
-* [ ] can delete things
+* [x] can delete things
 * [ ] should show CMS error states
 * [ ] diff pages by genre. Need genre input in CMS
 * [ ] can "tag" things
