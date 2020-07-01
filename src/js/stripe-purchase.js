@@ -15,8 +15,7 @@ export async function handleFormSubmission (ev, card, stripe, clientSecret) {
 
     // success_url: `${process.env.URL}/success`,
     // window.location.href = '/path'; //relative to domain
-    // window.location.replace  -- http redirect style
-    // window.location.assign('/path');
+    // window.location.assign('/path'); -- http redirect style
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Location/assign
     // window.location.assign("../"); // one level up
@@ -28,7 +27,23 @@ export async function handleFormSubmission (ev, card, stripe, clientSecret) {
             billing_details: {
                 name: 'Jenny Rosen'
             }
-        }
+        },
+        shipping: {
+            address: {
+                line1: 'Address line 1 (e.g., street, PO Box, or company name).',
+                line2: 'Address line 2 (e.g., apartment, suite, unit, or building).',
+                postal_code: '',
+                city: '',
+                state: '',
+                country: '',
+            },
+            name: '',
+            carrier: '',
+            phone: '',
+            tracking_number: ''
+        },
+        receipt_email: 'string',
+        // return_url: 'optional'
     })
         .then(function (res) {
             console.log('res here', res)
@@ -39,12 +54,13 @@ export async function handleFormSubmission (ev, card, stripe, clientSecret) {
             }
 
             // server-side -- create order in DB then do stripe payment
-            // or via webhook for success
-            // * shipping address
+            // * need shipping address
 
             // Set up a webhook or plugin to listen for the
             // payment_intent.succeeded event that handles any business
             // critical post-payment actions.
+            // * mark in the DB that order was paid
+            // * send emails
         })
         .catch(function (err) {
             console.log('oh no', err)
