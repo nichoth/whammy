@@ -7,6 +7,21 @@ export async function handleFormSubmission (ev, card, stripe, clientSecret) {
     // https://stripe.com/docs/payments/accept-a-payment#web
     // https://github.com/stripe-samples/accept-a-card-payment/blob/master/using-webhooks/client/web/script.js#L67-L85
 
+
+    // create order
+    // then: confirmCardPayment
+    //  if card error, del the order
+    // then: show success/error page
+
+    // success_url: `${process.env.URL}/success`,
+    // window.location.href = '/path'; //relative to domain
+    // window.location.replace  -- http redirect style
+    // window.location.assign('/path');
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/Location/assign
+    // window.location.assign("../"); // one level up
+    // window.location.assign("/path"); // relative to domain
+
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,

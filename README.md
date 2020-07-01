@@ -214,15 +214,15 @@ https://stripe.com/docs/payments/accept-a-payment#web
 ------------------------------------------
 6-28
 
-* [ ] show a success page after payment
 * [ ] should show error messages for bad payment
-* [x] can delete things
+* [ ] show a success page after payment
 * [ ] should show CMS error states
 * [ ] diff pages by genre. Need genre input in CMS
 * [ ] can "tag" things
+* [ ] shipping cost calculator
+* [x] can delete things
 * [x] description in CMS is optional
 * [x] localhost `identity` widget forwards to the right place
-* [ ] shipping cost calculator
 * [x] pagination is ok in fauna query
 
 [Registering to CMS Events](https://www.netlifycms.org/docs/beta-features/#registering-to-cms-events) -- list of CMS events
