@@ -42,7 +42,7 @@ export async function handleFormSubmission (ev, card, stripe, clientSecret) {
             phone: '',
             tracking_number: ''
         },
-        receipt_email: 'string',
+        receipt_email: 'string'
         // return_url: 'optional'
     })
         .then(function (res) {
