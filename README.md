@@ -225,7 +225,7 @@ https://stripe.com/docs/payments/accept-a-payment#web
 * [x] localhost `identity` widget forwards to the right place
 * [x] pagination is ok in fauna query
 * [ ] create an order
-* [ ] fix config.yml
+* [x] fix config.yml
 
 [Registering to CMS Events](https://www.netlifycms.org/docs/beta-features/#registering-to-cms-events) -- list of CMS events
 
@@ -257,5 +257,9 @@ If you use the github or google button on the identity login, it will redirect t
 [fauna ecommerce](https://docs.fauna.com/fauna/current/tutorials/ecommerce)
 [delete a post](https://docs.fauna.com/fauna/current/tutorials/crud.html#delete)
 [delete](https://docs.fauna.com/fauna/current/api/fql/functions/delete)
+
+----------------------------------
+
+[stripe webhook stuff](https://stripe.com/docs/payments/payment-intents/verifying-status#webhooks)
 
 

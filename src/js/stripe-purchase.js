@@ -21,6 +21,11 @@ export async function handleFormSubmission (ev, card, stripe, clientSecret) {
     // window.location.assign("../"); // one level up
     // window.location.assign("/path"); // relative to domain
 
+
+    // todo
+    // call create-order
+
+
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
@@ -53,6 +58,9 @@ export async function handleFormSubmission (ev, card, stripe, clientSecret) {
                 window.location.assign("/error"); // relative to domain
                 return console.log('errrrp', res.error)
             }
+
+            // todo
+            // * update the order with payment success
 
             window.location.assign("/success"); // relative to domain
 
