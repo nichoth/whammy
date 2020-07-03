@@ -7,7 +7,10 @@ exports.handler = function (ev, ctx, cb) {
         amount: 1099, // TODO -- get price, product ID
         currency: 'usd',
         // Verify your integration in this guide by including this parameter
-        metadata: { integration_check: 'accept_a_payment' }
+        metadata: {
+            integration_check: 'accept_a_payment',
+            productSlug: ''
+        }
     })
 
     cb(null, {
@@ -15,5 +18,3 @@ exports.handler = function (ev, ctx, cb) {
         body: JSON.stringify({ client_secret: paymentIntent.client_secret })
     })
 }
-
-

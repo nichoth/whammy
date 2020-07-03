@@ -224,6 +224,8 @@ https://stripe.com/docs/payments/accept-a-payment#web
 * [x] description in CMS is optional
 * [x] localhost `identity` widget forwards to the right place
 * [x] pagination is ok in fauna query
+* [ ] create an order
+* [ ] fix config.yml
 
 [Registering to CMS Events](https://www.netlifycms.org/docs/beta-features/#registering-to-cms-events) -- list of CMS events
 

@@ -10,7 +10,7 @@ export async function handleFormSubmission (ev, card, stripe, clientSecret) {
 
     // create order
     // then: confirmCardPayment
-    //  if card error, del the order
+    //  if card error, del the order -- all post pay stuff happens in webhooks
     // then: show success/error page
 
     // success_url: `${process.env.URL}/success`,
@@ -50,11 +50,11 @@ export async function handleFormSubmission (ev, card, stripe, clientSecret) {
 
             if (res.error) {
                 // todo -- show message to the user
+                window.location.assign("/error"); // relative to domain
                 return console.log('errrrp', res.error)
             }
 
-            // server-side -- create order in DB then do stripe payment
-            // * need shipping address
+            window.location.assign("/success"); // relative to domain
 
             // Set up a webhook or plugin to listen for the
             // payment_intent.succeeded event that handles any business

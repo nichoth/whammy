@@ -22,6 +22,8 @@ collections:
           default: 1, valueType: "int", min: 1, step: 1 }
         - { label: "Price", name: "price", widget: "number", default: 1,
           valueType: "float", step: 1, min: 1 }
+        - { label: "Genre", name: "genre", widget: "select", options: [
+          "horror", "test video", "humor"], multiple: true }
   - name: "video" # Used in routes, e.g., /admin/collections/blog
     label: "videos" # Used in the UI
     label_singular: "video" # Used in the UI

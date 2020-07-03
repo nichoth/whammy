@@ -43,7 +43,7 @@ cms.registerEventListener({
             .then(res => res.json())
             .catch((err) => console.error('errrrrrr', err));
         
-        console.log('res', res)
+        console.log('unpublish res', res)
     }
 })
 
