@@ -1,9 +1,11 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 var WH_SECRET = process.env.STRIPE_WEBHOOK
+console.log('wh_secret', WH_SECRET)
 
 exports.handler = function (ev, ctx, cb) {
     // var body = JSON.parse(ev.body)
-    console.log('body', body)
+    console.log('body', ev.body)
+    console.log('headers', ev.headers)
     var sig = ev.headers['stripe-signature'];
     console.log('sig', sig)
 
