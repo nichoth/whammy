@@ -1,6 +1,6 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
-var WH_SECRET = process.env.STRIPE_WEBHOOK
-console.log('wh_secret', WH_SECRET)
+var stripeWebhook = process.env.STRIPE_WEBHOOK
+console.log('Stripe Webhook', stripeWebhook)
 
 exports.handler = function (ev, ctx, cb) {
     // var body = JSON.parse(ev.body)
@@ -11,7 +11,7 @@ exports.handler = function (ev, ctx, cb) {
 
     var stripeEv
     try {
-        stripeEv = stripe.webhooks.constructEvent(ev.body, sig, WH_SECRET)
+        stripeEv = stripe.webhooks.constructEvent(ev.body, sig, stripeWebhook)
         console.log('stripeEv', stripeEv)
         console.log('.data', stripeEv.data)
     } catch (err) {
@@ -26,7 +26,10 @@ exports.handler = function (ev, ctx, cb) {
     }
 
     if (stripeEv.type === 'payment_intent.succeeded') {
-        console.log('success')
+        console.log('*****success****')
+        // todo
+        // * mark the order as paid
+        // * send an email to the store owner
     }
 
     if (stripeEv.type === 'payment_intent.payment_failed') {
@@ -34,6 +37,8 @@ exports.handler = function (ev, ctx, cb) {
         var message = (intent.last_payment_error &&
             intent.last_payment_error.message)
         console.log('failed', message)
+        // todo
+        // * send email to store owner
     }
 
     cb(null, {

@@ -263,3 +263,149 @@ If you use the github or google button on the identity login, it will redirect t
 [stripe webhook stuff](https://stripe.com/docs/payments/payment-intents/verifying-status#webhooks)
 
 
+---------------------------------
+
+## webhook test
+Serve the functions locally:
+```
+npm start
+```
+
+
+Setup the stripe webhook destination
+```
+stripe listen --forward-to localhost:54901/stripe-webhook
+```
+|^ You need to change the port to the right one (the one returned by `npm start`)
+|^ Need to get the secret that is returned from this and put it in env for
+    the function
+
+
+Send the webhook request (it has the right body & headers automatically)
+```
+$ stripe trigger payment_intent.succeeded
+```
+
+```js
+serveFunctions({
+    functionsDir: path.join(__dirname, '..', 'functions'),
+    port: 9090
+});
+```
+
+https://github.com/netlify/cli/issues/566
+https://stripe.com/docs/stripe-cli/webhooks#forward-events
+https://stripe.com/docs/api/events/types
+https://stripe.com/docs/api/payment_intents/object
+https://stripe.com/docs/webhooks/test?lang=node
+https://stripe.com/docs/webhooks/build?lang=node
+
+
+
+```
+stripeEv {
+  id: 'evt_1H0yxlBnqQbRlIvQOcDabxh4',
+  object: 'event',
+  api_version: '2020-03-02',
+  created: 1593821435,
+  data: {
+    object: {
+      id: 'pi_1H0yxjBnqQbRlIvQWlHcTMCr',
+      object: 'payment_intent',
+      amount: 2000,
+      amount_capturable: 0,
+      amount_received: 0,
+      application: null,
+      application_fee_amount: null,
+      canceled_at: null,
+      cancellation_reason: null,
+      capture_method: 'automatic',
+      charges: [Object],
+      client_secret: 'pi_1H0yxjBnqQbRlIvQWlHcTMCr_secret_mXGt3NGtYkEjDEqGrOVE2QUQk',
+      confirmation_method: 'automatic',
+      created: 1593821435,
+      currency: 'usd',
+      customer: null,
+      description: '(created by Stripe CLI)',
+      invoice: null,
+      last_payment_error: null,
+      livemode: false,
+      metadata: {},
+      next_action: null,
+      on_behalf_of: null,
+      payment_method: null,
+      payment_method_options: [Object],
+      payment_method_types: [Array],
+      receipt_email: null,
+      review: null,
+      setup_future_usage: null,
+      shipping: [Object],
+      source: null,
+      statement_descriptor: null,
+      statement_descriptor_suffix: null,
+      status: 'requires_payment_method',
+      transfer_data: null,
+      transfer_group: null
+    }
+  },
+  livemode: false,
+  pending_webhooks: 2,
+  request: { id: 'req_JaobDjxa7aP0tW', idempotency_key: null },
+  type: 'payment_intent.created'
+}
+
+.data {
+  object: {
+    id: 'pi_1H0yxjBnqQbRlIvQWlHcTMCr',
+    object: 'payment_intent',
+    amount: 2000,
+    amount_capturable: 0,
+    amount_received: 0,
+    application: null,
+    application_fee_amount: null,
+    canceled_at: null,
+    cancellation_reason: null,
+    capture_method: 'automatic',
+    charges: {
+      object: 'list',
+      data: [],
+      has_more: false,
+      total_count: 0,
+      url: '/v1/charges?payment_intent=pi_1H0yxjBnqQbRlIvQWlHcTMCr'
+    },
+    client_secret: 'pi_1H0yxjBnqQbRlIvQWlHcTMCr_secret_mXGt3NGtYkEjDEqGrOVE2QUQk',
+    confirmation_method: 'automatic',
+    created: 1593821435,
+    currency: 'usd',
+    customer: null,
+    description: '(created by Stripe CLI)',
+    invoice: null,
+    last_payment_error: null,
+    livemode: false,
+    metadata: {},
+    next_action: null,
+    on_behalf_of: null,
+    payment_method: null,
+    payment_method_options: { card: [Object] },
+    payment_method_types: [ 'card' ],
+    receipt_email: null,
+    review: null,
+    setup_future_usage: null,
+    shipping: {
+      address: [Object],
+      carrier: null,
+      name: 'Jenny Rosen',
+      phone: null,
+      tracking_number: null
+    },
+    source: null,
+    statement_descriptor: null,
+    statement_descriptor_suffix: null,
+    status: 'requires_payment_method',
+    transfer_data: null,
+    transfer_group: null
+  }
+}
+```
+
+

@@ -20,6 +20,7 @@
     "esmify": "^2.1.1",
     "inline-htmlify": "^2.0.1",
     "netlify-cli": "^2.51.0",
+    "netlify-lambda": "^1.6.3",
     "tap-spec": "^5.0.0",
     "tape": "^5.0.1",
     "tape-run": "^6.0.1"
