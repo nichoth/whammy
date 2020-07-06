@@ -30,7 +30,10 @@ exports.handler = function (ev, ctx, cb) {
             amount: (product.price * 100),
             currency: 'usd',
             // Verify your integration in this guide by including this parameter
-            metadata: { integration_check: 'accept_a_payment' },
+            metadata: {
+                integration_check: 'accept_a_payment',
+                slug: slug
+            },
         })
             .catch(function (err) {
                 console.log('errrrrrr', err)
@@ -46,6 +49,4 @@ exports.handler = function (ev, ctx, cb) {
             body: JSON.stringify(_body)
         })
     }
-
 }
-

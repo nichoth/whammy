@@ -1,8 +1,34 @@
-export async function handleFormSubmission (ev, card, stripe, clientSecret) {
+// export async function handleFormSubmission (ev) {
+export async function handleFormSubmission (opts) {
+    var { ev, card, stripe, clientSecret, product } = opts
     ev.preventDefault();
     var els = ev.target.elements
     console.log('form submit', ev, els)
     console.log('card', card)
+
+    // ----------------------------------------------
+    // const productData = {
+    //     sku: ev.target.elements.sku.value,
+    //     quantity: ev.target.elements.quantity.value
+    // }
+        
+    // **would create the order record here, on the server**
+    // const response = await fetch('/.netlify/functions/create-checkout', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(productData),
+    // }).then((res) => res.json());
+
+    // const stripe = Stripe(response.publishableKey);
+
+    // const { error } = await stripe.redirectToCheckout({
+    //     sessionId: response.sessionId,
+    // });
+    // if (error) console.log('errr', error)
+// --------------------------
+
 
     // https://stripe.com/docs/payments/accept-a-payment#web
     // https://github.com/stripe-samples/accept-a-card-payment/blob/master/using-webhooks/client/web/script.js#L67-L85
@@ -22,10 +48,22 @@ export async function handleFormSubmission (ev, card, stripe, clientSecret) {
     // window.location.assign("/path"); // relative to domain
 
 
-    // todo
-    // call create-order
+    // *********TODO********
+    // call create-order here, then do `confirmCardPayment`
 
+    const res = await fetch('/.netlify/functions/create-order', {
+        method: 'POST',
+        body: JSON.stringify({ product })
+    })
+        .then((res) => {
+            res.json()
+            console.log('create order res', res)
+            confirmCard(ev, stripe, clientSecret)
+        })
+        .catch((err) => console.error('errrrrrr', err));
+}
 
+function confirmCard (ev, stripe, clientSecret) {
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
@@ -48,22 +86,19 @@ export async function handleFormSubmission (ev, card, stripe, clientSecret) {
             tracking_number: ''
         },
         receipt_email: 'string'
-        // return_url: 'optional'
     })
         .then(function (res) {
-            console.log('res here', res)
-
             if (res.error) {
-                // todo -- show message to the user
-                window.location.assign("/error"); // relative to domain
-                return console.log('errrrp', res.error)
+                console.log('errrrp', res.error)
+                // TODO -- show message to the user
+                // return window.location.assign("/error"); // relative to domain
+                return
             }
 
-            // todo
-            // * update the order with payment success
+            console.log('success', res)
+            // window.location.assign("/success"); // relative to domain
 
-            window.location.assign("/success"); // relative to domain
-
+            // TODO
             // Set up a webhook or plugin to listen for the
             // payment_intent.succeeded event that handles any business
             // critical post-payment actions.

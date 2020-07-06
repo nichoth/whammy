@@ -32,7 +32,9 @@ function createSingleProduct (item) {
 
     const form = product.querySelector('form');
     form.addEventListener('submit', function (ev) {
-        handleFormSubmission(ev, card, stripe, item.client_secret)
+        var opts = { ev, card, stripe, clientSecret: item.client_secret,
+            product: item }
+        handleFormSubmission(opts)
     })
 
     // TODO

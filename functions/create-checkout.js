@@ -19,6 +19,8 @@ exports.handler = async (event) => {
     var price = prices.data.find(p => p.product === product.id)
     console.log('*****price*****', price)
 
+    // TODO -- would create an order record here
+
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         billing_address_collection: 'auto',

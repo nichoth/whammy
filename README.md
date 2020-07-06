@@ -3,10 +3,21 @@ Trying things with netlify & stripe
 
 -------------------------
 
-Use this as a test CC number. The other inputs can be anything
+## test cards
 ```
 4242424242424242
 ```
+Succeeds and immediately processes the payment.
+
+```
+4000000000003220
+```
+3D Secure 2 authentication must be completed for a successful payment.
+
+```
+4000000000009995
+```
+Always fails with a decline code of insufficient_funds.
 
 --------------------------
 
@@ -407,5 +418,18 @@ stripeEv {
   }
 }
 ```
+
+
+-----------------------------------------
+
+[Elements validates user input as it is typed. To help your customers catch mistakes, listen to change events on the card Element and display any errors](https://stripe.com/docs/payments/accept-a-payment?lang=node)
+
+
+> Use the Dashboard, a custom webhook, or a third-party plugin to handle *post-payment events* like sending an order confirmation email to your customer, logging the sale in a database, or starting a shipping workflow.
+
+^ https://stripe.com/docs/payments/checkout/accept-a-payment?lang=node
+
+[metadata](https://stripe.com/docs/payments/payment-intents#storing-information-in-metadata)
+
 
 
