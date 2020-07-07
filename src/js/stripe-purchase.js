@@ -51,7 +51,7 @@ export async function handleFormSubmission (opts) {
     // *********TODO********
     // call create-order here, then do `confirmCardPayment`
 
-    var res;
+    var res = null;
     try {
         res = await fetch('/.netlify/functions/create-order', {
             method: 'POST',

@@ -21,7 +21,8 @@ exports.handler = function (ev, ctx, cb) {
         return cb(null, {
             statusCode: 401,
             body: JSON.stringify({
-                message: 'Invalid signature'
+                message: 'Invalid signature',
+                error: err
             })
         })
     }
