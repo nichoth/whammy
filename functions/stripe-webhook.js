@@ -12,8 +12,9 @@ exports.handler = function (ev, ctx, cb) {
     var stripeEv
     try {
         stripeEv = stripe.webhooks.constructEvent(ev.body, sig, stripeWebhook)
-        console.log('stripeEv', stripeEv)
-        console.log('.data', stripeEv.data)
+        console.log('stripeEv********', stripeEv)
+        console.log('.data*******', stripeEv.data)
+        console.log('object********', stripeEv.data.object)
     } catch (err) {
         // invalid signature
         console.log('errrrr sig', err)
@@ -27,7 +28,7 @@ exports.handler = function (ev, ctx, cb) {
 
     if (stripeEv.type === 'payment_intent.succeeded') {
         console.log('*****success****')
-        // todo
+        // TODO
         // * mark the order as paid
         // * send an email to the store owner
     }
@@ -37,9 +38,12 @@ exports.handler = function (ev, ctx, cb) {
         var message = (intent.last_payment_error &&
             intent.last_payment_error.message)
         console.log('failed', message)
-        // todo
+        // TODO
         // * send email to store owner
     }
+
+    // if (stripeEv.type === 'checkout.session.completed') {
+    // }
 
     cb(null, {
         statusCode: 200,

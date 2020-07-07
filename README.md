@@ -432,4 +432,15 @@ stripeEv {
 [metadata](https://stripe.com/docs/payments/payment-intents#storing-information-in-metadata)
 
 
+--------------------------------
+
+https://stripe.com/docs/payments/checkout/accept-a-payment
+
+
+> To acknowledge receipt of an event, your endpoint must return a 2xx HTTP status code to Stripe. All response codes outside this range, including 3xx codes, indicate to Stripe that you did not receive the event.
+https://stripe.com/docs/webhooks/build?lang=node#return-a-2xx-status-code-quickly
+
+[Shipping address collection](https://stripe.com/docs/payments/checkout/customization?lang=node#shipping-address-collection)
+
+
 

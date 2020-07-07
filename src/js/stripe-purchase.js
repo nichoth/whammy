@@ -4,7 +4,7 @@ export async function handleFormSubmission (opts) {
     ev.preventDefault();
     var els = ev.target.elements
     console.log('form submit', ev, els)
-    console.log('card', card)
+    // console.log('card', card)
 
     // ----------------------------------------------
     // const productData = {
@@ -36,7 +36,7 @@ export async function handleFormSubmission (opts) {
 
     // create order
     // then: confirmCardPayment
-    //  if card error, del the order -- all post pay stuff happens in webhooks
+    //  if card error, mark the order -- all post pay stuff happens in webhooks
     // then: show success/error page
 
     // success_url: `${process.env.URL}/success`,
@@ -51,19 +51,27 @@ export async function handleFormSubmission (opts) {
     // *********TODO********
     // call create-order here, then do `confirmCardPayment`
 
-    const res = await fetch('/.netlify/functions/create-order', {
-        method: 'POST',
-        body: JSON.stringify({ product })
-    })
-        .then((res) => {
-            res.json()
-            console.log('create order res', res)
-            confirmCard(ev, stripe, clientSecret)
+    var res;
+    try {
+        res = await fetch('/.netlify/functions/create-order', {
+            method: 'POST',
+            body: JSON.stringify({ product })
         })
-        .catch((err) => console.error('errrrrrr', err));
+            .then((res) => {
+                res.json()
+                console.log('create order res', res)
+                confirmCard(ev, card, stripe, clientSecret)
+            })
+            .catch((err) => console.error('errrrrrr', err));
+    } catch (err) {
+        return console.log('oh no in here', err)
+    }
+
+    console.log('create order res 2', res)
 }
 
-function confirmCard (ev, stripe, clientSecret) {
+function confirmCard (ev, card, stripe, clientSecret) {
+    console.log('confirm', arguments)
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
@@ -85,7 +93,7 @@ function confirmCard (ev, stripe, clientSecret) {
             phone: '',
             tracking_number: ''
         },
-        receipt_email: 'string'
+        receipt_email: 'foo@example.com'
     })
         .then(function (res) {
             if (res.error) {

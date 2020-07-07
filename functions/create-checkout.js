@@ -34,10 +34,11 @@ exports.handler = async (event) => {
                 name: product.name,
                 description: product.description,
                 images: [product.image],
-                amount: price.unit_amount,
+                // amount: price.unit_amount,
                 // price: price.id,
                 currency: 'USD',
                 quantity: validatedQuantity,
+                price: price.id
             },
         ],
     });

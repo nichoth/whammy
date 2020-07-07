@@ -16,6 +16,7 @@ function createSingleProduct (item) {
         currency: 'USD'
     }).format((item.price || 0).toFixed(2));
 
+    console.log('item', item)
     const img = product.querySelector('img');
     var imgSrc = item.pic.split('/')
     img.src = '/' + imgSrc[1] + '/' + imgSrc[2]

@@ -1,23 +1,17 @@
 var faunadb = require('faunadb')
 var q = faunadb.query
 var key = process.env.FAUNA_ADMIN_KEY
-
 var client = new faunadb.Client({ secret: key })
 
-
-// client.query(q.Create(q.Collection('spells'), {
-//     data: {
-//         name: 'Fire Beak',
-//         element: ['air', 'fire'],
-//     }
-// }))
-// .then((ret) => console.log(ret))
-
-
 exports.handler = function (ev, ctx, cb) {
-    // const product = JSON.parse(ev.body)
+    console.log('in create order', JSON.parse(ev.body))
+    var { product } = JSON.parse(ev.body)
+    console.log('product', product)
+    var { slug } = product
+    console.log('slug', slug)
     var order = {
-        state: 'new'
+        status: 'new',
+        product
     }
 
     client.query(q.Create(q.Collection('orders'), order))
