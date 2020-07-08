@@ -644,11 +644,19 @@ https://stripe.com/docs/webhooks/build?lang=node#return-a-2xx-status-code-quickl
 ```
 npm start
 ```
+Visit localhost:8888/<product>.
+Submit the test CC number. 
 
-Visit localhost:8888/<product>. Submit the test CC. 
+* webhook works -- check in stripe/netlify dashboard
+* success page shows -- need to redirect/re-render in client side
+* product stock goes -1 -- do this in `create-order` function
 
-* webhook works
-* success page shows
-* product stock goes -1
+
+-------------------------------
+
+### Decrement operation
+
+https://stackoverflow.com/questions/56894199/how-to-increment-value-in-faunadb-using-javascript-and-serverside-functions
+
 
 

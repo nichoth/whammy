@@ -51,23 +51,27 @@ export async function handleFormSubmission (opts) {
     // *********TODO********
     // call create-order here, then do `confirmCardPayment`
 
-    var res = null;
+    var result = null;
     try {
-        res = await fetch('/.netlify/functions/create-order', {
+        var foo = await fetch('/.netlify/functions/create-order', {
             method: 'POST',
             body: JSON.stringify({ product })
         })
             .then((res) => {
                 res.json()
+                result = res
                 console.log('create order res', res)
                 confirmCard(ev, card, stripe, clientSecret)
             })
+            .then(res => console.log('ooooh noooo', res))
             .catch((err) => console.error('errrrrrr', err));
+        
+        console.log('foo', foo)
     } catch (err) {
         return console.log('oh no in here', err)
     }
 
-    console.log('create order res 2', res)
+    console.log('create order res 2', result)
 }
 
 function confirmCard (ev, card, stripe, clientSecret) {
