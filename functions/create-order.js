@@ -21,7 +21,7 @@ exports.handler = function (ev, ctx, cb) {
                     console.log('in here create', res)
                     cb(null, {
                         statusCode: 200,
-                        body: JSON.stringify(res)
+                        body: JSON.stringify({ message: 'ok' })
                     })
                 })
                 .catch(function (err) {
@@ -49,12 +49,13 @@ exports.handler = function (ev, ctx, cb) {
     function createOrder (price) {
         var order = {
             status: 'new',
-            xtend(product, { price })
+            product: xtend(product, { price })
         }
         
         return client.query(q.Create(q.Collection('orders'), order))
             .then(function (res) {
-                console.log('create order', res)
+                console.log('aaaa create order aaaa', res)
+                return res
             })
             .catch(function (err) {
                 console.log('create order errrrrrror', err)
@@ -64,7 +65,7 @@ exports.handler = function (ev, ctx, cb) {
     function decStock () {
         return client.query(
             q.Update(
-                q.Get( q.Match(q.Index('slug'), slug) ),
+                q.Select('ref', q.Get( q.Match(q.Index('slug'), slug) ) ),
                 {
                     data: {
                         quantity: q.Subtract(
