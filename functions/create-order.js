@@ -13,10 +13,12 @@ exports.handler = function (ev, ctx, cb) {
     console.log('slug', slug)
 
     getPrice().then(function (price) {
-        decStock().then(function () {
+        console.log('price here', price)
+        decStock().then(function (res) {
+            console.log('dec res', res)
             createOrder(price)
                 .then(res => {
-                    console.log('in here', res)
+                    console.log('in here create', res)
                     cb(null, {
                         statusCode: 200,
                         body: JSON.stringify(res)
@@ -37,7 +39,9 @@ exports.handler = function (ev, ctx, cb) {
             q.Get(
                 q.Match(q.Index('slug'), slug)
             )
-        ).then(res => res.data.price)
+        )
+            .then(res => res.data.price)
+            .catch(err => console.log('price err', err))
     }
 
     // TODO
@@ -73,7 +77,9 @@ exports.handler = function (ev, ctx, cb) {
                     }
                 }
             )
-        )
+        ).catch(function (err) {
+            console.log('dec stock err', err)
+        })
     }
 
 }
