@@ -13,7 +13,6 @@ var client = new faunadb.Client({ secret: key })
 //         q.Paginate( q.Match(Index("quantity")), { after: 1 } ),
 //         q.Lambda("x", Get(Select(1, Var("x"))))
 //     )
-// )
 
 // Map(
 //     Paginate(
@@ -29,26 +28,19 @@ var client = new faunadb.Client({ secret: key })
 //     ),
 //     Lambda("X", Get(Var("X")))
 // )
+// )
 
 
 
 exports.handler = function (ev, ctx, cb) {
-    // client.query(
-    //     q.Map(
-    //         q.Paginate( q.Match(q.Index("all_products")), { size: 1000 } ),
-    //         q.Lambda((ref) => q.Get(ref))
-    //     )
-    // )
-
     client.query(
         q.Map(
-            q.Paginate( q.Match(q.Index("quantity"), 1) ),
-            q.Lambda(ref => q.Get(ref))
+            q.Paginate( q.Match(q.Index("quantity")), { after: 1 } ),
+            q.Lambda("x", q.Get(q.Select(1, q.Var("x"))))
         )
-
         // q.Map(
-        //     q.Paginate( q.Match(q.Index("quantity")), { after: 1 } ),
-        //     q.Lambda("x", q.Get(q.Select(1, q.Var("x"))))
+        //     q.Paginate( q.Match(q.Index("all_products")), { size: 1000 } ),
+        //     q.Lambda((ref) => q.Get(ref))
         // )
     )
         .then(function (res) {
