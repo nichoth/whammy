@@ -29,11 +29,11 @@ exports.handler = function (ev, ctx, cb) {
         })
     }
 
-    console.log('event', ev)
-    console.log('context', ctx)
-    console.log('cient context', ctx.clientContext)
+    // console.log('event', ev)
+    // console.log('context', ctx)
+    // console.log('cient context', ctx.clientContext)
     const claims = ctx.clientContext && ctx.clientContext.user;
-    console.log('claims', claims)
+    // console.log('claims', claims)
     if (!claims) {
         return cb(null, {
             statusCode: 401,
