@@ -59,8 +59,8 @@ export async function handleFormSubmission (opts) {
             confirmCard(ev, card, stripe, clientSecret)
             return res.json()
         })
-        .then(res => console.log('ooooh noooo', res))
-        .catch((err) => console.error('errrrrrr', err));
+        .then(res => console.log('res create order', res))
+        .catch((err) => console.error('errrrrrr create order', err));
 }
     
 
