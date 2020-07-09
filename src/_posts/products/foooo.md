@@ -1,7 +1,7 @@
 ---
-name: foooo
+name: aaaaaaaaaaaaaa
 pic: /uploads/cinnamon-roll.jpg
-description: foo  description
+description: aaa  description
 quantity: 1
 price: 10
 genre:
