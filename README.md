@@ -655,7 +655,6 @@ Submit the test CC number.
 -------------------------------
 
 ### Decrement operation
-
 https://stackoverflow.com/questions/56894199/how-to-increment-value-in-faunadb-using-javascript-and-serverside-functions
 
 

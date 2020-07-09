@@ -9,9 +9,7 @@ exports.handler = function (ev, ctx, cb) {
     var { slug } = JSON.parse(ev.body)
 
     client.query(
-        q.Get(
-            q.Match(q.Index('slug'), slug)
-        )
+        q.Get( q.Match(q.Index('slug'), slug) )
     )
         .then(function (res) {
             console.log('single product res', res)
