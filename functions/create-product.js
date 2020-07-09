@@ -44,7 +44,7 @@ exports.handler = function (ev, ctx, cb) {
     }
 
     var slug = slugify(name)
-    product.data = xtend(product.data, { slug })
+    product.data = xtend(product.data, { slug, quantity: 1 })
 
     client.query(q.Create(q.Collection('products'), product))
         .then(function (res) {

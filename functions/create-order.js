@@ -17,8 +17,8 @@ exports.handler = function (ev, ctx, cb) {
         decStock().then(function (res) {
             console.log('dec res', res)
             createOrder(price)
-                .then(res => {
-                    console.log('in here create', res)
+                .then(_res => {
+                    console.log('in here create', _res)
                     cb(null, {
                         statusCode: 200,
                         body: JSON.stringify({ message: 'ok' })
@@ -52,11 +52,7 @@ exports.handler = function (ev, ctx, cb) {
             product: xtend(product, { price })
         }
         
-        return client.query(q.Create(q.Collection('orders'), order))
-            .then(function (res) {
-                console.log('aaaa create order aaaa', res)
-                return res
-            })
+        return client.query(q.Create(q.Collection('orders'), { data: order }))
             .catch(function (err) {
                 console.log('create order errrrrrror', err)
             })
