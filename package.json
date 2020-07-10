@@ -8,7 +8,8 @@
     "copy": "rm -rf public && mkdir public && cp -r src/* public/",
     "build": "npm run copy && npm run build-js",
     "build-js": "browserify src/js/patch-cms.js -p esmify > public/js/patch-cms.js",
-    "test": "npm run build-js && browserify test-browser/index.js | htmlify src/admin/index.html | tape-run --static=public --input html | tap-spec"
+    "test-cms": "npm run build-js && browserify test-browser/index.js | htmlify src/admin/index.html | tape-run --static=public --input html | tap-spec",
+    "test-website": "npm run build-js && browserify test-browser/index.js | htmlify src/index.html | tape-run --static=public --input html | tap-spec"
   },
   "dependencies": {
     "@chec/commerce.js": "^2.0.1",

@@ -50,3 +50,4 @@ collections:
       - {label: "Date range", name: "dates", widget: "string"}
       - {label: "Company name", name: "coName", widget: "string"}
       - {label: "Stuff I did", name: "stuffIDid", widget: "list", field: {label: Stuff, name: stuff, widget: string}}
+

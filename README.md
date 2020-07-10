@@ -657,5 +657,15 @@ Submit the test CC number.
 ### Decrement operation
 https://stackoverflow.com/questions/56894199/how-to-increment-value-in-faunadb-using-javascript-and-serverside-functions
 
+---------------------------------------
+
+[From Static Sites To End User JAMstack Apps With FaunaDB](https://www.smashingmagazine.com/2020/06/static-sites-jamstack-apps-faunadb/)
+
+[E-commerce with fauna tutorial](https://docs.fauna.com/fauna/current/tutorials/ecommerce.html)
+
+
+
+
+
 
 
