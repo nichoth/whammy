@@ -8,7 +8,7 @@
     "copy": "rm -rf public && mkdir public && cp -r src/* public/",
     "build": "npm run copy && npm run build-js && npm run build-css",
     "build-css": "node-sass --output-style=compressed src/single-product.scss > public/single-product.css",
-    "watch-css": "node-sass --watch src/single-product.scss --source-map-embed public/single-product.css",
+    "sass-watch": "node-sass --watch src/single-product.scss --source-map-embed public/single-product.css",
     "build-js": "npm run build-cms && npm run build-site",
     "build-site": "browserify src/js/load-single-product.js -p esmify > public/js/load-single-product.js",
     "build-cms": "browserify src/js/patch-cms.js -p esmify > public/js/patch-cms.js",
