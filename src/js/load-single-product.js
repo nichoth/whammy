@@ -1,4 +1,4 @@
-import { addToCart } from './add-to-cart.js';
+// import { addToCart } from './add-to-cart.js';
 var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 const stripe = Stripe(stripeKey);
 import Cart from '@nichoth/shopping-cart'
@@ -23,20 +23,24 @@ function createSingleProduct (item) {
     img.src = '/' + imgSrc[1] + '/' + imgSrc[2]
     img.alt = item.name;
 
-    var style = {
-        base: { color: "#32325d" }
-    }
+    // var style = {
+    //     base: { color: "#32325d" }
+    // }
+    // var elements = stripe.elements();
+    // var cardEl = product.querySelector('#card-element')
+    // var card = elements.create('card', { style });
+    // card.mount(cardEl);
 
-    var elements = stripe.elements();
-    var cardEl = product.querySelector('#card-element')
-    var card = elements.create('card', { style });
-    card.mount(cardEl);
+    var cartContainer = document.getElementById('cart-container')
+    var cart = new Cart()
+    cart.createIcon(cartContainer)
 
     const form = product.querySelector('form');
     form.addEventListener('submit', function (ev) {
-        var opts = { ev, card, stripe, clientSecret: item.client_secret,
-            product: item }
-        addToCart(opts)
+        ev.preventDefault()
+        cart.add(product)
+        // TODO
+        // * put in localstorage
     })
 
     // TODO
@@ -61,10 +65,6 @@ async function loadSingleProduct (slug) {
     var container = document.querySelector('.single-product-container')
     var content = createSingleProduct(res)
     container.appendChild(content)
-
-    var cartContainer = document.getElementById('cart-container')
-    var cart = new Cart()
-    cart.createIcon(cartContainer)
 }
 
 var href = window.location.href

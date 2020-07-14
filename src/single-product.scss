@@ -6,10 +6,16 @@ body {
     background-color: #73f24b;
 }
 
-.cart-container {
+#cart-container {
     padding-bottom: 0.5em;
+    padding-top: 0.5em;
     border-bottom: 1px solid black;
     text-align: right;
+
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #17dac87a;
 }
 #cart-icon {
     margin-right: 1em;
@@ -64,9 +70,4 @@ main {
 
 .single-product img {
     max-width: 22em;
-}
-
-.card-element {
-    background-color: white;
-    padding: 1em;
 }

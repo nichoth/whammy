@@ -1,6 +1,6 @@
 // export async function handleFormSubmission (ev) {
 export async function addToCart (opts) {
-    var { ev, card, stripe, clientSecret, product } = opts
+    var { ev, /*card, stripe, clientSecret,*/ product, cart } = opts
     ev.preventDefault();
     var els = ev.target.elements
     console.log('form submit', ev, els)
@@ -53,7 +53,7 @@ export async function addToCart (opts) {
     // TODO
     // this is the 'add to cart' handler
     // * add to cart here/put in localstorage
-
+    cart.add(product)
 
 
 
@@ -70,50 +70,55 @@ export async function addToCart (opts) {
     //     .catch((err) => console.error('errrrrrr create order', err));
 }
 
-function confirmCard (ev, card, stripe, clientSecret) {
-    console.log('confirm', arguments)
-    stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-            card: card,
-            billing_details: {
-                name: 'Jenny Rosen'
-            }
-        },
-        shipping: {
-            address: {
-                line1: 'Address line 1 (e.g., street, PO Box, or company name).',
-                line2: 'Address line 2 (e.g., apartment, suite, unit, or building).',
-                postal_code: '',
-                city: '',
-                state: '',
-                country: '',
-            },
-            name: '',
-            carrier: '',
-            phone: '',
-            tracking_number: ''
-        },
-        receipt_email: 'foo@example.com'
-    })
-        .then(function (res) {
-            if (res.error) {
-                console.log('errrrp', res.error)
-                // TODO -- show message to the user
-                // return window.location.assign("/error"); // relative to domain
-                return
-            }
 
-            console.log('success', res)
-            // window.location.assign("/success"); // relative to domain
 
-            // TODO
-            // Set up a webhook or plugin to listen for the
-            // payment_intent.succeeded event that handles any business
-            // critical post-payment actions.
-            // * mark in the DB that order was paid
-            // * send emails
-        })
-        .catch(function (err) {
-            console.log('oh no', err)
-        })
-}
+
+// -------------------
+// function confirmCard (ev, card, stripe, clientSecret) {
+//     console.log('confirm', arguments)
+//     stripe.confirmCardPayment(clientSecret, {
+//         payment_method: {
+//             card: card,
+//             billing_details: {
+//                 name: 'Jenny Rosen'
+//             }
+//         },
+//         shipping: {
+//             address: {
+//                 line1: 'Address line 1 (e.g., street, PO Box, or company name).',
+//                 line2: 'Address line 2 (e.g., apartment, suite, unit, or building).',
+//                 postal_code: '',
+//                 city: '',
+//                 state: '',
+//                 country: '',
+//             },
+//             name: '',
+//             carrier: '',
+//             phone: '',
+//             tracking_number: ''
+//         },
+//         receipt_email: 'foo@example.com'
+//     })
+//         .then(function (res) {
+//             if (res.error) {
+//                 console.log('errrrp', res.error)
+//                 // TODO -- show message to the user
+//                 // return window.location.assign("/error"); // relative to domain
+//                 return
+//             }
+
+//             console.log('success', res)
+//             // window.location.assign("/success"); // relative to domain
+
+//             // TODO
+//             // Set up a webhook or plugin to listen for the
+//             // payment_intent.succeeded event that handles any business
+//             // critical post-payment actions.
+//             // * mark in the DB that order was paid
+//             // * send emails
+//         })
+//         .catch(function (err) {
+//             console.log('oh no', err)
+//         })
+// -------------------------------
+// }
