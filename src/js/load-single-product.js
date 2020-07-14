@@ -1,4 +1,4 @@
-import { handleFormSubmission } from './stripe-purchase.js';
+import { addToCart } from './stripe-purchase.js';
 var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 const stripe = Stripe(stripeKey);
 
@@ -35,7 +35,7 @@ function createSingleProduct (item) {
     form.addEventListener('submit', function (ev) {
         var opts = { ev, card, stripe, clientSecret: item.client_secret,
             product: item }
-        handleFormSubmission(opts)
+        addToCart(opts)
     })
 
     // TODO
@@ -66,3 +66,4 @@ var href = window.location.href
 var segments = href.split('/')
 var path = segments[3]
 loadSingleProduct(path)
+

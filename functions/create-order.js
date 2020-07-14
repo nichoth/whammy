@@ -44,8 +44,6 @@ exports.handler = function (ev, ctx, cb) {
             .catch(err => console.log('price err', err))
     }
 
-    // TODO
-    // * stock - 1
     function createOrder (price) {
         var order = {
             status: 'new',

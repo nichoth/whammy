@@ -1,5 +1,5 @@
 // export async function handleFormSubmission (ev) {
-export async function handleFormSubmission (opts) {
+export async function addToCart (opts) {
     var { ev, card, stripe, clientSecret, product } = opts
     ev.preventDefault();
     var els = ev.target.elements
@@ -11,7 +11,7 @@ export async function handleFormSubmission (opts) {
     //     sku: ev.target.elements.sku.value,
     //     quantity: ev.target.elements.quantity.value
     // }
-        
+
     // **would create the order record here, on the server**
     // const response = await fetch('/.netlify/functions/create-checkout', {
     //     method: 'POST',
@@ -48,21 +48,27 @@ export async function handleFormSubmission (opts) {
     // window.location.assign("/path"); // relative to domain
 
 
-    // *********TODO********
-    // call create-order here, then do `confirmCardPayment`
 
-    fetch('/.netlify/functions/create-order', {
-        method: 'POST',
-        body: JSON.stringify({ product })
-    })
-        .then((res) => {
-            confirmCard(ev, card, stripe, clientSecret)
-            return res.json()
-        })
-        .then(res => console.log('res create order', res))
-        .catch((err) => console.error('errrrrrr create order', err));
+
+    // TODO
+    // this is the 'add to cart' handler
+    // * add to cart here/put in localstorage
+
+
+
+
+
+    // fetch('/.netlify/functions/create-order', {
+    //     method: 'POST',
+    //     body: JSON.stringify({ product })
+    // })
+    //     .then((res) => {
+    //         confirmCard(ev, card, stripe, clientSecret)
+    //         return res.json()
+    //     })
+    //     .then(res => console.log('res create order', res))
+    //     .catch((err) => console.error('errrrrrr create order', err));
 }
-    
 
 function confirmCard (ev, card, stripe, clientSecret) {
     console.log('confirm', arguments)
