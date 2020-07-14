@@ -6,6 +6,16 @@ body {
     background-color: #73f24b;
 }
 
+.cart-container {
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid black;
+    text-align: right;
+}
+#cart-icon {
+    margin-right: 1em;
+    display: inline-block;
+}
+
 button {
     cursor: pointer;
 }

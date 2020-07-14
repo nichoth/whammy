@@ -4,9 +4,11 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ntl dev",
+    "start": "npm run build-css && concurrently --kill-others \"npm run sass-watch\" \"ntl dev\"",
     "copy": "rm -rf public && mkdir public && cp -r src/* public/",
-    "build": "npm run copy && npm run build-js",
+    "build": "npm run copy && npm run build-js && npm run build-css",
+    "build-css": "node-sass --output-style=compressed src/single-product.scss > public/single-product.css",
+    "watch-css": "node-sass --watch src/single-product.scss --source-map-embed public/single-product.css",
     "build-js": "npm run build-cms && npm run build-site",
     "build-site": "browserify src/js/load-single-product.js -p esmify > public/js/load-single-product.js",
     "build-cms": "browserify src/js/patch-cms.js -p esmify > public/js/patch-cms.js",
@@ -15,16 +17,18 @@
   },
   "dependencies": {
     "@chec/commerce.js": "^2.0.1",
-    "@nichoth/shopping-cart": "0.0.0",
+    "@nichoth/shopping-cart": "0.0.2",
     "dotenv": "^8.2.0",
     "netlify-identity-widget": "^1.6.0"
   },
   "devDependencies": {
     "browserify": "^16.5.1",
+    "concurrently": "^5.2.0",
     "esmify": "^2.1.1",
     "inline-htmlify": "^2.0.1",
     "netlify-cli": "^2.51.0",
     "netlify-lambda": "^1.6.3",
+    "node-sass": "^4.14.1",
     "tap-spec": "^5.0.0",
     "tape": "^5.0.1",
     "tape-run": "^6.0.1"
