@@ -1,6 +1,7 @@
-import { addToCart } from './stripe-purchase.js';
+import { addToCart } from './add-to-cart.js';
 var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 const stripe = Stripe(stripeKey);
+import Cart from '@nichoth/shopping-cart'
 
 function createSingleProduct (item) {
     const template = document.querySelector('#single-product');
@@ -60,6 +61,10 @@ async function loadSingleProduct (slug) {
     var container = document.querySelector('.single-product-container')
     var content = createSingleProduct(res)
     container.appendChild(content)
+
+    var cartContainer = document.getElementById('cart-container')
+    var cart = new Cart()
+    cart.createIcon(cartContainer)
 }
 
 var href = window.location.href
