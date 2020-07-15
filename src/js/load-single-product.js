@@ -38,13 +38,9 @@ function createSingleProduct (item) {
     const form = product.querySelector('form');
     form.addEventListener('submit', function (ev) {
         ev.preventDefault()
-        cart.add(product)
-        // TODO
-        // * put in localstorage
+        console.log('submit/add', ev, item)
+        cart.add(item)
     })
-
-    // TODO
-    // listen for change, validate input
 
     return product
 }
