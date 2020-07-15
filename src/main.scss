@@ -85,3 +85,20 @@ main {
 .logo img {
     max-width: 100%;
 }
+
+#cart-container {
+  padding: 1em;
+  border-bottom: 1px solid black;
+  text-align: right;
+  background-color: #a58b2ab5;
+
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  #cart-icon {
+    display: inline-block;
+    margin-right: 2em;
+  }
+}
+

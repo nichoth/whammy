@@ -1,3 +1,4 @@
+import Cart from '@nichoth/shopping-cart'
 // import { handleFormSubmission } from './stripe-purchase.js';
 // var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 
@@ -55,3 +56,8 @@ export async function loadProducts() {
 }
 
 loadProducts()
+
+// start the cart
+var cartContainer = document.getElementById('cart-container')
+var cart = new Cart()
+cart.createIcon(cartContainer)
