@@ -13,9 +13,10 @@
     "sass-watch": "concurrently --kill-others \"npm run sass-watch-single\" \"npm run sass-watch-main\"",
     "sass-watch-single": "node-sass --watch src/single-product.scss --source-map-embed public/single-product.css",
     "sass-watch-main": "node-sass --watch src/main.scss --source-map-embed public/main.css",
-    "build-js": "npm run build-cms && npm run build-site",
+    "build-js": "npm run build-cms && npm run build-site && npm run build-cart",
     "build-site": "browserify src/js/load-single-product.js -p esmify > public/js/load-single-product.js && browserify src/js/load-products.js -p esmify > public/js/load-products.js",
     "build-cms": "browserify src/js/patch-cms.js -p esmify > public/js/patch-cms.js",
+    "build-cart": "browserify src/js/cart-page.js -p esmify > public/js/cart-page.js",
     "test-cms": "npm run build-js && browserify test-browser/index.js | htmlify src/admin/index.html | tape-run --static=public --input html | tap-spec",
     "test-website": "npm run build-js && browserify test-browser/index.js | htmlify src/index.html | tape-run --static=public --input html | tap-spec"
   },
