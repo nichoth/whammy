@@ -61,4 +61,4 @@ loadProducts()
 // start the cart
 var cartContainer = document.getElementById('cart-icon-container')
 var cart = new Cart({ key: KEY })
-cart.createIcon(cartContainer)
+cart.createIcon(cartContainer, { link: '/cart' })

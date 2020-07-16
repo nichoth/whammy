@@ -86,7 +86,8 @@ main {
     max-width: 100%;
 }
 
-#cart-container {
+// ------------------- cart stuff ---------------
+#cart-icon-container {
   padding: 1em;
   border-bottom: 1px solid black;
   text-align: right;
@@ -105,3 +106,17 @@ main {
 #cart-page-container {
   margin: 1em;
 }
+
+
+// ------ copy pasted from the cart repo ------------
+#cart-icon-icon {
+    position: relative;
+    top: 7px;
+}
+
+#cart-quantity {
+    position: relative;
+    left: 20px;
+    bottom: 17px;
+}
+// --------------------------------------

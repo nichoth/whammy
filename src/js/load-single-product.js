@@ -34,7 +34,7 @@ function createSingleProduct (item) {
 
     var cartContainer = document.getElementById('cart-icon-container')
     var cart = new Cart({ key: KEY })
-    cart.createIcon(cartContainer)
+    cart.createIcon(cartContainer, { link: '/cart' })
 
     const form = product.querySelector('form');
     form.addEventListener('submit', function (ev) {
@@ -55,7 +55,7 @@ async function loadSingleProduct (slug) {
         body: JSON.stringify({ slug })
     })
         .then((res) => res.json())
-        .catch((err) => console.error(err));
+        .catch((err) => console.error('errrr', err));
 
     console.log('woooooo', res)
 
