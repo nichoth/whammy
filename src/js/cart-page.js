@@ -7,5 +7,5 @@ cart.createPage(cartContainer, mapper)
 
 function mapper (html, product, i) {
     console.log('in map', product, i)
-    return html`<li>product: ${product.name || 'no name'}<//>`
+    return html`product: ${product.name || 'no name'}`
 }
