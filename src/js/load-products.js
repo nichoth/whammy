@@ -58,6 +58,6 @@ export async function loadProducts() {
 loadProducts()
 
 // start the cart
-var cartContainer = document.getElementById('cart-container')
+var cartContainer = document.getElementById('cart-icon-container')
 var cart = new Cart()
 cart.createIcon(cartContainer)
