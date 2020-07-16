@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build-css && concurrently --kill-others \"npm run sass-watch\" \"ntl dev\"",
+    "start": "npm run build-css && concurrently --kill-others \"npm run watch-js\" \"npm run sass-watch\" \"ntl dev\"",
     "copy": "rm -rf public && mkdir public && cp -r src/* public/",
     "build": "npm run copy && npm run build-js && npm run build-css",
     "build-css": "npm run build-css-main && npm run build-css-single",

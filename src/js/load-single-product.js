@@ -51,7 +51,6 @@ function createSingleProduct (item) {
         link.setAttribute('class', 'view-cart')
         link.textContent = 'View cart'
         form.replaceWith(link)
-        // btn.innerText = 'View cart'
     }
 
     return product
