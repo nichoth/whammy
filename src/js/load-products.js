@@ -1,4 +1,5 @@
 import Cart from '@nichoth/shopping-cart'
+import KEY from './KEY'
 // import { handleFormSubmission } from './stripe-purchase.js';
 // var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 
@@ -59,5 +60,5 @@ loadProducts()
 
 // start the cart
 var cartContainer = document.getElementById('cart-icon-container')
-var cart = new Cart()
+var cart = new Cart({ key: KEY })
 cart.createIcon(cartContainer)

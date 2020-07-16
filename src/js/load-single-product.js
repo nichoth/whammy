@@ -2,6 +2,7 @@
 var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 // const stripe = Stripe(stripeKey);
 import Cart from '@nichoth/shopping-cart'
+import KEY from './KEY'
 
 function createSingleProduct (item) {
     const template = document.querySelector('#single-product');
@@ -31,8 +32,8 @@ function createSingleProduct (item) {
     // var card = elements.create('card', { style });
     // card.mount(cardEl);
 
-    var cartContainer = document.getElementById('cart-container')
-    var cart = new Cart()
+    var cartContainer = document.getElementById('cart-icon-container')
+    var cart = new Cart({ key: KEY })
     cart.createIcon(cartContainer)
 
     const form = product.querySelector('form');
