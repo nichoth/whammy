@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@chec/commerce.js": "^2.0.1",
-    "@nichoth/shopping-cart": "0.0.11",
+    "@nichoth/shopping-cart": "0.0.12",
     "dotenv": "^8.2.0",
     "netlify-identity-widget": "^1.6.0"
   },

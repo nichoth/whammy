@@ -7,9 +7,8 @@ body {
 
 }
 
-#cart-container {
-    padding-bottom: 0.5em;
-    padding-top: 0.5em;
+#cart-icon-container {
+    padding: 1em;
     border-bottom: 1px solid black;
     text-align: right;
 
@@ -19,9 +18,22 @@ body {
     background-color: #8e5626b5;
 }
 #cart-icon {
-    margin-right: 1em;
+    margin-right: 2em;
     display: inline-block;
 }
+
+// ------ copy pasted from the cart repo ------------
+#cart-icon-icon {
+    position: relative;
+    top: 7px;
+}
+
+#cart-quantity {
+    position: relative;
+    left: 20px;
+    bottom: 17px;
+}
+// --------------------------------------
 
 button {
     cursor: pointer;
