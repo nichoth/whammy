@@ -8,6 +8,8 @@ function createProductFromTemplate (item) {
     const template = document.querySelector('#product');
     const product = template.content.cloneNode(true);
 
+    var textLink = product.querySelector('.text-link')
+    textLink.href = `/${item.slug}`
     product.querySelector('h2').innerText = item.name;
     product.querySelector('.description').innerText = item.description;
     // product.querySelector('[name=sku]').value = item.id;
@@ -18,7 +20,7 @@ function createProductFromTemplate (item) {
     }).format((item.price || 0).toFixed(2));
 
     var a = product.querySelector('a')
-    a.href = `/${item.name}`
+    a.href = `/${item.slug}`
 
     const img = product.querySelector('img');
     // img.src = item.images[0];

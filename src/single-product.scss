@@ -108,3 +108,11 @@ main {
 .single-product img {
     max-width: 22em;
 }
+
+.view-cart {
+    text-align: right;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}

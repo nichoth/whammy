@@ -36,12 +36,23 @@ function createSingleProduct (item) {
     var cart = new Cart({ key: KEY })
     cart.createIcon(cartContainer, { link: '/cart' })
 
+    var inCart = cart.products().find(({ slug }) => slug === item.slug)
+
     const form = product.querySelector('form');
     form.addEventListener('submit', function (ev) {
         ev.preventDefault()
         console.log('submit/add', ev, item)
-        cart.add(item)
+        if (!inCart) return cart.add(item)
     })
+
+    if (inCart) {
+        var link = document.createElement('a')
+        link.setAttribute('href', '/cart')
+        link.setAttribute('class', 'view-cart')
+        link.textContent = 'View cart'
+        form.replaceWith(link)
+        // btn.innerText = 'View cart'
+    }
 
     return product
 }
