@@ -180,3 +180,19 @@ main {
     bottom: 17px;
 }
 // --------------------------------------
+
+.cart-controls {
+  text-align: right;
+  margin-top: 4em;
+
+  a {
+    border: 4px solid black;
+    text-decoration: none;
+    padding: 0.5em;
+
+    &:hover {
+      border-color: pink;
+      background-color: beige;
+    }
+  }
+}
