@@ -1,5 +1,6 @@
 import Cart from '@nichoth/shopping-cart'
 import KEY from './KEY'
+import util from './util'
 // import { handleFormSubmission } from './stripe-purchase.js';
 // var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 
@@ -23,10 +24,12 @@ function createProductFromTemplate (item) {
     a.href = `/${item.slug}`
 
     const img = product.querySelector('img');
+    var src = util.getImgUrl(item)
+    img.src = src
+    img.alt = item.name
     // img.src = item.images[0];
-    var imgSrc = item.pic.split('/')
-    img.src = '/' + imgSrc[1] + '/' + imgSrc[2]
-    img.alt = item.name;
+    // var imgSrc = item.pic.split('/')
+    // img.src = '/' + imgSrc[1] + '/' + imgSrc[2]
 
     // const form = product.querySelector('form');
     // form.addEventListener('submit', handleFormSubmission);
