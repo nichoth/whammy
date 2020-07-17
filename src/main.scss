@@ -159,6 +159,7 @@ main {
     border: none;
     position: relative;
     top: 5px;
+    transition: all 0.2s;
 
     &:hover {
       svg {
