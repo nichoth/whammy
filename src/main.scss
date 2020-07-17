@@ -143,6 +143,14 @@ main {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+    border: 1px solid black;
+    padding: 1em;
+
+    .item-controls {
+      > * {
+        margin-right: 1em;
+      }
+    }
   }
 
   button {
@@ -168,6 +176,10 @@ main {
   }
 }
 
+#cart-totals {
+  text-align: right;
+}
+
 // ------ copy pasted from the cart repo ------------
 #cart-icon-icon {
     position: relative;
@@ -181,18 +193,36 @@ main {
 }
 // --------------------------------------
 
-.cart-controls {
-  text-align: right;
-  margin-top: 4em;
+body.cart-page {
+  hr {
+    border-style: dashed;
+  }
+  h2 {
+    display: inline-block;
 
-  a {
-    border: 4px solid black;
-    text-decoration: none;
-    padding: 0.5em;
+    a {
+      text-decoration: none;
+    }
+  }
 
-    &:hover {
-      border-color: pink;
-      background-color: beige;
+  // #cart-page {
+  //   // margin-bottom: 2em;
+  // }
+
+  .cart-controls {
+    text-align: right;
+    margin-top: 2em;
+
+    a {
+      border: 4px solid black;
+      text-decoration: none;
+      padding: 0.5em;
+      transition: all 0.2s;
+
+      &:hover {
+        border-color: pink;
+        background-color: beige;
+      }
     }
   }
 }
