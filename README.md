@@ -726,5 +726,8 @@ Then when you get the webhook sucess for the payment, mark the order as `paid`, 
 
 
 
+-----------------------------------------
 
+
+[server side confirm payment](https://stripe.com/docs/api/payment_intents/confirm)
 

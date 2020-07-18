@@ -5,8 +5,6 @@ const stripe = Stripe(stripeKey);
 
 var cart = new Cart({ key: KEY })
 
-var products = cart.products()
-console.log('products', products)
 var subTotal = cart.products().reduce(function (acc, { price }) {
     return acc + price
 }, 0)
@@ -24,35 +22,43 @@ form.addEventListener('submit', function (ev) {
     ev.preventDefault()
     console.log('submit', ev, ev.target.elements)
 
+    var products = cart.products()
+    console.log('products in buy', products)
+
     // https://stripe.com/docs/js/payment_methods/create_payment_method
     stripe.createPaymentMethod({
         type: 'card',
         card: card,
         billing_details: {
             name: 'Jenny Rosen',
+            address: '123 street'
         },
     })
         .then(function(res) {
             console.log('payment method res', res)
             if (res.error) return console.log('oh no', res.error)
-            pay(res.paymentMethod.id)
+            pay(res.paymentMethod.id, products)
         })
         .catch(err => console.log('errrorrr', err))
 
-    function pay (methodID) {
+    function pay (methodID, _products) {
         fetch('/.netlify/functions/create-order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 paymentMethodID: methodID,
+                products: _products
             })
         }).then(function(result) {
             // Handle server response (see Step 4)
-            result.json().then(function(json) {
-                handleServerResponse(json);
+            result.json().then(function (res) {
+                handleServerResponse(res);
             })
         })
         .catch(err => console.log('errrrrr', err))
     }
 
+    function handleServerResponse (res) {
+        console.log('server response', res)
+    }
 })
