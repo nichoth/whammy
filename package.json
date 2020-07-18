@@ -14,8 +14,9 @@
     "sass-watch-single": "node-sass --watch src/single-product.scss --source-map-embed public/single-product.css",
     "sass-watch-main": "node-sass --watch src/main.scss --source-map-embed public/main.css",
     "build-js": "npm run build-cms && npm run build-site && npm run build-cart",
-    "build-site": "browserify src/js/load-single-product.js -p esmify > public/js/load-single-product.js && browserify src/js/load-products.js -p esmify > public/js/load-products.js",
-    "watch-js": "concurrently --kill-others \"watchify src/js/load-single-product.js -v -p esmify -o public/js/load-single-product.js\" \"watchify src/js/load-products.js -v -p esmify -o public/js/load-products.js\" \"watchify src/js/cart-page.js -v -p esmify -o public/js/cart-page.js\"",
+    "build-site": "browserify src/js/load-single-product.js -p esmify > public/js/load-single-product.js && browserify src/js/load-products.js -p esmify > public/js/load-products.js && npm run build-buy-page",
+    "build-buy-page": "browserify src/js/buy.js -p esmify > public/js/buy.js",
+    "watch-js": "concurrently --kill-others \"watchify src/js/load-single-product.js -v -p esmify -o public/js/load-single-product.js\" \"watchify src/js/load-products.js -v -p esmify -o public/js/load-products.js\" \"watchify src/js/cart-page.js -v -p esmify -o public/js/cart-page.js\" \"watchify src/js/buy.js -v -p esmify -o public/js/buy.js\"",
     "build-cms": "browserify src/js/patch-cms.js -p esmify > public/js/patch-cms.js",
     "build-cart": "browserify src/js/cart-page.js -p esmify > public/js/cart-page.js",
     "test-cms": "npm run build-js && browserify test-browser/index.js | htmlify src/admin/index.html | tape-run --static=public --input html | tap-spec",
@@ -25,7 +26,8 @@
     "@chec/commerce.js": "^2.0.1",
     "@nichoth/shopping-cart": "0.0.12",
     "dotenv": "^8.2.0",
-    "netlify-identity-widget": "^1.6.0"
+    "netlify-identity-widget": "^1.6.0",
+    "preact": "^10.4.6"
   },
   "devDependencies": {
     "browserify": "^16.5.1",

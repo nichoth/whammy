@@ -10,10 +10,10 @@ button {
     cursor: pointer;
 }
 
-header {
-  background: teal;
-  padding: 1rem 5vw;
-}
+// header {
+//   background: teal;
+//   padding: 1rem 5vw;
+// }
 
 header a {
   color: white;
@@ -144,7 +144,7 @@ main {
     align-items: baseline;
     justify-content: space-between;
     border: 1px solid black;
-    padding: 1em;
+    padding: 0.5em;
 
     .item-controls {
       > * {
@@ -227,3 +227,23 @@ body.cart-page {
     }
   }
 }
+
+// -------------------------------------
+
+#buy-page {
+  #card-element {
+    background-color: white;
+    padding: 1em;
+    margin-top: 2em;
+  }
+
+  form {
+    .form-controls {
+      text-align: right;
+      margin-top: 2em;
+    }
+  }
+}
+
+// ------------------------------------------
+

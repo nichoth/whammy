@@ -1,10 +1,10 @@
-// import { addToCart } from './add-to-cart.js';
-var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
+// var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 // const stripe = Stripe(stripeKey);
 import Cart from '@nichoth/shopping-cart'
 import KEY from './KEY'
 
 function createSingleProduct (item) {
+    console.log('item', item)
     const template = document.querySelector('#single-product');
     const product = template.content.cloneNode(true);
 
@@ -18,7 +18,6 @@ function createSingleProduct (item) {
         currency: 'USD'
     }).format((item.price || 0).toFixed(2));
 
-    console.log('item', item)
     const img = product.querySelector('img');
     var imgSrc = item.pic.split('/')
     img.src = '/' + imgSrc[1] + '/' + imgSrc[2]
@@ -78,4 +77,3 @@ var href = window.location.href
 var segments = href.split('/')
 var path = segments[3]
 loadSingleProduct(path)
-

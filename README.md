@@ -19,6 +19,11 @@ Succeeds and immediately processes the payment.
 ```
 Always fails with a decline code of insufficient_funds.
 
+```
+4000002760003184
+```
+A test card number that requires authentication.
+
 --------------------------
 
 [Products and Prices](https://stripe.com/docs/billing/prices-guide)
@@ -664,6 +669,60 @@ https://stackoverflow.com/questions/56894199/how-to-increment-value-in-faunadb-u
 [E-commerce with fauna tutorial](https://docs.fauna.com/fauna/current/tutorials/ecommerce.html)
 
 
+--------------------------------------------
+
+[synchronous, server side payments](https://stripe.com/docs/payments/accept-a-payment-synchronously)
+
+[checkout version](https://stripe.com/docs/payments/checkout/accept-a-payment) -- Where you forward the customer to the stripe page. Note the webhook happens before the response in the picture diagram. This is not ideal because the stock decrment/purchase operation are not atomic. You have to buy the thing, then stock is decremented later.
+
+[payment intent](https://stripe.com/docs/payments/payment-intents#best-practices) -- idenpotency key, etc
+
+> Idempotency keys are sent in the Idempotency-Key header, and you should use them for all POST requests to Stripe’s API.
+[idempotency key](https://stripe.com/docs/error-handling#sending-idempotency-keys)
+
+
+the plan
+Do the 'synchronous' type of payment process, which happens server-side, and create an `order` record as well. See [accept-a-payment-synchronously](https://stripe.com/docs/payments/accept-a-payment-synchronously)
+
+
+Use `stripe.createPaymentMethod` on the client
+
+Send the payment method ID to the server where it pays for things
+```js
+fetch('/pay', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        payment_method_id: result.paymentMethod.id,
+      })
+    }).then(function(result) {
+      // Handle server response (see Step 4)
+      result.json().then(function(json) {
+        handleServerResponse(json);
+      })
+    });
+```
+
+On the server, create and confirm the paymentIntent
+```js
+app.post('/pay', async (request, response) => {
+    let intent;
+    if (request.body.payment_method_id) {
+      // Create the PaymentIntent
+      intent = await stripe.paymentIntents.create({
+        payment_method: request.body.payment_method_id,
+        amount: 1099,
+        currency: 'usd',
+        confirmation_method: 'manual',
+        confirm: true
+      });
+```
+
+First check/decrement the stock, then if it's ok, create an `order` record. Then call stripe.pay and set `confirm: true` on the paymentIntent call
+
+Then when you get the webhook sucess for the payment, mark the order as `paid`, and start shipping things
+
+> Stripe sends a payment_intent.succeeded event when the payment completes. Use the Dashboard, a custom webhook, or a partner solution to receive these events and run actions, like sending an order confirmation email to your customer, logging the sale in a database, or starting a shipping workflow.
 
 
 
