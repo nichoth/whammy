@@ -731,3 +731,25 @@ Then when you get the webhook sucess for the payment, mark the order as `paid`, 
 
 [server side confirm payment](https://stripe.com/docs/api/payment_intents/confirm)
 
+
+---------------------------------
+
+
+
+
+## [ecommerce fauna example](https://docs.fauna.com/fauna/current/tutorials/ecommerce#function)
+
+If you call this with a non-existant slug, it will return an error and say "Calling the function resulted in an error."
+
+Exanmple that works:
+```js
+Call(
+  Function("submit_order"),
+    [
+      [Object({
+        "slug": "aaaaaaaaaaa",
+        "quantity": 1
+      })]
+    ]
+)
+```

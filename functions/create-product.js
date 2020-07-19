@@ -44,6 +44,7 @@ exports.handler = function (ev, ctx, cb) {
     }
 
     var slug = slugify(name)
+    // TODO take input for quantity
     product.data = xtend(product.data, { slug, quantity: 1 })
 
     client.query(q.Create(q.Collection('products'), product))
