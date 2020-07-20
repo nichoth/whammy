@@ -774,3 +774,9 @@ res:
 }
 ```
 
+-------------------------------------------------
+
+[form validation](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation)
+[validation tips](https://daverupert.com/2017/11/happier-html5-forms/)
+
+

@@ -87,10 +87,8 @@ exports.handler = async function (ev, ctx, cb) {
             })
         })
 
-
-
     async function pay (price) {
-        console.log('hheeerrreee', )
+        console.log('hheeerrreee', price)
         var intent = await stripe.paymentIntents.create({
             payment_method_types: ['card'],
             payment_method: body.paymentMethodID,
@@ -103,10 +101,6 @@ exports.handler = async function (ev, ctx, cb) {
         return intent
     }
 
-    // TODO
-    // need to make the payment with the method ID
-    // need to redesign b/c potentially more than one product can be in the order
-    // dec stock and create order should be in one DB query (atomic)
 
     // getPrice(slug).then(function (price) {
     //     console.log('price here', price)
