@@ -1,11 +1,11 @@
 var faunadb = require('faunadb')
-var xtend = require('xtend')
-
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 var q = faunadb.query
-var key = process.env.FAUNA_ADMIN_KEY
-var client = new faunadb.Client({ secret: key })
+var faunaKey = process.env.FAUNA_ADMIN_KEY
+var client = new faunadb.Client({ secret: faunaKey })
+// var xtend = require('xtend')
 
-exports.handler = function (ev, ctx, cb) {
+exports.handler = async function (ev, ctx, cb) {
     // console.log('in create order', JSON.parse(ev.body))
     // var { product } = JSON.parse(ev.body)
     // console.log('product', product)
@@ -13,7 +13,9 @@ exports.handler = function (ev, ctx, cb) {
     var body = JSON.parse(ev.body)
     // console.log('slug', slug)
 
-    if (!body.methodID) {
+    console.log('***req***', body)
+
+    if (!body.paymentMethodID) {
         return cb(null, {
             statusCode: 400,
             body: JSON.stringify({
@@ -31,23 +33,43 @@ exports.handler = function (ev, ctx, cb) {
         })
     }
 
-    var slugs = body.products.map(({ slug }) => slug)
+    // var slugs = body.products.map(({ slug }) => slug)
 
 
-    function createOrder (products) {
+    async function createOrder (products) {
         // frist get each product from the slug
         // map the products to a price
         // check and decrement stock for each product
         // create the order record
         // pay with stripe
 
+        console.log('products in order', products)
+
+        return client.query(
+            q.Call(
+                q.Function("submit_order"),
+                    [products.map(prod => q.Object(prod))]
+                    // [q.Object({
+                    //   "slug": "aaaaaaaaaaa",
+                    //   "quantity": 1
+                    // })]
+              )
+        )
+            .then(order => {
+                console.log('order', order)
+                return order
+            })
+            .catch(err => console.log('err oooooo here', err))
     }
 
 
     // get prices in here too
-    createOrder(body.products)
-        .then(order => {
-            var intent = await pay(order.totalPrice)
+    await createOrder(body.products)
+        .then(async (order) => {
+            console.log('order here', order)
+            var intent = await pay(1300)
+
+            console.log('done paying', intent)
 
             cb(null, {
                 statusCode: 200,
@@ -58,18 +80,20 @@ exports.handler = function (ev, ctx, cb) {
             })
         })
         .catch(err => {
+            console.log('err iiiinnnnnn here', err)
             cb(null, {
                 statusCode: 500,
                 body: JSON.stringify(err)
             })
-            console.log('err here', err)
         })
 
 
 
     async function pay (price) {
+        console.log('hheeerrreee', )
         var intent = await stripe.paymentIntents.create({
-            payment_method: body.methodID,
+            payment_method_types: ['card'],
+            payment_method: body.paymentMethodID,
             amount: price,
             // amount: 1099,
             currency: 'usd',

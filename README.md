@@ -753,3 +753,24 @@ Call(
     ]
 )
 ```
+res: 
+```js
+{
+  ref: Ref(Collection("orders"), "271505982105846280"),
+  ts: 1595187131910000,
+  data: {
+    line: [
+      {
+        product: Ref(Collection("products"), "269177027692593672"),
+        quantity: 1,
+        price: 10
+      }
+    ],
+    status: "new",
+    creationDate: Time("2020-07-19T19:32:11.640455Z"),
+    shipAddress: "123 street",
+    creditCard: "4425"
+  }
+}
+```
+

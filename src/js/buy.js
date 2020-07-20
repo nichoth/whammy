@@ -52,7 +52,7 @@ form.addEventListener('submit', function (ev) {
         }).then(function(result) {
             // Handle server response (see Step 4)
             result.json().then(function (res) {
-                handleServerResponse(res);
+                handleServerResponse(res)
             })
         })
         .catch(err => console.log('errrrrr', err))
