@@ -23,7 +23,7 @@
     "test-website": "npm run build-js && browserify test-browser/index.js | htmlify src/index.html | tape-run --static=public --input html | tap-spec"
   },
   "dependencies": {
-    "@nichoth/shopping-cart": "0.0.12",
+    "@nichoth/shopping-cart": "0.0.14",
     "dotenv": "^8.2.0",
     "netlify-identity-widget": "^1.6.0"
   },

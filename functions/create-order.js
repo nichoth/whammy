@@ -88,7 +88,7 @@ exports.handler = async function (ev, ctx, cb) {
         })
 
     async function pay (price) {
-        console.log('hheeerrreee', price)
+        console.log('hheeerrreee in pay', price)
         var intent = await stripe.paymentIntents.create({
             payment_method_types: ['card'],
             payment_method: body.paymentMethodID,

@@ -5,9 +5,9 @@ const stripe = Stripe(stripeKey);
 
 var cart = new Cart({ key: KEY })
 
-var subTotal = cart.products().reduce(function (acc, { price }) {
-    return acc + price
-}, 0)
+// var subTotal = cart.products().reduce(function (acc, { price }) {
+//     return acc + price
+// }, 0)
 
 var style = {
     base: { color: "#32325d" }
@@ -41,12 +41,12 @@ form.addEventListener('submit', function (ev) {
         })
         .catch(err => console.log('errrorrr', err))
 
-    function pay (methodID, _products) {
+    function pay (paymentMethodID, _products) {
         fetch('/.netlify/functions/create-order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                paymentMethodID: methodID,
+                paymentMethodID: paymentMethodID,
                 products: _products
             })
         }).then(function(result) {
@@ -60,5 +60,6 @@ form.addEventListener('submit', function (ev) {
 
     function handleServerResponse (res) {
         console.log('server response', res)
+        cart.empty()
     }
 })
