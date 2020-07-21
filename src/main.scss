@@ -246,6 +246,18 @@ body.cart-page {
     .form-group {
       margin-bottom: 1em;
     }
+
+    input {
+      border: none;
+      border-bottom: 1px solid black;
+      padding: 1em;
+
+      &:focus {
+        border-color: blue;
+        border-width: medium;
+        outline: none;
+      }
+    }
   }
 }
 
