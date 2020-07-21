@@ -214,7 +214,17 @@ body.cart-page {
     text-align: right;
     margin-top: 2em;
 
-    a {
+    a.shop {
+      border: 4px solid black;
+      text-decoration: none;
+      padding: 0.5em;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    a.buy {
       border: 4px solid black;
       text-decoration: none;
       padding: 0.5em;
