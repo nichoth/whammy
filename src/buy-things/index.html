@@ -17,20 +17,44 @@
     <main>
         <h1>this is the 'checkout' page</h1>
         <div id="buy-forms">
+            <h2>Shipping address</h2>
             <form>
+                <div class="form-group">
+                    <label for="name">name</label>
+                    <input type="text" name="name" id="name">
+                </div>
+                <div class="form-group">
+                    <label for="email">e-mail</label>
+                    <input type="email" name="email" id="email"
+                        placeholder="email@example.com">
+                </div>
                 <div class="form-group">
                     <label for="address">address</label>
                     <input type="text" id="address" name="address">
                 </div>
+
                 <div class="form-group">
                     <label for="city">city</label>
                     <input type="text" id="city" name="city">
                 </div>
 
+                <div class="form-group">
+                    <label for="state">state</label>
+                    <input type="text" id="state" name="state">
+                </div>
+
+                <div class="form-group">
+                    <label for="zip-code">zip code</label>
+                    <input type="text" id="zip-code" name="zip-code">
+                </div>
+
+                <hr>
+
+                <div class="order-info"></div>
                 <div id="card-element"></div>
 
                 <div class="form-controls">
-                    <button type="submit">submit</button>
+                    <button type="submit">buy them</button>
                 </div>
             </form>
 
