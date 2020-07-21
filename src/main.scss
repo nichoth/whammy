@@ -240,7 +240,7 @@ body.cart-page {
   }
 }
 
-// -------------------------------------
+// -------------#buy-page------------------------
 
 #buy-page {
   #shipping {
@@ -255,10 +255,6 @@ body.cart-page {
   }
 
   form {
-    #shipping {
-      color: #2f2f2f;
-    }
-
     .form-controls {
       text-align: right;
       margin-top: 2em;
@@ -268,6 +264,7 @@ body.cart-page {
       margin-bottom: 1em;
       display: flex;
       flex-flow: column-reverse;
+      color: #2f2f2f;
 
       label {
         transition: all 0.2s;
@@ -285,6 +282,7 @@ body.cart-page {
       input:focus {
         + label {
           transform: translate(0, 0) scale(1);
+          color: black;
         }
       }
     }
