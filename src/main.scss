@@ -277,7 +277,6 @@ body.cart-page {
         overflow: hidden;
         text-overflow: ellipsis;
         transform-origin: left bottom;
-        transform: translate(0, 2.125rem) scale(1.5);
         background-color: white;
       }
 
@@ -285,6 +284,12 @@ body.cart-page {
         + label {
           transform: translate(0, 0) scale(1);
         }
+      }
+    }
+
+    input:placeholder-shown {
+      + label {
+        transform: translate(0, 2.125rem) scale(1.5);
       }
     }
 
