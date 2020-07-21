@@ -41,8 +41,17 @@ function createSingleProduct (item) {
     form.addEventListener('submit', function (ev) {
         ev.preventDefault()
         console.log('submit/add', ev, item)
-        if (!inCart) return cart.add(item)
+        if (!inCart) cart.add(item)
+        window.location.href = '/cart'
     })
+
+    // ----------- the link version ---------------
+    // var btn = product.querySelector('.add-to-cart')
+    // btn.addEventListener('click', function (ev) {
+    //     console.log('click', ev)
+    //     if (!inCart) return cart.add(item)
+    // })
+    // ---------------------------------------------
 
     if (inCart) {
         var link = document.createElement('a')
