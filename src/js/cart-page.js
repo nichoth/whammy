@@ -40,6 +40,10 @@ function getShipping (l) {
     if (l > 8) return 6
 }
 
+// cart.state(function onChange (state) {
+//     // re-render the stuff
+// })
+
 // var ship = makeDiv('shipping $0')
 el.appendChild(makeDiv('subtotal $' + subTotal))
 var shippingCost = getShipping(cart.products().length)
