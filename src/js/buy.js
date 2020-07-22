@@ -4,6 +4,19 @@ var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2AC
 const stripe = Stripe(stripeKey);
 
 (function () {
+
+
+    // ---------- form validation -------
+
+    // var inputs = document.querySelector('input')
+    // inputs.forEach(input => {
+    //     input.addEventListener('invalid', ev => console.log('invalid', ev))
+    // })
+
+    // ------------------------------------
+
+
+
     var cart = new Cart({ key: KEY })
 
     // var subTotal = cart.products().reduce(function (acc, { price }) {

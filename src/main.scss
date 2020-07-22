@@ -279,23 +279,13 @@ body.cart-page {
         background-color: white;
 
         padding-left: .01em;
-      }
 
-      input:focus {
-        + label {
-          transform: translate(0, 0) scale(1);
-          color: black;
-
-          &:before {
-            content: " ";
-            // color: blue;
-          }
-        }
       }
     }
 
     input:placeholder-shown {
       + label {
+        // make it bigger and in the center
         transform: translate(0, 2.125rem) scale(1.5);
       }
     }
@@ -305,27 +295,37 @@ body.cart-page {
       border-bottom: 1px solid black;
       padding: 1em;
 
+
+      &:focus {
+        + label {
+          &:before {
+            content: " "!important;
+          }
+        }
+      }
+
       &:focus {
         border-color: blue;
         border-width: medium;
         outline: none;
-      } 
 
-      &:invalid {
-        // border-color: red;
+        + label {
+          // make it small and at the top
+          transform: translate(0, 0) scale(1);
+          color: black;
+        }
       }
 
       &:required {
         + label {
           &:before {
             content: "* ";
-            // color: blue;
           }
         }
       }
+
     }
   }
 }
 
 // ------------------------------------------
-
