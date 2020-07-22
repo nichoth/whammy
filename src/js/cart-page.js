@@ -32,10 +32,19 @@ var el = document.getElementById('cart-totals')
 var subTotal = cart.products().reduce(function (acc, { price }) {
     return acc + price
 }, 0)
+function getShipping (l) {
+    if (l === 0) return 0
+    if (l === 1) return 3
+    if (l === 2) return 4
+    if (l >= 3 && l <= 8) return 5
+    if (l > 8) return 6
+}
+
 // var ship = makeDiv('shipping $0')
 el.appendChild(makeDiv('subtotal $' + subTotal))
-// el.appendChild(ship)
-// el.appendChild(makeDiv('total $' + subTotal))
+var shippingCost = getShipping(cart.products().length)
+el.appendChild(makeDiv('shipping $' + shippingCost))
+el.appendChild(makeDiv('total $' + (subTotal + shippingCost)))
 
 function makeDiv (text) {
     var div = document.createElement('div')

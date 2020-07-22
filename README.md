@@ -780,3 +780,13 @@ res:
 [validation tips](https://daverupert.com/2017/11/happier-html5-forms/)
 
 
+-----------------------------------------------------------------
+
+
+[metadata](https://stripe.com/docs/api/payment_methods/object#payment_method_object-metadata)
+
+
+
+
+
+

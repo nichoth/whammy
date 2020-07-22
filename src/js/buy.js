@@ -17,7 +17,6 @@ const stripe = Stripe(stripeKey);
 
     var btn = document.querySelector('button[type="submit"]')
     btn.disabled = true
-
     Array.prototype.forEach.call(inputs, function (input) {
         input.addEventListener('blur', function (ev) {
             input.classList.add('has-focused')
