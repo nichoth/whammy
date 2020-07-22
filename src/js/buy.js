@@ -9,25 +9,30 @@ const stripe = Stripe(stripeKey);
     // ---------- form validation -------
 
     var inputs = document.querySelectorAll('input')
+    function formIsValid () {
+        return Array.prototype.reduce.call(inputs, (acc, input) => {
+            return acc && input.validity.valid
+        }, true)
+    }
+
+    var btn = document.querySelector('button[type="submit"]')
+    btn.disabled = true
+
     Array.prototype.forEach.call(inputs, function (input) {
         input.addEventListener('blur', function (ev) {
             input.classList.add('has-focused')
         })
-    })
 
-    // Array.forEach.call(inputs, input => {
-    //     input.addEventListener('invalid', ev => console.log('invalid', ev))
-    // })
+        input.addEventListener('input', function (ev) {
+            btn.disabled = !formIsValid()
+        })
+    })
 
     // ------------------------------------
 
 
 
     var cart = new Cart({ key: KEY })
-
-    // var subTotal = cart.products().reduce(function (acc, { price }) {
-    //     return acc + price
-    // }, 0)
 
     var style = {
         base: { color: "#32325d" }
