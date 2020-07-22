@@ -277,12 +277,19 @@ body.cart-page {
         text-overflow: ellipsis;
         transform-origin: left bottom;
         background-color: white;
+
+        padding-left: .01em;
       }
 
       input:focus {
         + label {
           transform: translate(0, 0) scale(1);
           color: black;
+
+          &:before {
+            content: " ";
+            // color: blue;
+          }
         }
       }
     }
@@ -302,6 +309,19 @@ body.cart-page {
         border-color: blue;
         border-width: medium;
         outline: none;
+      } 
+
+      &:invalid {
+        // border-color: red;
+      }
+
+      &:required {
+        + label {
+          &:before {
+            content: "* ";
+            // color: blue;
+          }
+        }
       }
     }
   }
