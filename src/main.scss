@@ -295,15 +295,6 @@ body.cart-page {
       border-bottom: 1px solid black;
       padding: 1em;
 
-
-      &:focus {
-        + label {
-          &:before {
-            content: " "!important;
-          }
-        }
-      }
-
       &:focus {
         border-color: blue;
         border-width: medium;
@@ -313,6 +304,18 @@ body.cart-page {
           // make it small and at the top
           transform: translate(0, 0) scale(1);
           color: black;
+
+          &:before {
+            content: " "!important;
+          }
+        }
+      }
+
+      &:valid {
+        + label {
+          &:before {
+            content: " "!important;
+          }
         }
       }
 
