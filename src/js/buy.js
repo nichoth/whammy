@@ -8,8 +8,14 @@ const stripe = Stripe(stripeKey);
 
     // ---------- form validation -------
 
-    // var inputs = document.querySelector('input')
-    // inputs.forEach(input => {
+    var inputs = document.querySelectorAll('input')
+    Array.prototype.forEach.call(inputs, function (input) {
+        input.addEventListener('blur', function (ev) {
+            input.classList.add('has-focused')
+        })
+    })
+
+    // Array.forEach.call(inputs, input => {
     //     input.addEventListener('invalid', ev => console.log('invalid', ev))
     // })
 

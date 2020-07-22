@@ -295,6 +295,13 @@ body.cart-page {
       border-bottom: 1px solid black;
       padding: 1em;
 
+      &.has-focused {
+        &:invalid {
+          border-color: red;
+          border-width: medium;
+        }
+      }
+
       &:focus {
         border-color: blue;
         border-width: medium;
