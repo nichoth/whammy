@@ -787,6 +787,12 @@ res:
 
 
 
+-----------------------------------------------------------------
+
+## testing the 'buy' page
+
+need to use the `buy-things` page
+return something from the `buy` page js
 
 
 

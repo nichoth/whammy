@@ -3,6 +3,8 @@ import KEY from './KEY'
 var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 const stripe = Stripe(stripeKey);
 
+// return an object with a `state` object
+// can attach an object to the window
 (function () {
     // ---------- form validation -------
 
@@ -58,8 +60,6 @@ const stripe = Stripe(stripeKey);
         var products = cart.products()
         console.log('products in buy', products)
 
-        // @TDOO
-        // show a loading screen here
         var doneWaiting = renderWaitingScreen()
 
         // https://stripe.com/docs/js/payment_methods/create_payment_method
