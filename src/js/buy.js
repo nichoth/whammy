@@ -3,9 +3,16 @@ import KEY from './KEY'
 var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 const stripe = Stripe(stripeKey);
 
-// return an object with a `state` object
-// can attach an object to the window
-(function () {
+export default Buy
+
+Buy()
+
+function Buy () {
+    // return an object with a `state` object
+    // can attach an object to the window
+    var buy = window.buy = {}
+    buy.onSubmit = onSubmit
+
     // ---------- form validation -------
 
     var inputs = document.querySelectorAll('input')
@@ -40,6 +47,8 @@ const stripe = Stripe(stripeKey);
     var card = elements.create('card', { style });
     card.mount(cardEl);
 
+    buy.card = card
+
     function renderWaitingScreen () {
         var el = document.createElement('div')
         el.id = 'waiting'
@@ -51,17 +60,21 @@ const stripe = Stripe(stripeKey);
 
         return doneWaiting
     }
-    
-    var form = document.querySelector('form')
-    form.addEventListener('submit', function (ev) {
-        ev.preventDefault()
-        console.log('in submit', ev, ev.target.elements)
 
-        var products = cart.products()
-        console.log('products in buy', products)
-
+    function onSubmit (makePayment) {
         var doneWaiting = renderWaitingScreen()
+        makePayment({ card }, (err, res) => doneWaiting())
+    }
 
+    var form = document.querySelector('form')
+    form.addEventListener('submit', ev => {
+        ev.preventDefault()
+        // var fn = (cb) => makePayment({ card }, cb)
+        onSubmit(makePayment)
+    })
+
+    function makePayment ({ card }, cb) {
+        var products = cart.products()
         // https://stripe.com/docs/js/payment_methods/create_payment_method
         stripe.createPaymentMethod({
             type: 'card',
@@ -76,17 +89,18 @@ const stripe = Stripe(stripeKey);
                 if (res.error) return console.log('oh no', res.error)
                 pay(res.paymentMethod.id, products).then(res => {
                     console.log('....in here......', res)
+                    cb(null, res)
                 })
             })
             .catch(err => {
                 // @TODO show error
-                doneWaiting()
                 console.log('errrorrr', err)
+                cb(err)
             })
-    })
+    }
 
     function pay (paymentMethodID, _products) {
-        fetch('/.netlify/functions/create-order', {
+        return fetch('/.netlify/functions/create-order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -102,7 +116,6 @@ const stripe = Stripe(stripeKey);
         })
         .catch(err => {
             // @TODO show error
-            doneWaiting()
             console.log('errrrrr', err)
         })
     }
@@ -116,4 +129,6 @@ const stripe = Stripe(stripeKey);
         (cart.products().length === 1 ? ' thing – ' : ' things – ') +
         '$' + subTotal)
     orderInfo.appendChild(text)
-})();
+}
+
+

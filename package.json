@@ -21,7 +21,7 @@
     "build-cart": "browserify src/js/cart-page.js -p esmify > public/js/cart-page.js",
     "test-cms": "npm run build-js && browserify test-browser/index.js | htmlify src/admin/index.html | tape-run --static=public --input html | tap-spec",
     "test-website": "npm run build-js && browserify test-browser/index.js | htmlify src/index.html | tape-run --static=public --input html | tap-spec",
-    "test-buy-page": "browserify test-buy/index.js | htmlify test-buy/index.html | tape-run --static=public --input html"
+    "test-buy-page": "browserify -p esmify test-buy/index.js | htmlify test-buy/index.html | tape-run --static=public --input html"
   },
   "dependencies": {
     "@nichoth/shopping-cart": "0.0.15",
