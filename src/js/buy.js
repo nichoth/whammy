@@ -4,8 +4,6 @@ var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2AC
 const stripe = Stripe(stripeKey);
 
 (function () {
-
-
     // ---------- form validation -------
 
     var inputs = document.querySelectorAll('input')
@@ -30,7 +28,6 @@ const stripe = Stripe(stripeKey);
     // ------------------------------------
 
 
-
     var cart = new Cart({ key: KEY })
 
     var style = {
@@ -40,6 +37,18 @@ const stripe = Stripe(stripeKey);
     var cardEl = document.getElementById('card-element')
     var card = elements.create('card', { style });
     card.mount(cardEl);
+
+    function renderWaitingScreen () {
+        var el = document.createElement('div')
+        el.id = 'waiting'
+        document.body.appendChild(el)
+
+        function doneWaiting () {
+            document.body.removeChild(el)
+        }
+
+        return doneWaiting
+    }
     
     var form = document.querySelector('form')
     form.addEventListener('submit', function (ev) {
@@ -48,6 +57,10 @@ const stripe = Stripe(stripeKey);
 
         var products = cart.products()
         console.log('products in buy', products)
+
+        // @TDOO
+        // show a loading screen here
+        var doneWaiting = renderWaitingScreen()
 
         // https://stripe.com/docs/js/payment_methods/create_payment_method
         stripe.createPaymentMethod({
@@ -58,12 +71,18 @@ const stripe = Stripe(stripeKey);
                 address: '123 street'
             },
         })
-            .then(function(res) {
+            .then(function (res) {
                 console.log('payment method res', res)
                 if (res.error) return console.log('oh no', res.error)
-                pay(res.paymentMethod.id, products)
+                pay(res.paymentMethod.id, products).then(res => {
+                    console.log('....in here......', res)
+                })
             })
-            .catch(err => console.log('errrorrr', err))
+            .catch(err => {
+                // @TODO show error
+                doneWaiting()
+                console.log('errrorrr', err)
+            })
     })
 
     function pay (paymentMethodID, _products) {
@@ -75,15 +94,17 @@ const stripe = Stripe(stripeKey);
                 products: _products
             })
         }).then(function(result) {
-            result.json().then(function (res) {
-                handleServerResponse(res)
+            return result.json().then(function (res) {
                 console.log('server response from pay', res)
                 cart.empty()
-                // @TODO
-                // * show a success page
+                window.location.href = '/success'
             })
         })
-        .catch(err => console.log('errrrrr', err))
+        .catch(err => {
+            // @TODO show error
+            doneWaiting()
+            console.log('errrrrr', err)
+        })
     }
 
     var subTotal = cart.products().reduce(function (acc, { price }) {

@@ -46,20 +46,18 @@ exports.handler = async function (ev, ctx, cb) {
         console.log('products in order', products)
 
         return client.query(
-            q.Call(
-                q.Function("submit_order"),
-                    [products.map(prod => q.Object(prod))]
+            q.Call( q.Function("submit_order"),
+                [products.map(prod => q.Object(prod))] )
                     // [q.Object({
                     //   "slug": "aaaaaaaaaaa",
                     //   "quantity": 1
                     // })]
-              )
         )
-            .then(order => {
-                console.log('order', order)
-                return order
-            })
-            .catch(err => console.log('err oooooo here', err))
+            // .then(order => {
+            //     console.log('order', order)
+            //     return order
+            // })
+            // .catch(err => console.log('err oooooo here', err))
     }
 
 
@@ -88,7 +86,6 @@ exports.handler = async function (ev, ctx, cb) {
         })
 
     async function pay (price) {
-        console.log('hheeerrreee in pay', price)
         var intent = await stripe.paymentIntents.create({
             payment_method_types: ['card'],
             payment_method: body.paymentMethodID,

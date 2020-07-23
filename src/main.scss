@@ -342,3 +342,23 @@ body.cart-page {
 }
 
 // ------------------------------------------
+
+
+
+// ------------ success ---------------
+
+#success {
+  margin: 1em;
+}
+
+// -------------------------------------
+
+
+#waiting {
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: black;
+  opacity: 0.6;
+}
+
