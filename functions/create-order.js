@@ -47,7 +47,7 @@ exports.handler = async function (ev, ctx, cb) {
 
         return client.query(
             q.Call( q.Function("submit_order"),
-                [products.map(prod => q.Object(prod))]
+                [products.map(prod => q.Object(prod)), shipping]
             )
                     // [q.Object({
                     //   "slug": "aaaaaaaaaaa",

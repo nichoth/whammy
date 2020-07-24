@@ -75,7 +75,7 @@ async function loadSingleProduct (slug) {
         .then((res) => res.json())
         .catch((err) => console.error('errrr', err));
 
-    console.log('woooooo', res)
+    console.log('get single response', res)
 
     var container = document.querySelector('.single-product-container')
     var content = createSingleProduct(res)

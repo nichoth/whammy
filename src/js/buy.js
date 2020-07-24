@@ -91,6 +91,7 @@ function Buy () {
 
     function makePayment ({ card, shipping }, cb) {
         var products = cart.products()
+        console.log('products in order', products)
         // https://stripe.com/docs/js/payment_methods/create_payment_method
         stripe.createPaymentMethod({
             type: 'card',
@@ -105,11 +106,11 @@ function Buy () {
                 if (res.error) return console.log('oh no', res.error)
                 var opts = {
                     shipping,
-                    paymentMethodID: res.paymentMethodID,
+                    paymentMethodID: res.paymentMethod.id,
                     products
                 }
                 pay(opts, products).then(res => {
-                    console.log('....in here......', res)
+                    console.log('....res in here......', res)
                     cb(null, res)
                 })
             })
@@ -133,6 +134,7 @@ function Buy () {
             return result.json().then(function (res) {
                 console.log('server response from pay', res)
                 cart.empty()
+                return res
                 // window.location.href = '/success'
             })
         })
