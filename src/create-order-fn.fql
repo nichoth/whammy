@@ -43,7 +43,14 @@ CreateFunction(
                   )
                 )
               ),
-            "shipping": Var("shipping")
+            "shipping": {
+              "name": Select("name", Var("shipping")),
+              "email": Select("email", Var("shipping")),
+              "address": Select("address", Var("shipping")),
+              "city": Select("city", Var("shipping")),
+              "state": Select("state", Var("shipping")),
+              "zipCode": Select("zipCode", Var("shipping"))
+            }
           },
           Do(
             // 2- Check if theres enough stock
@@ -132,7 +139,6 @@ CreateFunction(
                     "status": "new",
                     "creationDate": Time("now"),
                     "shipDate": null,
-                    "shipAddress": "123 street",
                     "shipping": Var("shipping"),
                     "creditCard": "4425"
                   }

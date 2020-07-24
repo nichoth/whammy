@@ -44,10 +44,11 @@ exports.handler = async function (ev, ctx, cb) {
         // pay with stripe
 
         console.log('products in order', products)
+        console.log('shipping in here', shipping)
 
         return client.query(
             q.Call( q.Function("submit_order"),
-                [products.map(prod => q.Object(prod)), shipping]
+                [products.map(prod => q.Object(prod)), q.Object(shipping)]
             )
                     // [q.Object({
                     //   "slug": "aaaaaaaaaaa",
@@ -61,14 +62,28 @@ exports.handler = async function (ev, ctx, cb) {
             // .catch(err => console.log('err oooooo here', err))
     }
 
+    function getShippingCost (l) {
+        if (l === 0) return 0
+        if (l === 1) return 3
+        if (l === 2) return 4
+        if (l >= 3 && l <= 8) return 5
+        if (l > 8) return 6
+    }
 
     // @TODO
     // get prices in here too
     var { products, shipping } = body
+    console.log('products', products)
+    var subTotal = products.reduce(function (acc, { price }) {
+        return acc + price
+    }, 0)
+    var shippingCost = getShippingCost(products.length)
+    var total = subTotal + shippingCost * 100
+
     await createOrder({ products, shipping })
         .then(async (order) => {
             console.log('order here', order)
-            var intent = await pay(1300)
+            var intent = await pay(total)
 
             console.log('done paying', intent)
 

@@ -2,6 +2,7 @@ import Cart from '@nichoth/shopping-cart'
 import KEY from './KEY'
 var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 const stripe = Stripe(stripeKey);
+var xtend = require('xtend')
 
 export default Buy
 
@@ -78,19 +79,19 @@ function Buy () {
 
         var els = ev.target.elements
         var shipping = {
-            name: els.name,
-            email: els.email,
-            address: els.address,
-            city: els.city,
-            state: els.state,
-            zipCode: els['zip-code']
+            name: els.name.value,
+            email: els.email.value,
+            address: els.address.value,
+            city: els.city.value,
+            state: els.state.value,
+            zipCode: els['zip-code'].value
         }
         // var fn = (cb) => makePayment({ card }, cb)
         onSubmit({ shipping }, makePayment)
     })
 
     function makePayment ({ card, shipping }, cb) {
-        var products = cart.products()
+        var products = cart.products().map(prod => xtend(prod, { quantity: 1 }))
         console.log('products in order', products)
         // https://stripe.com/docs/js/payment_methods/create_payment_method
         stripe.createPaymentMethod({
@@ -109,7 +110,7 @@ function Buy () {
                     paymentMethodID: res.paymentMethod.id,
                     products
                 }
-                pay(opts, products).then(res => {
+                pay(opts).then(res => {
                     console.log('....res in here......', res)
                     cb(null, res)
                 })
@@ -128,6 +129,7 @@ function Buy () {
             body: JSON.stringify({
                 shipping,
                 paymentMethodID,
+                // @TODO -- use a real quantity input
                 products
             })
         }).then(function(result) {
