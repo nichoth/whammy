@@ -103,7 +103,11 @@ function Buy () {
             .then(function (res) {
                 console.log('payment method res', res)
                 if (res.error) return console.log('oh no', res.error)
-                var opts = { shipping, paymentMethodID: res.paymentMethodID }
+                var opts = {
+                    shipping,
+                    paymentMethodID: res.paymentMethodID,
+                    products
+                }
                 pay(opts, products).then(res => {
                     console.log('....in here......', res)
                     cb(null, res)
@@ -116,14 +120,14 @@ function Buy () {
             })
     }
 
-    function pay ({ shipping, paymentMethodID }, _products) {
+    function pay ({ shipping, paymentMethodID, products }) {
         return fetch('/.netlify/functions/create-order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 shipping,
-                paymentMethodID: paymentMethodID,
-                products: _products
+                paymentMethodID,
+                products
             })
         }).then(function(result) {
             return result.json().then(function (res) {
