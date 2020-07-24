@@ -44,7 +44,6 @@ exports.handler = async function (ev, ctx, cb) {
         // pay with stripe
 
         console.log('products in order', products)
-        console.log('shipping in here', shipping)
 
         return client.query(
             q.Call( q.Function("submit_order"),
@@ -96,7 +95,7 @@ exports.handler = async function (ev, ctx, cb) {
             })
         })
         .catch(err => {
-            console.log('err iiiinnnnnn here', err)
+            console.log('err here', err)
             cb(null, {
                 statusCode: 500,
                 body: JSON.stringify(err)
