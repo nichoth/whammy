@@ -150,13 +150,34 @@ function Buy () {
         return acc + price
     }, 0)
 
-    var orderInfo = document.querySelector('.order-info')
+    var products = cart.products()
+    var shippingCost = getShippingCost(products.length)
+    var total = (subTotal + shippingCost)
+
+    var priceString = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    }).format(total.toFixed(2))
+
     var text = document.createTextNode(cart.products().length +
-        (cart.products().length === 1 ? ' thing – ' : ' things – ') +
-        '$' + subTotal)
-    orderInfo.appendChild(text)
+        (cart.products().length === 1 ? ' thing — ' : ' things – ') +
+        '$' + subTotal + ' + $' + shippingCost + ' shipping = ' +
+        '$' + priceString)
+
+    // ------------- menu part -----------
+    var menu = document.getElementById('menu')
+    var div = document.createElement('div')
+    div.classList.add('summary')
+    div.appendChild(text)
+    menu.appendChild(div)
 
     return buy
 }
-
+function getShippingCost (l) {
+    if (l === 0) return 0
+    if (l === 1) return 3
+    if (l === 2) return 4
+    if (l >= 3 && l <= 8) return 5
+    if (l > 8) return 6
+}
 
