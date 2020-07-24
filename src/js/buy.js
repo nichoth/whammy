@@ -136,6 +136,8 @@ function Buy () {
         (cart.products().length === 1 ? ' thing – ' : ' things – ') +
         '$' + subTotal)
     orderInfo.appendChild(text)
+
+    return buy
 }
 
 

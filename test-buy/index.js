@@ -2,9 +2,9 @@ var test = require('tape')
 import Buy from '../src/js/buy'
 
 test('`buy` page', function (t) {
-    Buy()
+    var { onSubmit } = Buy()
     t.ok(document.getElementById('buy-forms'))
-    var { onSubmit } = window.buy
+    // var { onSubmit } = window.buy
     onSubmit(mockPayment)
     t.ok(document.getElementById('waiting'), 'should show the waiting screen')
     function mockPayment (opts, cb) {
