@@ -36,7 +36,7 @@ exports.handler = async function (ev, ctx, cb) {
     // var slugs = body.products.map(({ slug }) => slug)
 
 
-    async function createOrder (products) {
+    async function createOrder ({ products, shipping }) {
         // frist get each product from the slug
         // map the products to a price
         // check and decrement stock for each product
@@ -64,7 +64,7 @@ exports.handler = async function (ev, ctx, cb) {
 
     // @TODO
     // get prices in here too
-    await createOrder(body.products)
+    await createOrder({ products: body.products, shipping: body.shipping })
         .then(async (order) => {
             console.log('order here', order)
             var intent = await pay(1300)

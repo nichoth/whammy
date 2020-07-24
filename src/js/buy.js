@@ -67,19 +67,29 @@ function Buy () {
 
     window.renderWaitingScreen = renderWaitingScreen
 
-    function onSubmit (makePayment) {
+    function onSubmit ({ shipping }, makePayment) {
         var doneWaiting = renderWaitingScreen()
-        makePayment({ card }, (err, res) => doneWaiting())
+        makePayment({ card, shipping }, (err, res) => doneWaiting())
     }
 
     var form = document.querySelector('form')
     form.addEventListener('submit', ev => {
         ev.preventDefault()
+
+        var els = ev.target.elements
+        var shipping = {
+            name: els.name,
+            email: els.email,
+            address: els.address,
+            city: els.city,
+            state: els.state,
+            zipCode: els['zip-code']
+        }
         // var fn = (cb) => makePayment({ card }, cb)
-        onSubmit(makePayment)
+        onSubmit({ shipping }, makePayment)
     })
 
-    function makePayment ({ card }, cb) {
+    function makePayment ({ card, shipping }, cb) {
         var products = cart.products()
         // https://stripe.com/docs/js/payment_methods/create_payment_method
         stripe.createPaymentMethod({
@@ -93,7 +103,8 @@ function Buy () {
             .then(function (res) {
                 console.log('payment method res', res)
                 if (res.error) return console.log('oh no', res.error)
-                pay(res.paymentMethod.id, products).then(res => {
+                var opts = { shipping, paymentMethodID: res.paymentMethodID }
+                pay(opts, products).then(res => {
                     console.log('....in here......', res)
                     cb(null, res)
                 })
@@ -105,11 +116,12 @@ function Buy () {
             })
     }
 
-    function pay (paymentMethodID, _products) {
+    function pay ({ shipping, paymentMethodID }, _products) {
         return fetch('/.netlify/functions/create-order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
+                shipping,
                 paymentMethodID: paymentMethodID,
                 products: _products
             })

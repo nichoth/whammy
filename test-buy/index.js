@@ -5,7 +5,7 @@ test('`buy` page', function (t) {
     var { onSubmit } = Buy()
     t.ok(document.getElementById('buy-forms'))
     // var { onSubmit } = window.buy
-    onSubmit(mockPayment)
+    onSubmit({ shipping: null }, mockPayment)
     t.ok(document.getElementById('waiting'), 'should show the waiting screen')
     function mockPayment (opts, cb) {
         // payment happens here, then cb
