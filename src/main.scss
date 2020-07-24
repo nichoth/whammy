@@ -25,7 +25,7 @@ header a {
 }
 
 main {
-  margin: 4rem 6rem;
+  margin: 4rem auto 6rem;
   max-width: 650px;
   width: 90vw;
   margin-top: 6em;
@@ -251,6 +251,10 @@ body.cart-page {
     background-color: white;
   }
 
+  #sk-circle {
+    display: none;
+  }
+
   #card-element {
     background-color: white;
     padding: 1em;
@@ -353,17 +357,20 @@ body.cart-page {
 
 // -------------------------------------
 
-
-#waiting {
-  width: 100%;
-  height: 100%;
-  height: 100vh;
-  // position: fixed;
-  // overflow: hidden;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  background-color: black;
-  opacity: 0.6;
+body.waiting {
+  overflow: hidden;
 }
+
+// #waiting {
+//   width: 100%;
+//   height: 100%;
+//   height: 100vh;
+//   // position: fixed;
+//   // overflow: hidden;
+//   top: 0;
+//   left: 0;
+//   z-index: 999;
+//   background-color: black;
+//   opacity: 0.6;
+// }
 

@@ -50,12 +50,17 @@ function Buy () {
     buy.card = card
 
     function renderWaitingScreen () {
-        var el = document.createElement('div')
-        el.id = 'waiting'
-        document.body.appendChild(el)
+        // var el = document.createElement('div')
+        // el.id = 'waiting'
+        // document.body.appendChild(el)
+
+        var el = document.getElementById('waiting')
+        el.style.display = 'block'
+        document.body.classList.add('waiting')
 
         function doneWaiting () {
             document.body.removeChild(el)
+            document.body.classList.remove('waiting')
         }
 
         return doneWaiting

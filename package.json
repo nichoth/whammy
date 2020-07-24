@@ -7,7 +7,7 @@
     "start": "npm run build-css && concurrently --kill-others \"npm run watch-js\" \"npm run sass-watch\" \"ntl dev\"",
     "copy": "rm -rf public && mkdir public && cp -r src/* public/",
     "build": "npm run copy && npm run build-js && npm run build-css",
-    "build-css": "npm run build-css-main && npm run build-css-single",
+    "build-css": "npm run build-css-main && npm run build-css-single && cp src/spinner.css public/spinner.css",
     "build-css-single": "node-sass --output-style=compressed src/single-product.scss > public/single-product.css",
     "build-css-main": "node-sass --output-style=compressed src/main.scss > public/main.css",
     "sass-watch": "concurrently --kill-others \"npm run sass-watch-single\" \"npm run sass-watch-main\"",
