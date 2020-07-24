@@ -47,7 +47,8 @@ exports.handler = async function (ev, ctx, cb) {
 
         return client.query(
             q.Call( q.Function("submit_order"),
-                [products.map(prod => q.Object(prod))] )
+                [products.map(prod => q.Object(prod))]
+            )
                     // [q.Object({
                     //   "slug": "aaaaaaaaaaa",
                     //   "quantity": 1
@@ -61,6 +62,7 @@ exports.handler = async function (ev, ctx, cb) {
     }
 
 
+    // @TODO
     // get prices in here too
     await createOrder(body.products)
         .then(async (order) => {

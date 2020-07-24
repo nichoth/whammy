@@ -10,8 +10,7 @@ Buy()
 function Buy () {
     // return an object with a `state` object
     // can attach an object to the window
-    var buy = window.buy = {}
-    buy.onSubmit = onSubmit
+    var buy = window.buy = { onSubmit, makePayment }
 
     // ---------- form validation -------
 

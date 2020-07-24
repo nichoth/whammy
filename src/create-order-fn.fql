@@ -2,7 +2,7 @@ CreateFunction(
   {
     "name": "submit_order",
     "body": Query(
-      Lambda(["products"],
+      Lambda(["products", "shipping"],
         // 1- Get Customer and Products
         // The first step is to make sure that documents exist within the
         // database for the given parameters. Therefore, we try to get
@@ -42,7 +42,8 @@ CreateFunction(
                     }
                   )
                 )
-              )
+              ),
+            "shipping": Var("shipping")
           },
           Do(
             // 2- Check if theres enough stock
@@ -111,16 +112,25 @@ CreateFunction(
                         "price": Select("price", Var("product"))
                       }
                     )
+                  ),
+
+                "subtotal":
+                  Reduce(
+                    Lambda((acc, { price }) => Add(acc, price)),
+                    0,
+                    Var("products")
                   )
               },
               Create(
                 Collection("orders"), {
                   data: {
                     "line": Var("productsLine"),
+                    "subtotal": Var("subtotal")
                     "status": "new",
                     "creationDate": Time("now"),
                     "shipDate": null,
                     "shipAddress": "123 street",
+                    "shipping": Var("shipping")
                     "creditCard": "4425"
                   }
                 }

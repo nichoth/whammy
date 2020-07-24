@@ -19,6 +19,7 @@ var client = new faunadb.Client({ secret: key })
 exports.handler = function (ev, ctx, cb) {
     const product = JSON.parse(ev.body)
     var { name, pic, description } = product.data
+    console.log('name, description', name, description)
 
     if (!name || !pic || !description) {
         return cb(null, {
@@ -43,9 +44,10 @@ exports.handler = function (ev, ctx, cb) {
         });
     }
 
-    var slug = slugify(name)
+    // is the slug there already?
+    // var slug = slugify(name)
     // TODO take input for quantity
-    product.data = xtend(product.data, { slug, quantity: 1 })
+    product.data = xtend(product.data, { quantity: 1 })
 
     client.query(q.Create(q.Collection('products'), product))
         .then(function (res) {
