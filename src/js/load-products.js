@@ -54,6 +54,9 @@ export async function loadProducts() {
     const container = document.querySelector('.products');
 
     console.log('products', res)
+    console.log('products with no stock', res.filter(prod => {
+        return (prod.quantity <= 0)
+    }))
 
     res.map(item => item.data).forEach(function (product) {
         var content = createProductFromTemplate(product)
