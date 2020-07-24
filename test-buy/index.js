@@ -22,7 +22,7 @@ test('`buy` page', function (t) {
     }
 
     // TODO
-    makePayment({ shipping, card }, function (err, res) {
+    // makePayment({ shipping, card }, function (err, res) {
 
-    })
+    // })
 })

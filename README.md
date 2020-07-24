@@ -1,6 +1,17 @@
 # whammy
 Trying things with netlify & stripe
 
+
+```
+npm start
+```
+Start the netlify local dev server, watch css and js files
+
+```
+npm run build
+```
+Build everything, the same way it will be deployed
+
 -------------------------
 
 ## test cards
