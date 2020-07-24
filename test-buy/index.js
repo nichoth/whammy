@@ -4,7 +4,8 @@ import Buy from '../src/js/buy'
 test('`buy` page', function (t) {
     // @TODO test sending a payment request
 
-    // @TODO learn how to put values into the card
+    // @TODO learn how to put values into the card element
+    // call the real `makePayment` function
     var { onSubmit, makePayment, card } = Buy()
     t.ok(document.getElementById('buy-forms'))
     // var { onSubmit } = window.buy
@@ -19,4 +20,9 @@ test('`buy` page', function (t) {
             t.end()
         }, 0)
     }
+
+    // TODO
+    makePayment({ shipping, card }, function (err, res) {
+
+    })
 })

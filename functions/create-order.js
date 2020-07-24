@@ -64,7 +64,8 @@ exports.handler = async function (ev, ctx, cb) {
 
     // @TODO
     // get prices in here too
-    await createOrder({ products: body.products, shipping: body.shipping })
+    var { products, shipping } = body
+    await createOrder({ products, shipping })
         .then(async (order) => {
             console.log('order here', order)
             var intent = await pay(1300)

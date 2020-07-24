@@ -116,21 +116,24 @@ CreateFunction(
 
                 "subtotal":
                   Reduce(
-                    Lambda((acc, { price }) => Add(acc, price)),
+                    Lambda((acc, product) => Add(
+                      acc, q.Select('price', product)
+                    )),
                     0,
                     Var("products")
                   )
               },
+
               Create(
                 Collection("orders"), {
                   data: {
                     "line": Var("productsLine"),
-                    "subtotal": Var("subtotal")
+                    "subtotal": Var("subtotal"),
                     "status": "new",
                     "creationDate": Time("now"),
                     "shipDate": null,
                     "shipAddress": "123 street",
-                    "shipping": Var("shipping")
+                    "shipping": Var("shipping"),
                     "creditCard": "4425"
                   }
                 }
