@@ -12,6 +12,13 @@ npm run build
 ```
 Build everything, the same way it will be deployed
 
+```
+npm test
+```
+Tests for the buy things page
+
+
+
 -------------------------
 
 ## test cards
