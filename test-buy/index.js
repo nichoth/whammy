@@ -2,7 +2,10 @@ var test = require('tape')
 import Buy from '../src/js/buy'
 
 test('`buy` page', function (t) {
-    var { onSubmit } = Buy()
+    // @TODO test sending a payment request
+
+    // @TODO learn how to put values into the card
+    var { onSubmit, makePayment, card } = Buy()
     t.ok(document.getElementById('buy-forms'))
     // var { onSubmit } = window.buy
     onSubmit({ shipping: null }, mockPayment)
