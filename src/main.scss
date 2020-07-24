@@ -245,6 +245,13 @@ body.cart-page {
 // -------------#buy-page------------------------
 
 #buy-page {
+  #buy-things-nav {
+    margin-bottom: 1em;
+    a {
+      text-decoration: none;
+    }
+  }
+
   #shipping {
     padding: 1em;
     background-color: white;
