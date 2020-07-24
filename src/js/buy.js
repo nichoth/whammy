@@ -61,6 +61,8 @@ function Buy () {
         return doneWaiting
     }
 
+    window.renderWaitingScreen = renderWaitingScreen
+
     function onSubmit (makePayment) {
         var doneWaiting = renderWaitingScreen()
         makePayment({ card }, (err, res) => doneWaiting())
