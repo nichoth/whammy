@@ -67,12 +67,7 @@ function makeDiv (text) {
 }
 
 function renderControls (el, cart) {
-    console.log('length', cart.products().length)
-    if (cart.products().length < 1) {
-        // remove the link
-        var link = el.querySelector('a.buy')
-        if (link) return link.remove()
-    }
+    if (cart.products().length < 1) return
 
     var link = document.createElement('a')
     link.href = '/buy-things'

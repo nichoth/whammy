@@ -133,7 +133,7 @@ function Buy () {
             return result.json().then(function (res) {
                 console.log('server response from pay', res)
                 cart.empty()
-                window.location.href = '/success'
+                // window.location.href = '/success'
             })
         })
         .catch(err => {
