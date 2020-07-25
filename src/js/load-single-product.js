@@ -53,10 +53,15 @@ function createSingleProduct (item) {
     // })
     // ---------------------------------------------
 
+    if (item.quantity < 1) {
+        var div = document.createElement('div')
+        div.innerText = 'Sold out'
+        form.replaceWith(div)
+    }
     if (inCart) {
         var link = document.createElement('a')
         link.setAttribute('href', '/cart')
-        link.setAttribute('class', 'view-cart')
+        link.classList.add('view-cart')
         link.textContent = 'View cart'
         form.replaceWith(link)
     }
