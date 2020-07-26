@@ -1,0 +1,6 @@
+{
+    "env": {
+        "HOST": "http://localhost:8888",
+        "chromeWebSecurity": false
+    }
+}

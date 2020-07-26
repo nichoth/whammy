@@ -2,20 +2,25 @@
 Trying things with netlify & stripe
 
 
+Start the netlify local dev server, watch css and js files
 ```
 npm start
 ```
-Start the netlify local dev server, watch css and js files
 
+Build everything, the same way it will be deployed
 ```
 npm run build
 ```
-Build everything, the same way it will be deployed
 
+Tests for the buy things page
 ```
 npm test
 ```
-Tests for the buy things page
+
+Open the cypress test gui
+```
+npm run test:open
+```
 
 
 

@@ -88,6 +88,7 @@ function Buy () {
     })
 
     function makePayment ({ card, shipping }, cb) {
+        // @TODO - quantity input
         var products = cart.products().map(prod => xtend(prod, { quantity: 1 }))
         console.log('products in order', products)
         // https://stripe.com/docs/js/payment_methods/create_payment_method
@@ -97,7 +98,7 @@ function Buy () {
             billing_details: {
                 // name: 'Jenny Rosen',
                 // address: '123 street'
-            },
+            }
         })
             .then(function (res) {
                 console.log('payment method res', res)
