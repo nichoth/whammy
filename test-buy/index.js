@@ -11,12 +11,13 @@ test('`buy` page', function (t) {
     // var { onSubmit } = window.buy
     onSubmit({ shipping: null }, mockPayment)
     t.ok(document.getElementById('waiting'), 'should show the waiting screen')
+    
     function mockPayment (opts, cb) {
         // payment happens here, then cb
         setTimeout(() => {
             cb(null)
-            t.notOk(document.getElementById('buy-form'),
-                'waiting screen should go away')
+            t.equal(document.getElementById('waiting').style.display, 'none',
+                'should not display waiting element')
             t.end()
         }, 0)
     }

@@ -25,7 +25,9 @@
     "test-buy-page": "browserify -p esmify test-buy/index.js | htmlify test-buy/index.html | tape-run --static=public --input html",
     "test": "npm run test-buy-page",
     "test:cypress": "cypress run --spec \"cypress/integration/*.js\"",
-    "test:cy": "run-p -r serve test:cypress"
+    "cypress:open": "cypress open",
+    "test:cy": "run-p -r serve test:cypress",
+    "test:open": "run-p -r serve cypress:open"
   },
   "dependencies": {
     "@nichoth/shopping-cart": "0.0.15",
