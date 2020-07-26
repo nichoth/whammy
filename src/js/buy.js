@@ -15,13 +15,13 @@ function Buy () {
 
     // ---------- form validation -------
 
-    var inputs = document.querySelectorAll('input')
-    function formIsValid () {
+    function formIsValid (inputs) {
         return Array.prototype.reduce.call(inputs, (acc, input) => {
             return acc && input.validity.valid
         }, true)
     }
 
+    var inputs = document.querySelectorAll('input')
     var btn = document.querySelector('button[type="submit"]')
     btn.disabled = true
     Array.prototype.forEach.call(inputs, function (input) {
@@ -30,7 +30,7 @@ function Buy () {
         })
 
         input.addEventListener('input', function (ev) {
-            btn.disabled = !formIsValid()
+            btn.disabled = !formIsValid(inputs)
         })
     })
 
@@ -50,16 +50,13 @@ function Buy () {
     buy.card = card
 
     function renderWaitingScreen () {
-        // var el = document.createElement('div')
-        // el.id = 'waiting'
-        // document.body.appendChild(el)
-
         var el = document.getElementById('waiting')
         el.style.display = 'block'
         document.body.classList.add('waiting')
 
         function doneWaiting () {
-            document.body.removeChild(el)
+            // document.body.removeChild(el)
+            el.style.display = 'none'
             document.body.classList.remove('waiting')
         }
 
@@ -98,8 +95,8 @@ function Buy () {
             type: 'card',
             card: card,
             billing_details: {
-                name: 'Jenny Rosen',
-                address: '123 street'
+                // name: 'Jenny Rosen',
+                // address: '123 street'
             },
         })
             .then(function (res) {
@@ -149,7 +146,6 @@ function Buy () {
     var subTotal = cart.products().reduce(function (acc, { price }) {
         return acc + price
     }, 0)
-
     var products = cart.products()
     var shippingCost = getShippingCost(products.length)
     var total = (subTotal + shippingCost)
@@ -173,6 +169,7 @@ function Buy () {
 
     return buy
 }
+
 function getShippingCost (l) {
     if (l === 0) return 0
     if (l === 1) return 3
@@ -180,4 +177,3 @@ function getShippingCost (l) {
     if (l >= 3 && l <= 8) return 5
     if (l > 8) return 6
 }
-
