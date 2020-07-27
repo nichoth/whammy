@@ -63,11 +63,32 @@ function Buy () {
         return doneWaiting
     }
 
+    function renderError (text) {
+        var el = document.createElement('div')
+        el.classList.add('error-message')
+        var msg = document.createElement('div')
+        msg.classList.add('message')
+        msg.appendChild(document.createTextNode(text))
+        el.appendChild(msg)
+        document.body.appendChild(el)
+        function remove () {
+            document.body.removeChild(el)
+        }
+        return remove
+    }
+
+    window.renderError = renderError
     window.renderWaitingScreen = renderWaitingScreen
 
     function onSubmit ({ shipping }, makePayment) {
         var doneWaiting = renderWaitingScreen()
-        makePayment({ card, shipping }, (err, res) => doneWaiting())
+        makePayment({ card, shipping }, (err, res) => {
+            if (err) {
+                console.log('err', err)
+                return renderError(err.message)
+            }
+            doneWaiting()
+        })
     }
 
     var form = document.querySelector('form')

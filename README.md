@@ -819,3 +819,10 @@ return something from the `buy` page js
 
 
 
+---------------------------------------------------
+
+How to get the iframe to work
+[Testing Stripe Elements with Cypress](https://medium.com/@michabahr/testing-stripe-elements-with-cypress-5a2fc17ab27b)
+
+
+
