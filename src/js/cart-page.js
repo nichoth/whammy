@@ -11,8 +11,6 @@ cart.createPage(cartContainer, mapper)
 // cart.createIcon(iconContainer)
 
 function mapper (html, product, i) {
-    console.log('in map', product, i)
-
     function Quantity (props) {
         var { item } = props
         if (item.quantity > 1) {

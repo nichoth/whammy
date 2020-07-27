@@ -63,12 +63,19 @@ function Buy () {
         return doneWaiting
     }
 
-    function renderError (text) {
+    function renderError (err) {
         var el = document.createElement('div')
         el.classList.add('error-message')
-        var msg = document.createElement('div')
+        var msg = document.createElement('pre')
         msg.classList.add('message')
-        msg.appendChild(document.createTextNode(text))
+        if (err.code) {
+            msg.appendChild(document.createTextNode(
+                `ERROR:
+                ${err.code}
+                ${err.decline_code}
+                ${err.doc_url}`
+            ))
+        }
         el.appendChild(msg)
         document.body.appendChild(el)
         function remove () {
@@ -83,11 +90,16 @@ function Buy () {
     function onSubmit ({ shipping }, makePayment) {
         var doneWaiting = renderWaitingScreen()
         makePayment({ card, shipping }, (err, res) => {
-            if (err) {
-                console.log('err', err)
-                return renderError(err.message)
-            }
             doneWaiting()
+            if (err) {
+                renderError(err)
+                return console.log('err', err)
+            }
+            if (res.type === 'StripeCardError') {
+                console.log('***err here***', err, res)
+                return renderError(res)
+            }
+            cart.empty()
         })
     }
 
@@ -111,6 +123,7 @@ function Buy () {
     function makePayment ({ card, shipping }, cb) {
         // @TODO - quantity input
         var products = cart.products().map(prod => xtend(prod, { quantity: 1 }))
+        console.log('products', products)
         console.log('products in order', products)
         // https://stripe.com/docs/js/payment_methods/create_payment_method
         stripe.createPaymentMethod({
@@ -122,7 +135,7 @@ function Buy () {
             }
         })
             .then(function (res) {
-                console.log('payment method res', res)
+                // console.log('payment method res', res)
                 if (res.error) return console.log('oh no', res.error)
                 var opts = {
                     shipping,
@@ -130,8 +143,9 @@ function Buy () {
                     products
                 }
                 pay(opts).then(res => {
-                    console.log('....res in here......', res)
+                    // console.log('....res in here......', res)
                     cb(null, res)
+                    // window.location.href = '/success'
                 })
             })
             .catch(err => {
@@ -151,16 +165,11 @@ function Buy () {
                 // @TODO -- use a real quantity input
                 products
             })
-        }).then(function(result) {
-            return result.json().then(function (res) {
-                console.log('server response from pay', res)
-                cart.empty()
-                return res
-                // window.location.href = '/success'
-            })
         })
-        .catch(err => {
-            // @TODO show error
+        .then(function (result) {
+            return result.json()
+        })
+        .catch(function(err) {
             console.log('errrrrr', err)
         })
     }
