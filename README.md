@@ -24,6 +24,10 @@ npm run test:open
 
 
 
+-------------------------------
+
+
+
 -------------------------
 
 ## test cards
@@ -821,8 +825,19 @@ return something from the `buy` page js
 
 ---------------------------------------------------
 
-How to get the iframe to work
+How to get the iframe to work with cypress
 [Testing Stripe Elements with Cypress](https://medium.com/@michabahr/testing-stripe-elements-with-cypress-5a2fc17ab27b)
+
+
+-------------------------------------
+
+* [flatmarket](https://github.com/christophercliff/flatmarket)
+* https://headlesscms.org/ -- list of CMSs
+* [How to Shop With Static: Open Source eCommerce with Flatmarket](https://www.netlify.com/blog/2016/04/28/how-to-shop-with-static-open-source-ecommerce-with-flatmarket/)
+
+
+
+
 
 
 
