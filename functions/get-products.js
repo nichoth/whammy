@@ -87,7 +87,7 @@ exports.handler = async function (ev, ctx, cb) {
         var _products = (catalogList.objects
             .filter(item => item.type === 'ITEM'))
         var products = _products.map(prod => xtend(prod, {
-            imageUrl: !!(imagesById[prod.image_id] &&
+            imageUrl: (imagesById[prod.image_id] &&
                 imagesById[prod.image_id].image_data.url)
         }))
         // console.log('product list', products)
