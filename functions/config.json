@@ -1,0 +1,13 @@
+{
+    "sandbox": {
+      "path": "https://connect.squareupsandbox.com",
+      "squareApplicationId": "sandbox-sq0idb-SYHgUy2XZm6PJjhsp116Cg",
+      "squareAccessToken": "EAAAEM258AC31Bsjmqof2qcdEeohSzhJEuWbFcyiFp3Z1JVbyqPrCmKruAMuLbAZ"
+    },
+    "production": {
+      "path": "https://connect.squareup.com",
+      "squareApplicationId": "YOUR_APPLICATION_ID",
+      "squareAccessToken": "YOUR_ACCESS_TOKEN"
+    }
+  }
+  

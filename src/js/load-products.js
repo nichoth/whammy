@@ -1,8 +1,15 @@
+// const SquareConnect = require("square-connect")
 import Cart from '@nichoth/shopping-cart'
 import KEY from './KEY'
 import util from './util'
-// import { handleFormSubmission } from './stripe-purchase.js';
-// var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
+
+// const config = require("./config.json").sandbox;
+
+// const {
+//     catalogApi,
+//     locationApi,
+//     orderApi,
+//   } = require("../util/square-connect-client");
 
 function createProductFromTemplate (item) {
     // const stripe = Stripe(stripeKey);
@@ -47,21 +54,31 @@ function createProductFromTemplate (item) {
 }
 
 export async function loadProducts() {
-    const res = await fetch('/.netlify/functions/get-products')
-        .then((res) => res.json())
-        .catch((err) => console.error(err));
+    // here, get from square
+    // const opts = { types: "ITEM,IMAGE" };
+    // const catalogList = await catalogApi.listCatalog(opts)
+    // console.log('cat list', catalogList)
+
+
+    var catalogList = await fetch('/.netlify/functions/get-products')
+        .then(res => res.json())
+    console.log('cat list', catalogList)
+
+
+    // const res = await fetch('/.netlify/functions/get-products')
+    //     .then((res) => res.json())
+    //     .catch((err) => console.error(err));
 
     const container = document.querySelector('.products');
 
-    console.log('products', res)
-    console.log('products with no stock', res.filter(prod => {
-        return (prod.quantity <= 0)
-    }))
+    // console.log('products with no stock', catalogList.filter(prod => {
+    //     return (prod.quantity <= 0)
+    // }))
 
-    res.map(item => item.data).forEach(function (product) {
-        var content = createProductFromTemplate(product)
-        container.appendChild(content)
-    })
+    // res.map(item => item.data).forEach(function (product) {
+    //     var content = createProductFromTemplate(product)
+    //     container.appendChild(content)
+    // })
 }
 
 loadProducts()

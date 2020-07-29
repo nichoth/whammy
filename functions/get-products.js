@@ -1,8 +1,21 @@
 // var stripe = require('stripe')(process.env.STRIPE_SECRET);
-var faunadb = require('faunadb')
-var q = faunadb.query
-var key = process.env.FAUNA_ADMIN_KEY
-var client = new faunadb.Client({ secret: key })
+// var faunadb = require('faunadb')
+// var q = faunadb.query
+// var key = process.env.FAUNA_ADMIN_KEY
+const SquareConnect = require("square-connect");
+const config = require("./config.json")['sandbox'];
+
+// Set Square Connect credentials
+const defaultClient = SquareConnect.ApiClient.instance;
+defaultClient.basePath = config.path;
+
+// Configure OAuth2 access token for authorization: oauth2
+const oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = config.squareAccessToken;
+
+const catalogApi = new SquareConnect.CatalogApi()
+
+// var client = new faunadb.Client({ secret: key })
 
 // https://www.netlify.com/blog/2018/07/09/building-serverless-crud-apps-with-netlify-functions-faunadb/#setting-up-functions-for-local-development
 
@@ -31,30 +44,50 @@ var client = new faunadb.Client({ secret: key })
 // )
 
 
+exports.handler = async function (ev, ctx, cb) {
+//     client.query(
+//         q.Map(
+//             q.Paginate( q.Match(q.Index("quantity")), { after: 1 } ),
+//             q.Lambda("x", q.Get(q.Select(1, q.Var("x"))))
+//         )
+//         // q.Map(
+//         //     q.Paginate( q.Match(q.Index("all_products")), { size: 1000 } ),
+//         //     q.Lambda((ref) => q.Get(ref))
+//         // )
+//     )
+//         .then(function (res) {
+//             console.log('aaaaaa', res.data)
+//             return cb(null, {
+//                 statusCode: 200,
+//                 body: JSON.stringify(res.data)
+//             })
+//         })
+//         .catch(function (err) {
+//             console.log('errrrrr', err)
+//             return cb(null, {
+//                 statusCode: 500,
+//                 body: JSON.stringify(err)
+//             })
+//         })
 
-exports.handler = function (ev, ctx, cb) {
-    client.query(
-        q.Map(
-            q.Paginate( q.Match(q.Index("quantity")), { after: 1 } ),
-            q.Lambda("x", q.Get(q.Select(1, q.Var("x"))))
-        )
-        // q.Map(
-        //     q.Paginate( q.Match(q.Index("all_products")), { size: 1000 } ),
-        //     q.Lambda((ref) => q.Get(ref))
-        // )
-    )
-        .then(function (res) {
-            console.log('aaaaaa', res.data)
-            return cb(null, {
-                statusCode: 200,
-                body: JSON.stringify(res.data)
-            })
+
+    const opts = { types: "ITEM,IMAGE" };
+    try {
+        // const { locations } = await locationApi.listLocations();
+        var catalogList = await catalogApi.listCatalog(opts);
+    } catch (err) {
+        return cb(null, {
+            statusCode: 500,
+            body: JSON.stringify(err)
         })
-        .catch(function (err) {
-            console.log('errrrrr', err)
-            return cb(null, {
-                statusCode: 500,
-                body: JSON.stringify(err)
-            })
+    }
+
+    return cb(null, {
+        statusCode: 200,
+        body: JSON.stringify({
+            items: catalogList.items,
         })
+    })
+
+
 }
