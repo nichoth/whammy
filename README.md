@@ -2,6 +2,13 @@
 The square space branch
 
 
+[ORDERS API: ORDER-AHEAD SAMPLE APP](https://developer.squareup.com/docs/orders-api/quick-start/step-2)
+
+[CATALOG API](https://developer.squareup.com/docs/catalog-api/what-it-does)
+
+---------------------------------
+
+
 Start the netlify local dev server, watch css and js files
 ```
 npm start

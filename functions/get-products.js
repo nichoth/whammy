@@ -3,6 +3,7 @@
 // var q = faunadb.query
 // var key = process.env.FAUNA_ADMIN_KEY
 const SquareConnect = require("square-connect");
+const xtend = require("xtend");
 const config = require("./config.json")['sandbox'];
 
 // Set Square Connect credentials
@@ -73,21 +74,37 @@ exports.handler = async function (ev, ctx, cb) {
 
     const opts = { types: "ITEM,IMAGE" };
     try {
-        // const { locations } = await locationApi.listLocations();
+        // we are turning objects with image url's in them
         var catalogList = await catalogApi.listCatalog(opts);
+
+        var images = catalogList.objects.filter(item => item.type === 'IMAGE')
+        var imagesById = images.reduce(function (acc, image) {
+            var _acc = {}
+            _acc[image.id] = image
+            return xtend(acc, _acc)
+        }, {})
+
+        var _products = (catalogList.objects
+            .filter(item => item.type === 'ITEM'))
+        var products = _products.map(prod => xtend(prod, {
+            imageUrl: !!(imagesById[prod.image_id] &&
+                imagesById[prod.image_id].image_data.url)
+        }))
+        // console.log('product list', products)
+
+        // const { locations } = await locationApi.listLocations();
+        return cb(null, {
+            statusCode: 200,
+            body: JSON.stringify({ products })
+        })
     } catch (err) {
+        console.log('errrr', err)
         return cb(null, {
             statusCode: 500,
             body: JSON.stringify(err)
         })
     }
 
-    return cb(null, {
-        statusCode: 200,
-        body: JSON.stringify({
-            items: catalogList.items,
-        })
-    })
 
 
 }

@@ -62,6 +62,7 @@ export async function loadProducts() {
 
     var catalogList = await fetch('/.netlify/functions/get-products')
         .then(res => res.json())
+        .catch(err => console.log('errrrororor', err))
     console.log('cat list', catalogList)
 
 
