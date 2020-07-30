@@ -5,12 +5,13 @@
 // const stripe = require('stripe')(process.env.STRIPE_SECRET);
 // var xtend = require('xtend')
 
-const config = require("./config.json")[process.env.NODE_ENV];
-var SquareConnect = require('square-connect');
-var defaultClient = SquareConnect.ApiClient.instance;
-defaultClient.basePath = config.path;
+var xtend = require('xtend')
+const config = require("./config.json")[process.env.NODE_ENV]
+var SquareConnect = require('square-connect')
+var defaultClient = SquareConnect.ApiClient.instance
+defaultClient.basePath = config.path
 // Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
+var oauth2 = defaultClient.authentications['oauth2']
 oauth2.accessToken = config.squareAccessToken;
 const catalogApi = new SquareConnect.CatalogApi()
 
@@ -18,12 +19,17 @@ const catalogApi = new SquareConnect.CatalogApi()
 
 exports.handler = function (ev, ctx, cb) {
     var { id } = JSON.parse(ev.body)
+    var opts = { 'includeRelatedObjects': true }
 
     catalogApi.retrieveCatalogObject(id, opts).then(function (res) {
         console.log('API called successfully. Returned data: ' + res);
+        var item = res.object
+        var image = res.related_objects.find(obj => obj.type === 'IMAGE')
         cb(null, {
             statusCode: 200,
-            body: JSON.stringify(res)
+            body: JSON.stringify(xtend(item, {
+                imageUrl: image.image_data.url
+            }))
         })
     }, function (err) {
         console.log('errrrrrrr', err)
