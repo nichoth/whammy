@@ -8,6 +8,13 @@ The square space branch
 
 ---------------------------------
 
+developer dashboard -- api keys for sandbox and live site -- https://developer.squareup.com/apps/sq0idp-iO1CV_ycCPyJ4HW9rhWogg
+live dashboard -- products -- https://squareup.com/dashboard
+sandboxdashboard -- products -- https://squareupsandbox.com/dashboard
+
+
+-----------------------------------------------
+
 
 Start the netlify local dev server, watch css and js files
 ```

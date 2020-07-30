@@ -32,6 +32,7 @@
   "dependencies": {
     "@nichoth/shopping-cart": "0.0.15",
     "dotenv": "^8.2.0",
+    "lodash": "^4.17.19",
     "square-connect": "^3.20200528.0"
   },
   "devDependencies": {

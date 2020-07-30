@@ -1,43 +1,59 @@
 import Cart from '@nichoth/shopping-cart'
 import KEY from './KEY'
+const dotProp = require('dot-prop');
+var _ = {
+    get: require('lodash/get')
+}
 
 function createProductFromTemplate (item) {
+    var itemData = item.item_data
     const template = document.querySelector('#product');
     const product = template.content.cloneNode(true);
 
     var textLink = product.querySelector('.text-link')
     textLink.href = `/${item.slug}`
-    product.querySelector('h2').innerText = item.name;
-    product.querySelector('.description').innerText = item.description;
+    product.querySelector('h2').innerText = itemData.name;
+    product.querySelector('.description').innerText = itemData.description;
+
+    // @TODO - price
+    var price = _.get(itemData,
+        'variations[0].item_variation_data.price_money.amount')
+    // var price = itemData.variations[0].item_variation_data.price_money.amount
+    console.log('price', price)
     product.querySelector('.price').innerText = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD'
-    }).format((item.price || 0).toFixed(2));
+    }).format((price/100 || 0).toFixed(2));
+
     // @TODO add product id in hidden field
 
     var a = product.querySelector('a')
     a.href = `/${item.slug}`
 
     const img = product.querySelector('img');
-    var src = item.image_url
+    var src = item.imageUrl
     img.src = src
-    img.alt = item.name
+    img.alt = itemData.name
 
     return product;
 }
 
 export async function loadProducts() {
-    var catalogList = await fetch('/.netlify/functions/get-products')
+    var { products } = await fetch('/.netlify/functions/get-products')
         .then(res => res.json())
         .catch(err => console.log('errrrororor', err))
-    console.log('cat list', catalogList)
+
+    console.log('cat list', products)
 
     const container = document.querySelector('.products');
 
-    catalogList.forEach(function (product) {
-        var content = createProductFromTemplate(product)
-        container.appendChild(content)
-    })
+    products
+        // for some reason we don't display products with no variations
+        .filter(prod => prod.item_data.variations)
+        .forEach(function (product) {
+            var content = createProductFromTemplate(product)
+            container.appendChild(content)
+        })
 }
 
 loadProducts()

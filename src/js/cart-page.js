@@ -1,6 +1,5 @@
 import Cart from '@nichoth/shopping-cart'
 import KEY from './KEY'
-import util from './util'
 import EVENTS from '@nichoth/shopping-cart/src/EVENTS'
 
 var cartContainer = document.getElementById('cart-page-container')
@@ -9,6 +8,11 @@ cart.createPage(cartContainer, mapper)
 
 // var iconContainer = document.getElementById('cart-icon-container')
 // cart.createIcon(iconContainer)
+
+function getImgUrl (item) {
+    var imgSrc = item.pic.split('/')
+    return ('/' + imgSrc[1] + '/' + imgSrc[2])
+}
 
 function mapper (html, product, i) {
     function Quantity (props) {
@@ -20,7 +24,7 @@ function mapper (html, product, i) {
     }
 
     return html`<span class="item-controls">
-        <img src="${util.getImgUrl(product)}" alt=${product.name} />
+        <img src="${getImgUrl(product)}" alt=${product.name} />
         <h2><a href=${product.slug}>${product.name}</a></h2>
         <${Quantity} item=${product} />
         <span class="price">$${product.price}</span>
