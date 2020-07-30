@@ -1,6 +1,10 @@
 # whammy
 The square space branch
 
+## test cards
+
+* 	4111 1111 1111 1111    CVV: 111
+
 
 [ORDERS API: ORDER-AHEAD SAMPLE APP](https://developer.squareup.com/docs/orders-api/quick-start/step-2)
 
@@ -40,3 +44,5 @@ npm run test:open
 
 
 https://www.netlify.com/blog/2018/07/09/building-serverless-crud-apps-with-netlify-functions-faunadb/#setting-up-functions-for-local-development
+
+
