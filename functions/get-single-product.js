@@ -7,11 +7,10 @@ defaultClient.basePath = config.path
 var oauth2 = defaultClient.authentications['oauth2']
 oauth2.accessToken = config.squareAccessToken;
 const catalogApi = new SquareConnect.CatalogApi()
+const inventoryApi = new SquareConnect.InventoryApi()
 
 exports.handler = function (ev, ctx, cb) {
-    // var { id } = JSON.parse(ev.body)
     var { name } = JSON.parse(ev.body)
-    console.log('****name******', unslug(name))
 
     var body = {
         query: {
@@ -23,18 +22,30 @@ exports.handler = function (ev, ctx, cb) {
         },
         include_related_objects: true
     }
-    catalogApi.searchCatalogObjects(body).then(function (res) {
-        console.log('API called successfully. Returned data: ',  res);
+
+    catalogApi.searchCatalogObjects(body).then(async function (res) {
+        console.log('*** catalog api res: ***',  res);
         var item = res.objects[0]
         var image = res.related_objects.find(obj => obj.type === 'IMAGE')
-        return cb(null, {
+
+        var id = item.item_data.variations[0].id
+
+        var inv = await inventoryApi.retrieveInventoryCount(id, {})
+            .then(inv => inv)
+            .catch(err => console.log('errrrrooooo', err))
+
+        console.log('~~~inv~~~', inv)
+
+        cb(null, {
             statusCode: 200,
             body: JSON.stringify(xtend(item, {
-                imageUrl: image.image_data.url
+                imageUrl: image.image_data.url,
+                inventory: inv.counts[0]
             }))
         })
-    }, function (err) {
-        console.log('errrrr', err);
+
+    }, function onErr (err) {
+        console.log('errrrrppppp', err);
         return cb(null, {
             statusCode: 500,
             body: JSON.stringify(err)

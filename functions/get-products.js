@@ -16,14 +16,11 @@ exports.handler = async function (ev, ctx, cb) {
     try {
         var inv = await inventoryApi.batchRetrieveInventoryCounts({})
             .then(function (data) {
-                // console.log('***API called successfully. Returned data: ***',
-                //     data)
                 return data
             }, function onErr (error) {
                 console.error('errrrrr', error)
             })
 
-        // we are turning objects with image url's in them
         const opts = { types: "ITEM,IMAGE" };
         var catalogList = await catalogApi.listCatalog(opts);
 
@@ -40,17 +37,18 @@ exports.handler = async function (ev, ctx, cb) {
         var products = _products
             .map(prod => xtend(prod, {
                 inventory: inv.counts.find(count => {
+                    // this works b/c we only have 1 variation per product
                     return (count.catalog_object_id ===
                         prod.item_data.variations[0].id)
                 }),
                 imageUrl: (imagesById[prod.image_id] &&
                     imagesById[prod.image_id].image_data.url)
             }))
+            // only list things with stock
             .filter(prod => prod.inventory.quantity > 0)
 
         // console.log('***product list***', products)
 
-        // const { locations } = await locationApi.listLocations();
         return cb(null, {
             statusCode: 200,
             body: JSON.stringify({ products })
