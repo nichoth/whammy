@@ -2,9 +2,10 @@
 // var faunadb = require('faunadb')
 // var q = faunadb.query
 // var key = process.env.FAUNA_ADMIN_KEY
+// https://www.netlify.com/blog/2018/07/09/building-serverless-crud-apps-with-netlify-functions-faunadb/#setting-up-functions-for-local-development
 const SquareConnect = require("square-connect");
 const xtend = require("xtend");
-const config = require("./config.json")['sandbox'];
+const config = require("./config.json")[process.env.NODE_ENV];
 
 // Set Square Connect credentials
 const defaultClient = SquareConnect.ApiClient.instance;
@@ -18,7 +19,6 @@ const catalogApi = new SquareConnect.CatalogApi()
 
 // var client = new faunadb.Client({ secret: key })
 
-// https://www.netlify.com/blog/2018/07/09/building-serverless-crud-apps-with-netlify-functions-faunadb/#setting-up-functions-for-local-development
 
 
 

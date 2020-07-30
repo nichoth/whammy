@@ -36,3 +36,7 @@ Open the cypress test gui
 npm run test:open
 ```
 
+-------------------------------------------------
+
+
+https://www.netlify.com/blog/2018/07/09/building-serverless-crud-apps-with-netlify-functions-faunadb/#setting-up-functions-for-local-development

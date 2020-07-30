@@ -3,16 +3,15 @@
 import Cart from '@nichoth/shopping-cart'
 import KEY from './KEY'
 
+
 function createSingleProduct (item) {
     console.log('item', item)
     const template = document.querySelector('#single-product');
     const product = template.content.cloneNode(true);
 
-    // todo -- put content in the template
     product.querySelector('h2').innerText = item.name;
     product.querySelector('.description').innerText = item.description;
     // product.querySelector('[name=sku]').value = item.id;
-    // product.querySelector('.price').innerText = item.price;
     product.querySelector('.price').innerText = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD'
@@ -22,14 +21,6 @@ function createSingleProduct (item) {
     var imgSrc = item.pic.split('/')
     img.src = '/' + imgSrc[1] + '/' + imgSrc[2]
     img.alt = item.name;
-
-    // var style = {
-    //     base: { color: "#32325d" }
-    // }
-    // var elements = stripe.elements();
-    // var cardEl = product.querySelector('#card-element')
-    // var card = elements.create('card', { style });
-    // card.mount(cardEl);
 
     var cartContainer = document.getElementById('cart-icon-container')
     var cart = new Cart({ key: KEY })
@@ -69,25 +60,45 @@ function createSingleProduct (item) {
     return product
 }
 
-async function loadSingleProduct (slug) {
+async function loadSingleProduct (id) {
+    // const res = await fetch('/.netlify/functions/get-single-product', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({ slug })
+    // })
+    //     .then((res) => res.json())
+    //     .catch((err) => console.error('errrr', err));
+
+    // console.log('get single response', res)
+
+    // var container = document.querySelector('.single-product-container')
+    // var content = createSingleProduct(res)
+    // container.appendChild(content)
+
+    // var opts = { 'includeRelatedObjects': true }
+
     const res = await fetch('/.netlify/functions/get-single-product', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ slug })
+        body: JSON.stringify({ id })
     })
         .then((res) => res.json())
         .catch((err) => console.error('errrr', err));
 
-    console.log('get single response', res)
+    console.log('response', res)
 
-    var container = document.querySelector('.single-product-container')
-    var content = createSingleProduct(res)
-    container.appendChild(content)
+    // apiInstance.retrieveCatalogObject(id, opts).then(function (data) {
+    //     console.log('API called successfully. Returned data: ' + data);
+    // }, function (error) {
+    //     console.error(error);
+    // })
 }
 
 var href = window.location.href
 var segments = href.split('/')
-var path = segments[3]
-loadSingleProduct(path)
+var id = segments[3]
+loadSingleProduct(id)
