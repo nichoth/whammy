@@ -15,10 +15,8 @@ function createProductFromTemplate (item) {
     product.querySelector('h2').innerText = itemData.name;
     product.querySelector('.description').innerText = itemData.description;
 
-    // @TODO - price
     var price = _.get(itemData,
         'variations[0].item_variation_data.price_money.amount')
-    // var price = itemData.variations[0].item_variation_data.price_money.amount
     console.log('price', price)
     product.querySelector('.price').innerText = new Intl.NumberFormat('en-US', {
         style: 'currency',
