@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@nichoth/shopping-cart": "0.0.15",
+    "@sindresorhus/slugify": "^1.1.0",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.19",
     "square-connect": "^3.20200528.0"

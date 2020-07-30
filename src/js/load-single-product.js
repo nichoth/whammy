@@ -65,13 +65,13 @@ function createSingleProduct (item) {
     return product
 }
 
-async function loadSingleProduct (id) {
+async function loadSingleProduct (slug) {
     const res = await fetch('/.netlify/functions/get-single-product', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id })
+        body: JSON.stringify({ name: slug })
     })
         .then((res) => res.json())
         .catch((err) => console.error('errrr', err));
@@ -85,5 +85,6 @@ async function loadSingleProduct (id) {
 
 var href = window.location.href
 var segments = href.split('/')
-var id = segments[3]
-loadSingleProduct(id)
+// var id = segments[3]
+var slug = segments[3]
+loadSingleProduct(slug)

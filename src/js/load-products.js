@@ -3,6 +3,7 @@ import KEY from './KEY'
 var _ = {
     get: require('lodash/get')
 }
+var slugify = require('@sindresorhus/slugify')
 
 function createProductFromTemplate (item) {
     var itemData = item.item_data
@@ -10,7 +11,7 @@ function createProductFromTemplate (item) {
     const product = template.content.cloneNode(true);
 
     var textLink = product.querySelector('.text-link')
-    textLink.href = `/${item.id}`
+    textLink.href = `/${slugify(itemData.name)}`
     product.querySelector('h2').innerText = itemData.name;
     product.querySelector('.description').innerText = itemData.description;
 
@@ -27,7 +28,8 @@ function createProductFromTemplate (item) {
     // @TODO add product id in hidden field
 
     var a = product.querySelector('a')
-    a.href = `/${item.id}`
+    // a.href = `/${item.id}`
+    a.href = `/${slugify(itemData.name)}`
 
     const img = product.querySelector('img');
     var src = item.imageUrl
