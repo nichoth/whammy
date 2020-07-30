@@ -1,6 +1,5 @@
 import Cart from '@nichoth/shopping-cart'
 import KEY from './KEY'
-const dotProp = require('dot-prop');
 var _ = {
     get: require('lodash/get')
 }
