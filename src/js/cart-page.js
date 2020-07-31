@@ -93,14 +93,20 @@ function renderControls (el, cart) {
     btn.appendChild(document.createTextNode('buy things'))
     btn.classList.add('buy')
     el.appendChild(btn)
-
     btn.addEventListener('click', function (ev) {
         ev.preventDefault()
         console.log('click')
 
         var products = cart.products().map(prod => {
             console.log('prod', prod)
+            return prod
         })
+
+        var ids = products.map(function (prod) {
+            return prod.item_data.variations[0].id
+        })
+
+        console.log('ids', ids)
 
         fetch('/.netlify/functions/create-order', {
             method: 'POST',
@@ -108,11 +114,16 @@ function renderControls (el, cart) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                catalog_object_ids: products,
+                catalog_object_ids: ids,
                 foo: 'bar'
             })
         })
-            .then((res) => console.log(res.json()))
+            .then(res => {
+                return res.json().then(function (r) {
+                    console.log('r', r)
+                    return r
+                })
+            })
             .catch((err) => console.error('errrr', err))
     })
 }

@@ -1,3 +1,4 @@
+var xtend = require('xtend')
 var SquareConnect = require('square-connect');
 const config = require("./config.json")[process.env.NODE_ENV];
 const defaultClient = SquareConnect.ApiClient.instance;
@@ -8,33 +9,44 @@ oauth2.accessToken = config.squareAccessToken;
 var checkoutApi = new SquareConnect.CheckoutApi();
 var ordersApi = new SquareConnect.OrdersApi();
 
-exports.handler = async function (ev, ctx, cb) {
+exports.handler = function (ev, ctx, cb) {
     // sandbox location
     var locationId = 'PR4NVQPCRMEYP'
     var { catalog_object_ids } = JSON.parse(ev.body)
+    var idempotencyKey = '1'
+
+    var lineItems = [
+        {
+            quantity: 1,
+            catalog_object_id: catalog_object_ids[0]
+        }
+    ]
 
     // order -- https://github.com/square/connect-nodejs-sdk/blob/fafefbb7e6b29e31d3ee2f8ac4e5c7ce911352d4/docs/Order.md
-    var order = {
-        location_id: locationId,
-        line_items: [
-            {
-                quantity: 1,
-                catalog_object_id: catalog_object_ids[0]
-            }
-        ]
-    }
-    var orderBody = new SquareConnect.CreateOrderRequest(idempotencyKey, order);
-    var order = ordersApi.createOrder(locationId, orderBody)
-        .then(function (res) {
-            console.log('****create order****', res);
-            return res
-        }, function (error) {
-            console.log('oh no', error);
-        })
+    // var _order = {
+    //     location_id: locationId,
+    //     line_items: [
+    //         {
+    //             quantity: 1,
+    //             catalog_object_id: catalog_object_ids[0]
+    //         }
+    //     ]
+    // }
+    // var orderBody = new SquareConnect.CreateOrderRequest(idempotencyKey, _order);
+    var orderBody = createBody({ locationId, lineItems })
+    console.log('***order body***', orderBody)
+    // var order = await ordersApi.createOrder(locationId, orderBody)
+    //     .then(function (res) {
+    //         console.log('****create order****', res);
+    //         return res
+    //     }, function (error) {
+    //         console.log('oh no', error);
+    //     })
 
+    // console.log('*****order******', order)
 
-
-    // var body = new SquareConnect.CreateCheckoutRequest(idempotency_key, order)
+    var body = new SquareConnect.CreateCheckoutRequest(idempotencyKey,
+        orderBody)
     // var body = new SquareConnect.CreateCheckoutRequest()
     console.log('***body***', body)
 
@@ -53,6 +65,16 @@ exports.handler = async function (ev, ctx, cb) {
             })
         })
 }
+
+
+
+
+
+// {"errors":[{"category":"INVALID_REQUEST_ERROR","code":"INVALID_VALUE",
+// "detail":"Server-derived field is calculated and cannot be set by a client.",
+// "field":"order.id"}]
+
+// path: '/v2/locations/PR4NVQPCRMEYP/checkouts'
 
 
 
@@ -115,83 +137,17 @@ exports.handler = async function (ev, ctx, cb) {
 // var body = new SquareConnect.CreateCheckoutRequest(idempotency_key, order)
 
 
-function createBody () {
+function createBody ({ locationId, lineItems }) {
     return {
         "idempotency_key": "86ae1696-b1e3-4328-af6d-f1e04d947ad6",
         "redirect_url": "https://merchant.website.com/order-confirm",
         "order": {
             "idempotency_key": "12ae1696-z1e3-4328-af6d-f1e04d947gd4",
-            "order": {
-                "location_id": "location_id",
-                "customer_id": "customer_id",
-                "reference_id": "reference_id",
-                "line_items": [
-                {
-                    "name": "Printed T Shirt",
-                    "quantity": "2",
-                    "base_price_money": {
-                    "amount": 1500,
-                    "currency": "USD"
-                    },
-                    "applied_discounts": [
-                    {
-                        "discount_uid": "56ae1696-z1e3-9328-af6d-f1e04d947gd4"
-                    }
-                    ],
-                    "applied_taxes": [
-                    {
-                        "tax_uid": "38ze1696-z1e3-5628-af6d-f1e04d947fg3"
-                    }
-                    ]
-                },
-                {
-                    "name": "Slim Jeans",
-                    "quantity": "1",
-                    "base_price_money": {
-                        "amount": 2500,
-                        "currency": "USD"
-                    }
-                },
-                {
-                    "name": "Woven Sweater",
-                    "quantity": "3",
-                    "base_price_money": {
-                        "amount": 3500,
-                        "currency": "USD"
-                    }
-                }
-                ],
-                "taxes": [
-                {
-                    "uid": "38ze1696-z1e3-5628-af6d-f1e04d947fg3",
-                    "type": "INCLUSIVE",
-                    "percentage": "7.75",
-                    "scope": "LINE_ITEM"
-                }
-                ],
-                "discounts": [
-                {
-                    "uid": "56ae1696-z1e3-9328-af6d-f1e04d947gd4",
-                    "type": "FIXED_AMOUNT",
-                    "scope": "LINE_ITEM",
-                    "amount_money": {
-                        "amount": 100,
-                        "currency": "USD"
-                    }
-                }
-                ]
-            }
+            "location_id": locationId,
+            "line_items": lineItems.map(item => {
+                return xtend(item, { quantity: item.quantity + '' })
+            }),
         },
-        "additional_recipients": [
-        {
-            "location_id": "057P5VYJ4A5X1",
-            "description": "Application fees",
-            "amount_money": {
-                "amount": 60,
-                "currency": "USD"
-            }
-        }
-        ],
         "ask_for_shipping_address": true,
         "merchant_support_email": "merchant+support@website.com",
         "pre_populate_buyer_email": "example@email.com",
