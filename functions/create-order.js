@@ -22,11 +22,10 @@ exports.handler = function (ev, ctx, cb) {
         }
     ]
 
-    var orderBody = createBody({ locationId, lineItems })
-    console.log('***order body***', orderBody)
+    var _body = createBody({ locationId, lineItems })
+    console.log('***order body***', _body)
 
-    var body = new SquareConnect.CreateCheckoutRequest(idempotencyKey,
-        orderBody)
+    var body = new SquareConnect.CreateCheckoutRequest(idempotencyKey, _body)
     console.log('***body***', body)
 
     checkoutApi.createCheckout(locationId, body)
