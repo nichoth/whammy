@@ -210,10 +210,6 @@ body.cart-page {
     }
   }
 
-  // #cart-page {
-  //   // margin-bottom: 2em;
-  // }
-
   .cart-controls {
     text-align: right;
     margin-top: 2em;
@@ -228,11 +224,13 @@ body.cart-page {
       }
     }
 
-    a.buy {
+    button.buy {
       border: 4px solid black;
       text-decoration: none;
       padding: 0.5em;
       transition: all 0.2s;
+      background-color: transparent;
+      font-size: 1em;
 
       &:hover {
         border-color: pink;

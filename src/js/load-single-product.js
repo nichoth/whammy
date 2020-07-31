@@ -31,7 +31,7 @@ function createSingleProduct (item) {
     var cart = new Cart({ key: KEY })
     cart.createIcon(cartContainer, { link: '/cart' })
 
-    var inCart = cart.products().find(({ slug }) => slug === item.slug)
+    var inCart = cart.products().find(({ id }) => id === item.id)
 
     const form = product.querySelector('form');
     form.addEventListener('submit', function (ev) {
@@ -49,7 +49,7 @@ function createSingleProduct (item) {
     // })
     // ---------------------------------------------
 
-    if (item.quantity < 1) {
+    if (item.inventory.quantity < 1) {
         var div = document.createElement('div')
         div.innerText = 'Sold out'
         form.replaceWith(div)

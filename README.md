@@ -45,4 +45,17 @@ npm run test:open
 
 https://www.netlify.com/blog/2018/07/09/building-serverless-crud-apps-with-netlify-functions-faunadb/#setting-up-functions-for-local-development
 
+https://developer.squareup.com/blog/introducing-square-checkout/
+
+https://developer.squareup.com/docs/online-payment-options
+
+https://developer.squareup.com/docs/payment-form/payment-form-walkthrough
+
+[hosted checkout](https://squareup.com/us/en/townsquare/hosted-checkout-set-up-an-online-payment-form)
+
+https://developer.squareup.com/docs/checkout-api-overview
+
+https://developer.squareup.com/blog/createcheckout-options-explained/
+
+https://developer.squareup.com/docs/checkout-api-overview
 

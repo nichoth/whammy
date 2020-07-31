@@ -34,8 +34,6 @@ exports.handler = function (ev, ctx, cb) {
             .then(inv => inv)
             .catch(err => console.log('errrrrooooo', err))
 
-        console.log('~~~inv~~~', inv)
-
         cb(null, {
             statusCode: 200,
             body: JSON.stringify(xtend(item, {
