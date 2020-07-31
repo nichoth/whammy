@@ -47,7 +47,7 @@ exports.handler = function (ev, ctx, cb) {
 function createBody ({ locationId, lineItems }) {
     return {
         "idempotency_key": "86ae1696-b1e3-4328-af6d-f1e04d947ad6",
-        "redirect_url": "https://merchant.website.com/order-confirm",
+        "redirect_url": "http://localhost:8888/",
         "order": {
             "idempotency_key": "12ae1696-z1e3-4328-af6d-f1e04d947gd4",
             "location_id": locationId,
