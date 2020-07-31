@@ -34,7 +34,7 @@
     "@sindresorhus/slugify": "^1.1.0",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.19",
-    "square-connect": "^3.20200528.0"
+    "square-connect": "^4.20200722.1"
   },
   "devDependencies": {
     "browserify": "^16.5.1",
