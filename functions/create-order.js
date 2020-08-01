@@ -1,6 +1,7 @@
 var xtend = require('xtend')
 var fetch = require('node-fetch');
 var SquareConnect = require('square-connect');
+var timestamp = require('monotonic-timestamp')
 const config = require("./config.json")[process.env.NODE_ENV];
 const defaultClient = SquareConnect.ApiClient.instance;
 var oauth2 = defaultClient.authentications['oauth2'];
@@ -9,14 +10,13 @@ oauth2.accessToken = config.squareAccessToken;
 
 console.log('config.accesstoken', config.squareAccessToken)
 
-// var checkoutApi = new SquareConnect.CheckoutApi();
+var checkoutApi = new SquareConnect.CheckoutApi();
 // var ordersApi = new SquareConnect.OrdersApi();
 
 exports.handler = function (ev, ctx, cb) {
     // sandbox loca'tion
     var locationId = 'PR4NVQPCRMEYP'
     var { catalog_object_ids } = JSON.parse(ev.body)
-    var idempotencyKey = '1'
 
     var lineItems = [
         {
@@ -28,67 +28,78 @@ exports.handler = function (ev, ctx, cb) {
     var _body = createBody({ locationId, lineItems })
     console.log('***___body***', _body)
 
-    var body = new SquareConnect.CreateCheckoutRequest(idempotencyKey, _body)
+    var body = new SquareConnect.CreateCheckoutRequest('' + timestamp(), _body)
     console.log('***body***', body)
 
-    var headers = {
-        'Square-Version': '2020-07-22',
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + config.squareAccessToken
-    }
+    // var headers = {
+    //     'Square-Version': '2020-07-22',
+    //     'Content-Type': 'application/json',
+    //     Authorization: 'Bearer ' + config.squareAccessToken
+    // }
 
-    var url = 'https://connect.squareupsandbox.com/v2/locations/PR4NVQPCRMEYP/checkouts'
-    fetch(url, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(body)
-    })
-        .then(res => res.json())
-        .then(res => {
-            console.log('******response to create checkout*****', res)
-            if (res.errors) {
-                return cb(null, {
-                    statusCode: 500,
-                    body: JSON.stringify(res.errors)
-                })
-            }
-            return cb(null, {
-                statusCode: 200,
-                body: JSON.stringify(res)
-            })
-        })
-        .catch(err => {
-            console.log('errrrr', err)
-            return cb(null, {
-                statusCode: 500,
-                body: JSON.stringify(err)
-            })
-        })
-
-    // checkoutApi.createCheckout(locationId, body)
-    //     .then(function (data) {
-    //         console.log('**checkout successful**', data);
-    //         console.log('******shipping*****', data.checkout.ask_for_shipping_address)
+    // var url = 'https://connect.squareupsandbox.com/v2/locations/PR4NVQPCRMEYP/checkouts'
+    // fetch(url, {
+    //     method: 'POST',
+    //     headers: headers,
+    //     body: JSON.stringify(body)
+    // })
+    //     .then(res => res.json())
+    //     .then(res => {
+    //         console.log('******response to create checkout*****', res)
+    //         if (res.errors) {
+    //             return cb(null, {
+    //                 statusCode: 500,
+    //                 body: JSON.stringify(res.errors)
+    //             })
+    //         }
     //         return cb(null, {
     //             statusCode: 200,
-    //             body: JSON.stringify(data)
+    //             body: JSON.stringify(res)
     //         })
-    //     }, function onErr (err) {
-    //         console.error('errriii', err);
-    //         cb(null, {
+    //     })
+    //     .catch(err => {
+    //         console.log('errrrr', err)
+    //         return cb(null, {
     //             statusCode: 500,
     //             body: JSON.stringify(err)
     //         })
     //     })
+
+    checkoutApi.createCheckout(locationId, body)
+        .then(function (data) {
+            console.log('**checkout successful**', data);
+            console.log('******shipping*****', data.checkout.ask_for_shipping_address)
+            return cb(null, {
+                statusCode: 200,
+                body: JSON.stringify(data)
+            })
+        }, function onErr (err) {
+            console.error('errriii', err);
+            cb(null, {
+                statusCode: 500,
+                body: JSON.stringify(err)
+            })
+        })
 }
 
 function createBody ({ locationId, lineItems }) {
     return {
-        "idempotency_key": "86ae1696-b1e3-4328-af6d-f1e04d947ad6",
+        "idempotency_key": '' + timestamp(),
         "redirect_url": "http://localhost:8888/",
         ask_for_shipping_address: true,
         "order": {
-            "idempotency_key": "12ae1696-z1e3-4328-af6d-f1e04d947gd4",
+            // "fulfillments": [
+            //     {
+            //         type: 'SHIPMENT',
+            //         shipment_details: {
+            //             carrier: 'USPS',
+            //             recipient: {
+            //                 display_name: "Jaiden Urie"
+            //             }
+            //         }
+            //     }
+            // ],
+            "idempotency_key": '' + timestamp(),
             "location_id": locationId,
             "line_items": lineItems.map(item => {
                 return xtend(item, { quantity: item.quantity + '' })
