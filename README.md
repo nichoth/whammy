@@ -59,3 +59,57 @@ https://developer.squareup.com/blog/createcheckout-options-explained/
 
 https://developer.squareup.com/docs/checkout-api-overview
 
+
+------------------------------------------------
+
+
+
+[order metadata](https://developer.squareup.com/reference/square/objects/Order#definition__property-metadata)
+
+[payment example](https://github.com/square/connect-api-examples/blob/master/connect-examples/v2/node_orders-payments/routes/checkout.js#L414) -- first create and order, then do `pay(orderId)`
+
+[order payment](https://github.com/square/connect-api-examples/blob/master/connect-examples/v2/node_orders-payments/routes/checkout.js#L362)
+
+[payment form walkthrough](https://developer.squareup.com/docs/payment-form/payment-form-walkthrough)
+
+
+
+
+
+-------------------------------------------------------------
+
+[walkthrough- integrate payments](https://developer.squareup.com/docs/payment-form/payment-form-walkthrough#113-add-javascript-to-indexhtml)
+
+[SQPaymentForm](https://developer.squareup.com/docs/api/paymentform#navsection-paymentform)
+
+[payment example](https://github.com/square/connect-api-examples/blob/master/connect-examples/v2/node_orders-payments/routes/checkout.js#L362)
+
+[order ahead sample](https://developer.squareup.com/docs/orders-api/quick-start/step-2)
+
+[order ahead sample github](https://github.com/square/connect-api-examples/tree/master/connect-examples/v2/node_orders-payments)
+
+[Add fulfillment details - create orders article](https://developer.squareup.com/docs/orders-api/create-orders#add-fulfillment-details)
+
+[create order route example](https://github.com/square/connect-api-examples/blob/master/connect-examples/v2/node_orders-payments/routes/index.js#L70)
+
+[pay for orders](https://developer.squareup.com/docs/orders-api/pay-for-orders)
+
+
+## Walkthrough: Integrate Square Payments in a Website
+[square form embed](xhttps://developer.squareup.com/docs/payment-form/payment-form-walkthrough#11-embed-sqpaymentform-in-a-static-web-page)
+```html
+<script type="text/javascript" src="https://js.squareupsandbox.com/v2/paymentform">
+</script>
+```
+
+[add html els](https://developer.squareup.com/docs/payment-form/payment-form-walkthrough#112--add-an-html-div)
+
+
+------------------------------
+
+[Walkthrough: Integrate Square Payments in a Website](https://developer.squareup.com/docs/payment-form/payment-form-walkthrough)
+
+
+
+
+
