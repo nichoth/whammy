@@ -113,10 +113,14 @@ function renderControls (el, cart) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                catalog_object_ids: ids,
-                foo: 'bar'
-            })
+            body: JSON.stringify(ids.map(function (id) {
+                return {
+                    catalogObjectId: id,
+                    // @TODO real quantity
+                    itemQuantity: 1
+                }
+
+            }))
         })
             .then(res => {
                 return res.json().then(function (r) {
