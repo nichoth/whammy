@@ -13,9 +13,12 @@ oauth2.accessToken = config.squareAccessToken;
 var ordersApi = new SquareConnect.OrdersApi();
 
 exports.handler = function (ev, ctx, cb) {
-    // sandbox loca'tion
     var locationId = 'PR4NVQPCRMEYP'
-    var { products } = JSON.parse(ev.body)
+    var { products, shipping, email } = JSON.parse(ev.body)
+
+    // see
+    // https://developer.squareup.com/reference/square/orders-api/create-order
+    // https://developer.squareup.com/docs/orders-api/create-orders#add-fulfillment-details
 
     var orderRequestBody = {
         // Unique identifier for request
@@ -23,7 +26,7 @@ exports.handler = function (ev, ctx, cb) {
         order: {
             line_items: products.map(prod => {
                 return {
-                    quantity: prod.itemQuantity,
+                    quantity: '' + prod.itemQuantity,
                     catalog_object_id: prod.catalogObjectId
                 }
             }),
@@ -33,17 +36,19 @@ exports.handler = function (ev, ctx, cb) {
                     carrier: 'USPS',
                     recipient: {
                         address: {
-                            address_line_1: '',
-                            address_line_2: '',
-                            address_line_3: '',
-                            locality: '', // city or town
-                            administrative_district_level_1: '',  // the state
-                            country: '',
-                            first_name: '',
-                            last_name: '',
-                            postal_code: ''
+                            address_line_1: shipping.address1,
+                            address_line_2: shipping.address2,
+                            address_line_3: shipping.address3,
+                            locality: shipping.city, // city or town
+                            // the state
+                            administrative_district_level_1: shipping.state,
+                            country: shipping.country,
+                            first_name: shipping.firstName,
+                            last_name: shipping.lastName,
+                            postal_code: shipping.zipCode
                         },
-                        email_address: ''
+                        display_name: 'foo',
+                        email_address: email
                     }
                 },
                 state: 'PROPOSED'

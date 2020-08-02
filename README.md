@@ -109,6 +109,14 @@ https://developer.squareup.com/docs/checkout-api-overview
 
 [Walkthrough: Integrate Square Payments in a Website](https://developer.squareup.com/docs/payment-form/payment-form-walkthrough)
 
+--------------------------------------------------
+
+Enter shipping and create an order
+Use the order ID to pay for the order with that square order input
+
+## payment
+[pay for order](https://developer.squareup.com/docs/orders-api/pay-for-orders)
+
 
 
 

@@ -5,10 +5,9 @@ import KEY from './KEY'
 // var xtend = require('xtend')
 
 
-
-
-// use `apiInstance.createCheckout` first b/c it uses a square hosted form
-
+(function BuyThings () {
+    var cart = new Cart({ key: KEY })
+})()
 
 
 

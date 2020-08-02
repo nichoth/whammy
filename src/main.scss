@@ -145,6 +145,7 @@ main {
 
   li {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
     border: 1px solid black;
