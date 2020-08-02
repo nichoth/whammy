@@ -52,7 +52,7 @@ exports.handler = function (ev, ctx, cb) {
         }
     }
 
-    ordersApi.createOrder(location_id, orderRequestBody)
+    ordersApi.createOrder(locationId, orderRequestBody)
         .then(res => {
             console.log('create order', res)
             return cb(null, {
