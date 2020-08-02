@@ -1,6 +1,7 @@
 import Cart from '@nichoth/shopping-cart'
 import KEY from './KEY'
 import EVENTS from '@nichoth/shopping-cart/src/EVENTS'
+var slugify = require('@sindresorhus/slugify')
 var _ = {
     get: require('lodash/get')
 }
@@ -31,7 +32,7 @@ function mapper (html, product, i) {
 
     return html`<span class="item-controls">
         <img src="${getImgUrl(product)}" alt=${product.name} />
-        <h2><a href=${product.slug}>${itemData.name}</a></h2>
+        <h2><a href=${slugify(itemData.name)}>${itemData.name}</a></h2>
         <${Quantity} item=${product} />
         <span class="price">$${(price/100).toFixed(2)}</span>
     </span>`
