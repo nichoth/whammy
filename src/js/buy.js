@@ -1,11 +1,36 @@
 import Cart from '@nichoth/shopping-cart'
 import KEY from './KEY'
+import { html } from 'htm/preact'
+import { render } from 'preact';
+import { useState } from 'preact/hooks';
 var APP_ID = 'sandbox-sq0idb-SYHgUy2XZm6PJjhsp116Cg'
-// var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
-// const stripe = Stripe(stripeKey);
-// var xtend = require('xtend')
 
-// ------------------ form validation -------------------------
+
+function Shipping () {
+    const [state, setState] = useState({});
+
+    return html`<div id="buy-forms">
+        <form>
+            <div id="shipping">
+                <h2>Shipping address</h2>
+
+                <div class="form-group">
+                    <input type="text" name="name" id="name"
+                        placeholder="Gob" required>
+                    <label for="name">name</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" id="email"
+                        placeholder="email@example.com" required>
+                    <label for="email">e-mail</label>
+                </div>
+            </div>
+        </form>
+    </div>`
+}
+
+
+// ------------------ payment form validation -------------------------
 function formIsValid (inputs) {
     return Array.prototype.reduce.call(inputs, (acc, input) => {
         return acc && input.validity.valid
@@ -25,6 +50,7 @@ Array.prototype.forEach.call(inputs, function (input) {
     })
 })
 // ---------------- /form validation -------------------------
+
 
 Buy()
 
@@ -97,7 +123,7 @@ function Buy () {
     btn.innerHTML = 'pay a dollar'
     btn.addEventListener('click', ev => {
         ev.preventDefault()
-        // console.log('pay a dollar')
+        console.log('pay a dollar')
         paymentForm.requestCardNonce();
     })
 
@@ -105,13 +131,13 @@ function Buy () {
         // build the Square Payment Form only when dom is loaded
         paymentForm.build();
     }
-    
-    //TODO: paste code from step 1.1.5
+
 }
 
+export default Buy
 
 
-// export default Buy
+
 
 // Buy()
 

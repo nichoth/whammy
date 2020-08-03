@@ -119,7 +119,13 @@ Use the order ID to pay for the order with that square order input
 
 [create payment](https://github.com/square/connect-nodejs-sdk/blob/fafefbb7e6b29e31d3ee2f8ac4e5c7ce911352d4/docs/PaymentsApi.md#createPayment)
 
+---------------------------------------------
 
 ## todo
-* need to make a new preact view that gets the card info and make the payment
+* new preact view for shipping address
+* preact view for card info / submit payment
+* both views are in the buy-things route
+
+[walkthrough](https://developer.squareup.com/docs/payment-form/payment-form-walkthrough#22-configure-the-backend-with-your-access-token)
+
 
