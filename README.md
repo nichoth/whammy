@@ -117,6 +117,7 @@ Use the order ID to pay for the order with that square order input
 ## payment
 [pay for order](https://developer.squareup.com/docs/orders-api/pay-for-orders)
 
+[create payment](https://github.com/square/connect-nodejs-sdk/blob/fafefbb7e6b29e31d3ee2f8ac4e5c7ce911352d4/docs/PaymentsApi.md#createPayment)
 
 
 

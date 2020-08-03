@@ -44,7 +44,6 @@ cart.on(EVENTS.cart.remove, function (i) {
 })
 
 function renderTotals (el, cart) {
-    // var el = document.getElementById('cart-totals')
     el.innerHTML = ''
     if (cart.products().length === 0) return
     var subTotal = cart.products().reduce(function (acc, prod) {
@@ -53,7 +52,6 @@ function renderTotals (el, cart) {
             'variations[0].item_variation_data.price_money.amount')
         return acc + price
     }, 0)
-    // subTotal = (subTotal/100).toFixed(2)
 
     function getShipping (l) {
         if (l === 0) return 0
@@ -62,10 +60,6 @@ function renderTotals (el, cart) {
         if (l >= 3 && l <= 8) return 500
         if (l > 8) return 600
     }
-
-    // @TODO cart.state(function onChange (state) {
-    //     // re-render the stuff
-    // })
 
     // var ship = makeDiv('shipping $0')
     el.appendChild(makeDiv('subtotal $' + (subTotal/100).toFixed(2)))
@@ -84,58 +78,55 @@ function makeDiv (text) {
 function renderControls (el, cart) {
     if (cart.products().length < 1) return
 
-    // var link = document.createElement('a')
-    // link.href = '/buy-things'
-    // link.classList.add('buy')
-    // link.appendChild(document.createTextNode('buy things'))
-    // el.appendChild(link)
+    var link = document.createElement('a')
+    link.href = '/buy-things'
+    link.classList.add('buy')
+    link.appendChild(document.createTextNode('buy things'))
+    el.appendChild(link)
 
-    var btn = document.createElement('button')
-    btn.appendChild(document.createTextNode('buy things'))
-    btn.classList.add('buy')
-    el.appendChild(btn)
-    btn.addEventListener('click', function (ev) {
-        ev.preventDefault()
-        console.log('click')
+    // var btn = document.createElement('button')
+    // btn.appendChild(document.createTextNode('buy things'))
+    // btn.classList.add('buy')
+    // el.appendChild(btn)
 
-        var products = cart.products().map(prod => {
-            console.log('prod', prod)
-            return prod
-        })
+    // btn.addEventListener('click', function (ev) {
+    //     ev.preventDefault()
+    //     console.log('click')
 
-        var ids = products.map(function (prod) {
-            return prod.item_data.variations[0].id
-        })
+    //     var ids = cart.products().map(function (prod) {
+    //         console.log('a product', prod)
+    //         return prod.item_data.variations[0].id
+    //     })
 
-        console.log('ids', ids)
+    //     console.log('ids', ids)
 
-        fetch('/.netlify/functions/create-order', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                products: ids.map(function (id) {
-                    return {
-                        catalogObjectId: id,
-                        // @TODO real quantity
-                        itemQuantity: 1
-                    }
-                }),
-                shipping: {
+    //     fetch('/.netlify/functions/create-order', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             products: ids.map(function (id) {
+    //                 return {
+    //                     catalogObjectId: id,
+    //                     // @TODO real quantity
+    //                     itemQuantity: 1
+    //                 }
+    //             }),
+    //             shipping: {
 
-                }
-            })
-        })
-            .then(res => {
-                return res.json().then(function (r) {
-                    console.log('rrrrrrr', r)
-                    window.checkout = r
-                    return r
-                })
-            })
-            .catch((err) => console.error('errrr', err))
-    })
+    //             }
+    //         })
+    //     })
+    //         .then(res => {
+    //             return res.json().then(function (r) {
+    //                 console.log('rrrrrrr', r)
+    //                 window.checkout = r
+    //                 return r
+    //             })
+    //         })
+    //         .catch((err) => console.error('errrr', err))
+    // })
 }
 
 var el = document.getElementById('cart-totals')

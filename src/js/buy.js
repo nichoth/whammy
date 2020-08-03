@@ -1,13 +1,90 @@
 import Cart from '@nichoth/shopping-cart'
 import KEY from './KEY'
+var APP_ID = 'sandbox-sq0idb-SYHgUy2XZm6PJjhsp116Cg'
 // var stripeKey = 'pk_test_51GrU9fGmvbUUvDLHCSTZ5S1cvBn6pKJdo4fBrit12yFXcV8igIQ2ACaNGV2SkHXN4jiklVSRkXOkQdpKLfPh3MKo00i1PbHHID'
 // const stripe = Stripe(stripeKey);
 // var xtend = require('xtend')
 
+Buy()
 
-(function BuyThings () {
+function Buy () {
     var cart = new Cart({ key: KEY })
-})()
+
+    // Create and initialize a payment form object
+    const paymentForm = new SqPaymentForm({
+        applicationId: APP_ID,
+        inputClass: 'sq-input',
+        autoBuild: false,
+        // Customize the CSS for SqPaymentForm iframe elements
+        inputStyles: [{
+            fontSize: '16px',
+            lineHeight: '24px',
+            padding: '16px',
+            placeholderColor: '#a0a0a0',
+            backgroundColor: 'transparent',
+        }],
+        // Initialize the credit card placeholders
+        cardNumber: {
+            elementId: 'sq-card-number',
+            placeholder: 'Card Number'
+        },
+        cvv: {
+            elementId: 'sq-cvv',
+            placeholder: 'CVV'
+        },
+        expirationDate: {
+            elementId: 'sq-expiration-date',
+            placeholder: 'MM/YY'
+        },
+        postalCode: {
+            elementId: 'sq-postal-code',
+            placeholder: 'Postal'
+        },
+        // SqPaymentForm callback functions
+        callbacks: {
+            paymentFormLoaded: function () {
+                console.log('loaded', arguments)
+            },
+
+            /*
+            * callback function: cardNonceResponseReceived
+            * Triggered when: SqPaymentForm completes a card nonce request
+            */
+            cardNonceResponseReceived: function (errors, nonce, cardData) {
+                console.log('got nonce', arguments)
+                if (errors) {
+                    // Log errors from nonce generation to the browser developer
+                    // console.
+                    console.error('Encountered errors:');
+                    errors.forEach(function (error) {
+                        console.error('  ' + error.message);
+                    });
+                    alert('Encountered errors, check browser developer console' +
+                    'for more details');
+                    return;
+                }
+                alert(`The generated nonce is:\n${nonce}`);
+                //TODO: Replace alert with code in step 2.1
+            }
+        }
+    })
+
+    document.getElementById('sq-creditcard').addEventListener('click', ev => {
+        ev.preventDefault()
+        console.log('pay a dollar')
+        paymentForm.requestCardNonce();
+    })
+
+    window.onload = function () {
+        // build the Square Payment Form only when dom is loaded.
+        paymentForm.build();
+    }
+    
+    //TODO: paste code from step 1.1.5
+
+
+
+}
 
 
 

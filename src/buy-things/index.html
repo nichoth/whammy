@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Whammy Analog</title>
+    <link rel="stylesheet" href="/sq-payment-form.css">
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/spinner.css">
+    <script src="https://js.squareupsandbox.com/v2/paymentform"></script>
 </head>
 
 <body id="buy-page">
@@ -21,6 +23,7 @@
         <div id="buy-things-nav">
             <a href="/cart">&lt; cart</a>
         </div>
+
         <div id="buy-forms">
             <form>
                 <div id="shipping">
@@ -65,7 +68,24 @@
 
                 <hr>
 
-                <div id="card-element"></div>
+                <div id="form-container">
+                    <!-- <div id="sq-card-number"></div> -->
+                    <!-- <div class="sq-ccbox">
+                        <div class="sq-field">
+                            <label for="sq-card-number" class="sq-label">
+                                Card number
+                            </label>
+                            <div id="sq-card-number"></div>
+                        </div>
+                    </div> -->
+                    <div id="sq-card-number"></div>
+                    <div class="third" id="sq-expiration-date"></div>
+                    <div class="third" id="sq-cvv"></div>
+                    <div class="third" id="sq-postal-code"></div>
+                    <button id="sq-creditcard" class="button-credit-card">
+                        Pay $1.00
+                    </button>
+                </div> <!-- end #form-container --> 
 
                 <div class="form-controls">
                     <button type="submit">buy them</button>
@@ -75,10 +95,6 @@
         </div>
     </main>
 
-    <!-- <script src="https://js.stripe.com/v3/"></script> -->
-    <!-- <script src="/js/cart-page.js"></script> -->
-    <!-- <script src="https://js.stripe.com/v3/"></script> -->
-    <script src="https://js.squareupsandbox.com/v2/paymentform"></script>
     <script src="/js/buy.js"></script>
 </body>
 </html>

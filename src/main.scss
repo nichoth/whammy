@@ -225,7 +225,7 @@ body.cart-page {
       }
     }
 
-    button.buy {
+    button.buy, a.buy {
       border: 4px solid black;
       text-decoration: none;
       padding: 0.5em;
@@ -244,6 +244,16 @@ body.cart-page {
 // -------------#buy-page------------------------
 
 #buy-page {
+
+  #form-container {
+    margin-top: 8em;
+    // position: relative; 
+    width: 380px;
+    margin: 0 auto;
+    /* top: 50%; */
+    /* transform: translateY(-50%);*/
+  }
+
   #buy-things-nav {
     margin-bottom: 1em;
     a {
