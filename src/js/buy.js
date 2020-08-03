@@ -64,7 +64,7 @@ function Buy () {
         // SqPaymentForm callback functions
         callbacks: {
             paymentFormLoaded: function () {
-                // console.log('loaded', arguments)
+                console.log('loaded', arguments)
             },
 
             /*
@@ -76,13 +76,13 @@ function Buy () {
                 if (errors) {
                     // Log errors from nonce generation to the browser developer
                     // console.
-                    console.error('Encountered errors:');
+                    console.error('Encountered errors:')
                     errors.forEach(function (error) {
                         console.error('  ' + error.message);
-                    });
+                    })
                     alert('Encountered errors, check browser developer console' +
-                    'for more details');
-                    return;
+                    'for more details')
+                    return
                 }
                 alert(`The generated nonce is:\n${nonce}`);
                 //TODO: Replace alert with code in step 2.1
@@ -104,9 +104,6 @@ function Buy () {
     }
     
     //TODO: paste code from step 1.1.5
-
-
-
 }
 
 
