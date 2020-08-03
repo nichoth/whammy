@@ -5,6 +5,27 @@ var APP_ID = 'sandbox-sq0idb-SYHgUy2XZm6PJjhsp116Cg'
 // const stripe = Stripe(stripeKey);
 // var xtend = require('xtend')
 
+// ------------------ form validation -------------------------
+function formIsValid (inputs) {
+    return Array.prototype.reduce.call(inputs, (acc, input) => {
+        return acc && input.validity.valid
+    }, true)
+}
+
+var inputs = document.querySelectorAll('input')
+var btn = document.querySelector('button[type="submit"]')
+btn.disabled = true
+Array.prototype.forEach.call(inputs, function (input) {
+    input.addEventListener('blur', function (ev) {
+        input.classList.add('has-focused')
+    })
+
+    input.addEventListener('input', function (ev) {
+        btn.disabled = !formIsValid(inputs)
+    })
+})
+// ---------------- /form validation -------------------------
+
 Buy()
 
 function Buy () {
@@ -43,7 +64,7 @@ function Buy () {
         // SqPaymentForm callback functions
         callbacks: {
             paymentFormLoaded: function () {
-                console.log('loaded', arguments)
+                // console.log('loaded', arguments)
             },
 
             /*
@@ -69,14 +90,16 @@ function Buy () {
         }
     })
 
-    document.getElementById('sq-creditcard').addEventListener('click', ev => {
+    var btn = document.getElementById('sq-creditcard')
+    btn.innerHTML = 'pay a dollar'
+    btn.addEventListener('click', ev => {
         ev.preventDefault()
-        console.log('pay a dollar')
+        // console.log('pay a dollar')
         paymentForm.requestCardNonce();
     })
 
     window.onload = function () {
-        // build the Square Payment Form only when dom is loaded.
+        // build the Square Payment Form only when dom is loaded
         paymentForm.build();
     }
     
