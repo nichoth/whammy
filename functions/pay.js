@@ -1,12 +1,12 @@
 var SquareConnect = require('square-connect');
 const { randomBytes } = require('crypto')
-// var timestamp = require('monotonic-timestamp')
 const config = require("./config.json")[process.env.NODE_ENV];
 const defaultClient = SquareConnect.ApiClient.instance;
 defaultClient.basePath = config.path;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = config.squareAccessToken;
 
+var orderApi = new SquareConnect.OrdersApi();
 var paymentsApi = new SquareConnect.PaymentsApi();
 var locationId = 'PR4NVQPCRMEYP'
 
@@ -17,6 +17,8 @@ exports.handler = function (ev, ctx, cb) {
         order_ids: [orderId],
     })
     const order = orders[0]
+
+    console.log('**order**', order)
 
     var body = {
         source_id: nonce,

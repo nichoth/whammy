@@ -59,7 +59,7 @@ function Buy () {
         },
         postalCode: {
             elementId: 'sq-postal-code',
-            placeholder: 'Postal'
+            placeholder: 'Zip code'
         },
         // SqPaymentForm callback functions
         callbacks: {
@@ -72,10 +72,13 @@ function Buy () {
             * Triggered when: SqPaymentForm completes a card nonce request
             */
             cardNonceResponseReceived: function (errors, nonce, cardData) {
+
+                // TODO -- in here, call netlify/pay with the nonce, which
+                // calls payments_api.createPayment
+                // https://developer.squareup.com/docs/payment-form/payment-form-walkthrough#22-configure-the-backend-with-your-access-token
+
                 console.log('got nonce', arguments)
                 if (errors) {
-                    // Log errors from nonce generation to the browser developer
-                    // console.
                     console.error('Encountered errors:')
                     errors.forEach(function (error) {
                         console.error('  ' + error.message);
