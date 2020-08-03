@@ -5,32 +5,54 @@ import { render } from 'preact';
 import { useState } from 'preact/hooks';
 var APP_ID = 'sandbox-sq0idb-SYHgUy2XZm6PJjhsp116Cg'
 
-
 function Shipping () {
-    const [state, setState] = useState({});
-
-    return html`<div id="buy-forms">
-        <form>
-            <div id="shipping">
-                <h2>Shipping address</h2>
-
-                <div class="form-group">
-                    <input type="text" name="name" id="name"
-                        placeholder="Gob" required>
-                    <label for="name">name</label>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" id="email"
-                        placeholder="email@example.com" required>
-                    <label for="email">e-mail</label>
-                </div>
+    return html`<form>
+        <div id="shipping">
+            <h2>Shipping address</h2>
+            <div class="form-group">
+                <input type="text" name="name" id="name"
+                    placeholder="Gob" required />
+                <label for="name">name</label>
             </div>
-        </form>
-    </div>`
+            <div class="form-group">
+                <input type="email" name="email" id="email"
+                    placeholder="email@example.com" required />
+                <label for="email">e-mail</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="address" name="address"
+                    placeholder="123 Streetname" required />
+                <label for="address">address</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="city" name="city"
+                    placeholder="Los Angeles" required />
+                <label for="city">city</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="state" name="state"
+                    placeholder="CA" required />
+                <label for="state">state</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="zip-code" name="zip-code"
+                    placeholder="12345" required inputmode="numeric"
+                    pattern="[0-9]*" />
+                <label for="zip-code">zip code</label>
+            </div>
+        </div>
+    </form>`
 }
 
+render(html`<${Shipping} />`, document.getElementById('content'))
 
-// ------------------ payment form validation -------------------------
+
+
+// ------------------ shipping form validation -------------------------
 function formIsValid (inputs) {
     return Array.prototype.reduce.call(inputs, (acc, input) => {
         return acc && input.validity.valid
@@ -171,16 +193,6 @@ export default Buy
 
 
 //     var cart = new Cart({ key: KEY })
-
-//     // var style = {
-//     //     base: { color: "#32325d" }
-//     // }
-//     // var elements = stripe.elements();
-//     // var cardEl = document.getElementById('card-element')
-//     // var card = elements.create('card', { style });
-//     // card.mount(cardEl);
-
-//     buy.card = card
 
 //     function renderWaitingScreen () {
 //         var el = document.getElementById('waiting')
