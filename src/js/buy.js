@@ -5,40 +5,39 @@ import { render, Component } from 'preact'
 import { useState } from 'preact/hooks'
 import Shipping from './shipping'
 
-// var APP_ID = 'sandbox-sq0idb-SYHgUy2XZm6PJjhsp116Cg'
+var APP_ID = 'sandbox-sq0idb-SYHgUy2XZm6PJjhsp116Cg'
 
-// class Payment extends Component {
-//     constructor () {
-//         super()
-//     }
+class Payment extends Component {
+    constructor () {
+        super()
+    }
 
-//     componentDidMount () {
-//         var paymentForm = createPaymentForm()
-//         paymentForm.build();
+    componentDidMount () {
+        var paymentForm = createPaymentForm()
+        paymentForm.build();
 
-//         var btn = document.getElementById('sq-creditcard')
-//         btn.innerHTML = 'pay a dollar'
-//         btn.addEventListener('click', ev => {
-//             ev.preventDefault()
-//             console.log('pay a dollar')
-//             paymentForm.requestCardNonce();
-//         })
+        var btn = document.getElementById('sq-creditcard')
+        btn.innerHTML = 'pay a dollar'
+        btn.addEventListener('click', ev => {
+            ev.preventDefault()
+            console.log('pay a dollar')
+            paymentForm.requestCardNonce();
+        })
+    }
 
-//     }
-
-//     render () {
-//         return html`<div>foo</div>`
-//     }
-// }
+    render () {
+        return html`<div>foo</div>`
+    }
+}
 
 
-// function ShipAndPay () {
-//     var [state, setState] = useState({ step: 0 })
-//     var steps = [Shipping, null]
-//     return html`<${steps[state.step]} />`
-// }
+function ShipAndPay () {
+    var [state, setState] = useState({ step: 0 })
+    var steps = [Shipping, null]
+    return html`<${steps[state.step]} />`
+}
 
-// render(html`<${ShipAndPay} />`, document.getElementById('content'))
+render(html`<${ShipAndPay} />`, document.getElementById('content'))
 
 // // ------------------ shipping form validation -------------------------
 // function formIsValid (inputs) {
@@ -155,9 +154,45 @@ import Shipping from './shipping'
 Buy()
 
 function Buy () {
+    var cart = new Cart({ key: KEY })
     // return an object with a `state` object
     // can attach an object to the window
     var buy = window.buy = { onSubmit, makePayment }
+
+
+
+    var subTotal = cart.products().reduce(function (acc, prod) {
+        console.log('prod', prod)
+        return acc + prod.price
+    }, 0)
+    var products = cart.products()
+    var shippingCost = getShippingCost(products.length)
+    var total = (subTotal + shippingCost)
+
+    var priceString = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    }).format(total.toFixed(2))
+
+    var text = document.createTextNode(cart.products().length +
+        (cart.products().length === 1 ? ' thing — ' : ' things – ') +
+        '$' + subTotal + ' + $' + shippingCost + ' shipping = ' +
+        '$' + priceString)
+
+
+
+
+    // ------------- menu part -----------
+    var menu = document.getElementById('menu')
+    var div = document.createElement('div')
+    div.classList.add('summary')
+    div.appendChild(text)
+    menu.appendChild(div)
+
+
+
+
+
 
     // ---------- form validation -------
 
@@ -183,7 +218,6 @@ function Buy () {
     // ------------------------------------
 
 
-    var cart = new Cart({ key: KEY })
 
     function renderWaitingScreen () {
         var el = document.getElementById('waiting')
@@ -309,30 +343,6 @@ function Buy () {
             console.log('errrrrr', err)
         })
     }
-
-    var subTotal = cart.products().reduce(function (acc, { price }) {
-        return acc + price
-    }, 0)
-    var products = cart.products()
-    var shippingCost = getShippingCost(products.length)
-    var total = (subTotal + shippingCost)
-
-    var priceString = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-    }).format(total.toFixed(2))
-
-    var text = document.createTextNode(cart.products().length +
-        (cart.products().length === 1 ? ' thing — ' : ' things – ') +
-        '$' + subTotal + ' + $' + shippingCost + ' shipping = ' +
-        '$' + priceString)
-
-    // ------------- menu part -----------
-    var menu = document.getElementById('menu')
-    var div = document.createElement('div')
-    div.classList.add('summary')
-    div.appendChild(text)
-    menu.appendChild(div)
 
     return buy
 }
