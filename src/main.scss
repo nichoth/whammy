@@ -243,6 +243,12 @@ body.cart-page {
 
 // -------------#buy-page------------------------
 
+#sq-creditcard {
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
 #buy-page {
   .form-steps {
     margin-top: 1em;

@@ -13,7 +13,6 @@ import price from './price'
 Buy()
 
 function Buy () {
-
     function ShipAndPay ({ products }) {
         var [state, setState] = useState({ step: 0 })
         var [isValid, setValid] = useState(false)
@@ -44,10 +43,7 @@ function Buy () {
 
     var products = cart.products()
     var subTotal = price.subTotal(products)
-    // subTotal = subTotal/100
     var shippingCost = price.shipping(products)
-    // var shippingCost = getShippingCost(products.length)
-    // var total = (subTotal + shippingCost)
     var total = price.total(products)
 
     var priceString = new Intl.NumberFormat('en-US', {
@@ -73,28 +69,6 @@ function Buy () {
     // ------------------------------------
 
 
-    function renderError (err) {
-        var el = document.createElement('div')
-        el.classList.add('error-message')
-        var msg = document.createElement('pre')
-        msg.classList.add('message')
-        if (err.code) {
-            msg.appendChild(document.createTextNode(
-                `ERROR:
-                ${err.code}
-                ${err.decline_code}
-                ${err.doc_url}`
-            ))
-        }
-        el.appendChild(msg)
-        document.body.appendChild(el)
-        function remove () {
-            document.body.removeChild(el)
-        }
-        return remove
-    }
-
-    window.renderError = renderError
     // window.renderWaitingScreen = renderWaitingScreen
 
     // function onSubmit ({ shipping }, makePayment) {
@@ -183,12 +157,4 @@ function Buy () {
             console.log('errrrrr', err)
         })
     }
-}
-
-function getShippingCost (l) {
-    if (l === 0) return 0
-    if (l === 1) return 3
-    if (l === 2) return 4
-    if (l >= 3 && l <= 8) return 5
-    if (l > 8) return 6
 }

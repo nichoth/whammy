@@ -3,9 +3,24 @@ import { Component } from 'preact'
 import price from './price'
 var APP_ID = 'sandbox-sq0idb-SYHgUy2XZm6PJjhsp116Cg'
 
+// var hasLoaded = false
+var doneWaiting
+
+// test card
+// 4111 1111 1111 1111    CVV: 111
+
+var setState
+
 class Payment extends Component {
     constructor () {
         super()
+        // this.state.time = Date.now();
+        this.state = {}
+        this.state.hasLoaded = false
+        var self = this
+        setState = function (obj) {
+            self.setState(obj)
+        }
     }
 
     componentDidMount () {
@@ -14,6 +29,7 @@ class Payment extends Component {
 
         var btn = document.getElementById('sq-creditcard')
         btn.addEventListener('click', ev => {
+            doneWaiting = renderWaitingScreen()
             ev.preventDefault()
             console.log('pay a dollar click')
             paymentForm.requestCardNonce();
@@ -21,7 +37,6 @@ class Payment extends Component {
     }
 
     render (props) {
-        console.log('in here', props)
         var { products } = props
         var total = price.total(products)
 
@@ -30,7 +45,8 @@ class Payment extends Component {
             <div class="third" id="sq-expiration-date"></div>
             <div class="third" id="sq-cvv"></div>
             <div class="third" id="sq-postal-code"></div>
-            <button id="sq-creditcard" class="button-credit-card">
+            <button id="sq-creditcard" class="button-credit-card"
+                disabled=${!this.state.hasLoaded}>
                 pay ${price.format(total)}
             </button>
         </div>`
@@ -54,6 +70,29 @@ function renderWaitingScreen () {
     return doneWaiting
 }
 
+function renderError (err) {
+    var el = document.createElement('div')
+    el.classList.add('error-message')
+    var msg = document.createElement('pre')
+    msg.classList.add('message')
+    if (err.code) {
+        msg.appendChild(document.createTextNode(
+            `ERROR:
+            ${err.code}
+            ${err.decline_code}
+            ${err.doc_url}`
+        ))
+    }
+    el.appendChild(msg)
+    document.body.appendChild(el)
+    function remove () {
+        document.body.removeChild(el)
+    }
+    return remove
+}
+
+window.renderError = renderError
+window.renderWaitingScreen = renderWaitingScreen
 
 function createPaymentForm (orderId) {
     return new SqPaymentForm({
@@ -89,6 +128,7 @@ function createPaymentForm (orderId) {
         callbacks: {
             paymentFormLoaded: function () {
                 console.log('loaded', arguments)
+                setState({ hasLoaded: true })
             },
 
             /*
@@ -105,6 +145,7 @@ function createPaymentForm (orderId) {
                     errors.forEach(function (error) {
                         console.error('  ' + error.message);
                     })
+                    doneWaiting()
                     return alert('Encountered errors, check ' +
                         'console for more details')
                 }
@@ -112,7 +153,6 @@ function createPaymentForm (orderId) {
                 console.log('got nonce', arguments)
                 alert(`The generated nonce is:\n${nonce}`);
 
-                var doneWaiting = renderWaitingScreen()
                 fetch('/.netlify/functions/pay', {
                     method: 'POST',
                     body: JSON.stringify({
