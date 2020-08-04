@@ -40,38 +40,31 @@ class Payment extends Component {
 
 function ShipAndPay () {
     var [state, setState] = useState({ step: 0 })
+    var [isValid, setValid] = useState(false)
     var steps = [Shipping, Payment]
+
+    function validChange (_isValid) {
+        console.log('valid change', _isValid)
+        setValid(_isValid)
+    }
+
     return html`<div>
-        <${steps[state.step]} />
-        ${state.step === 0 ?
-            html`<button onClick=${() => setState({ step: 1 })}>pay</button>` :
-            null
-        }
+        <${steps[state.step]} onValidityChange=${validChange} />
+        <div className="form-steps">
+            ${state.step === 0 ?
+                (html`<button className="next-step"
+                    disabled=${!isValid}
+                    onClick=${() => setState({ step: 1 })}
+                >
+                    pay >
+                </button>`) :
+                null
+            }
+        </div>
     </div>`
 }
 
 render(html`<${ShipAndPay} />`, document.getElementById('content'))
-
-// // ------------------ shipping form validation -------------------------
-// function formIsValid (inputs) {
-//     return Array.prototype.reduce.call(inputs, (acc, input) => {
-//         return acc && input.validity.valid
-//     }, true)
-// }
-
-// var inputs = document.querySelectorAll('input')
-// var btn = document.querySelector('button[type="submit"]')
-// btn.disabled = true
-// Array.prototype.forEach.call(inputs, function (input) {
-//     // input.addEventListener('blur', function (ev) {
-//     //     input.classList.add('has-focused')
-//     // })
-
-//     input.addEventListener('input', function (ev) {
-//         btn.disabled = !formIsValid(inputs)
-//     })
-// })
-// // ---------------- /form validation -------------------------
 
 
 function createPaymentForm () {
@@ -140,15 +133,13 @@ Buy()
 
 function Buy () {
     var cart = new Cart({ key: KEY })
-    // return an object with a `state` object
-    // can attach an object to the window
     var buy = window.buy = { makePayment }
 
-    var subTotal = cart.products().reduce(function (acc, prod) {
+    var products = cart.products()
+    var subTotal = products.reduce(function (acc, prod) {
         console.log('prod', prod)
         return acc + prod.price
     }, 0)
-    var products = cart.products()
     var shippingCost = getShippingCost(products.length)
     var total = (subTotal + shippingCost)
 

@@ -245,6 +245,25 @@ body.cart-page {
 
 #buy-page {
 
+  .form-steps {
+    margin-top: 1em;
+    text-align: right;
+
+    button {
+      padding: 0;
+      background: none;
+      font-size: 2em;
+      border-bottom: 5px solid black;
+      transition: all 1s;
+      // background: radial-gradient(transparent, transparent);
+      &:hover {
+        color: cyan;
+        border-color: cyan;
+        // background: radial-gradient(cyan, transparent);
+      }
+    }
+  }
+
   #form-container {
     margin-top: 8em;
     // position: relative; 
