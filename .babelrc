@@ -1,6 +1,0 @@
-{"plugins":[
-    ["babel-plugin-htm", {
-        "import": "preact"
-    }]
-]}
-
