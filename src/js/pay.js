@@ -31,7 +31,7 @@ class Payment extends Component {
             <div class="third" id="sq-cvv"></div>
             <div class="third" id="sq-postal-code"></div>
             <button id="sq-creditcard" class="button-credit-card">
-                pay $${price.format(total)}
+                pay ${price.format(total)}
             </button>
         </div>`
     }
