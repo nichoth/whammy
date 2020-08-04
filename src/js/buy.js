@@ -4,6 +4,9 @@ import { html } from 'htm/preact'
 import { render, Component } from 'preact'
 import { useState } from 'preact/hooks'
 import Shipping from './shipping'
+var _ = {
+    get: require('lodash/get')
+}
 
 var APP_ID = 'sandbox-sq0idb-SYHgUy2XZm6PJjhsp116Cg'
 
@@ -138,8 +141,11 @@ function Buy () {
     var products = cart.products()
     var subTotal = products.reduce(function (acc, prod) {
         console.log('prod', prod)
-        return acc + prod.price
+        return (acc +
+            _.get(prod,
+                'item_data.variations[0].item_variation_data.price_money.amount'))
     }, 0)
+    subTotal = subTotal/100
     var shippingCost = getShippingCost(products.length)
     var total = (subTotal + shippingCost)
 
@@ -150,8 +156,7 @@ function Buy () {
 
     var text = document.createTextNode(cart.products().length +
         (cart.products().length === 1 ? ' thing — ' : ' things – ') +
-        '$' + subTotal + ' + $' + shippingCost + ' shipping = ' +
-        '$' + priceString)
+        '$' + subTotal + ' + $' + shippingCost + ' shipping = ' + priceString)
 
     // ------------- menu part -----------
     var menu = document.getElementById('menu')

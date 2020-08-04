@@ -59,7 +59,6 @@ class Shipping extends Component {
             input.classList.add('has-focused')
         }
 
-
         return html`<form ref=${this.setRef}>
             <div id="shipping">
                 <h2>Shipping address</h2>
