@@ -139,22 +139,22 @@ function Buy () {
     //         })
     // }
 
-    function pay ({ shipping, paymentMethodID, products }) {
-        return fetch('/.netlify/functions/create-order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                shipping,
-                paymentMethodID,
-                // @TODO -- use a real quantity input
-                products
-            })
-        })
-        .then(function (result) {
-            return result.json()
-        })
-        .catch(function(err) {
-            console.log('errrrrr', err)
-        })
-    }
+    // function pay ({ shipping, paymentMethodID, products }) {
+    //     return fetch('/.netlify/functions/create-order', {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({
+    //             shipping,
+    //             paymentMethodID,
+    //             // @TODO -- use a real quantity input
+    //             products
+    //         })
+    //     })
+    //     .then(function (result) {
+    //         return result.json()
+    //     })
+    //     .catch(function(err) {
+    //         console.log('errrrrr', err)
+    //     })
+    // }
 }
