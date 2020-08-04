@@ -1,8 +1,6 @@
 import { Component } from 'preact'
 import { html } from 'htm/preact';
 
-
-
 // function formIsValid (inputs) {
 //     return Array.prototype.reduce.call(inputs, (acc, input) => {
 //         return acc && input.validity.valid
