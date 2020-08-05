@@ -17,7 +17,8 @@ function Buy () {
     var cart = new Cart({ key: KEY })
 
     function ShipAndPay ({ products }) {
-        var [state, setState] = useState({ step: 0 })
+        var [step, setStep] = useState(0)
+        var [orderID, setOrderID] = useState(null)
         var [isValid, setValid] = useState(false)
         var steps = [Shipping, Payment]
 
@@ -26,15 +27,11 @@ function Buy () {
         }
 
         function onAdvance (ev) {
-            setState({ step: 1 })
+            setStep(1)
         }
 
-        function onGotShipping(shipping) {
+        function onGotShipping (shipping) {
             console.log('got shipping', shipping)
-
-
-
-
 
             fetch('/.netlify/functions/create-order', {
                 method: 'POST',
@@ -45,36 +42,30 @@ function Buy () {
                     products
                 })
             })
-            .then(function (res) {
-                console.log('res', res)
-                res.json().then(r => {
-                    console.log('creating', r)
-                    if (r && r.response && r.response.text) {
-                        console.log('aaaaaa', r.response.text)
-                    }
+                .then(function (res) {
+                    res.json().then(r => {
+                        console.log('creating', r)
+                        setOrderID(r.order.id)
+                        if (r && r.response && r.response.text) {
+                            console.log('aaaaaa', r.response.text)
+                        }
+                    })
                 })
-            })
-            .catch(function(err) {
-                console.log('errrrrr', err)
-            })
-
-
-
-
-
-
+                .catch(function(err) {
+                    console.log('errrrrr', err)
+                })
         }
 
-        var orderID = null
+        console.log('orderID', orderID)
 
         return html`<div>
-            <${steps[state.step]} onValidityChange=${validChange}
+            <${steps[step]} onValidityChange=${validChange}
                 onGotShipping=${onGotShipping}
                 products=${products}
                 orderID=${orderID}
             />
             <div className="form-steps">
-                ${state.step === 0 ?
+                ${step === 0 ?
                     (html`<button className="next-step"
                         disabled=${!isValid}
                         onClick=${onAdvance}
