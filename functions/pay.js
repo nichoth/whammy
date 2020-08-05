@@ -18,9 +18,6 @@ exports.handler = async function (ev, ctx, cb) {
         order_ids: [orderId],
     })
     var { orders } = res
-    console.log('***order id***', orderId)
-    console.log('***res***', res)
-    console.log('**orders**', orders)
 
     const order = orders[0]
 
