@@ -16,6 +16,8 @@ exports.handler = function (ev, ctx, cb) {
     var locationId = 'PR4NVQPCRMEYP'
     var { products, shipping, email } = JSON.parse(ev.body)
 
+    console.log('***products***', products)
+
     // see
     // https://developer.squareup.com/reference/square/orders-api/create-order
     // https://developer.squareup.com/docs/orders-api/create-orders#add-fulfillment-details
@@ -47,7 +49,7 @@ exports.handler = function (ev, ctx, cb) {
                             last_name: shipping.lastName,
                             postal_code: shipping.zipCode
                         },
-                        display_name: shipping.address1,
+                        display_name: 'foo',
                         email_address: email
                     }
                 },

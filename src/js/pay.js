@@ -24,7 +24,8 @@ class Payment extends Component {
     }
 
     componentDidMount () {
-        var paymentForm = this.paymentForm = createPaymentForm()
+        var { orderID } = this.props
+        var paymentForm = this.paymentForm = createPaymentForm(orderID)
         paymentForm.build();
 
         var btn = document.getElementById('sq-creditcard')

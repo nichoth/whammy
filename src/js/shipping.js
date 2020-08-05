@@ -19,7 +19,7 @@ class Shipping extends Component {
             acc[input['name']] = input.value
             return acc
         }, {})
-        this.props.onAdvance(shipping)
+        this.props.onGotShipping(shipping)
     }
 
     componentDidMount () {
@@ -33,7 +33,6 @@ class Shipping extends Component {
 
         var self = this
         function handleInput (ev) {
-            console.log('ev', ev.target.value)
             var _isValid = formIsValid(inputs)
             if (_isValid !== isValid) {
                 self.props.onValidityChange(_isValid)

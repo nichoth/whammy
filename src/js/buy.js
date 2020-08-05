@@ -12,7 +12,10 @@ import price from './price'
 
 Buy()
 
+
 function Buy () {
+    var cart = new Cart({ key: KEY })
+
     function ShipAndPay ({ products }) {
         var [state, setState] = useState({ step: 0 })
         var [isValid, setValid] = useState(false)
@@ -24,17 +27,46 @@ function Buy () {
 
         function onAdvance (ev) {
             setState({ step: 1 })
-            // call create-order here
         }
 
         function onGotShipping(shipping) {
             console.log('got shipping', shipping)
+
+            // call create-order here
+
+
+
+            fetch('/.netlify/functions/create-order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    shipping,
+                    // @TODO -- use a real quantity input
+                    products
+                })
+            })
+            .then(function (res) {
+                console.log('create order res', res)
+                res.json().then(r => {
+                    console.log('aaaaaa', r.response.text)
+                    console.log('creating', r)
+                })
+            })
+            .catch(function(err) {
+                console.log('errrrrr', err)
+            })
+
+
+
         }
+
+        var orderID = null
 
         return html`<div>
             <${steps[state.step]} onValidityChange=${validChange}
-                onAdvance=${onGotShipping}
+                onGotShipping=${onGotShipping}
                 products=${products}
+                orderID=${orderID}
             />
             <div className="form-steps">
                 ${state.step === 0 ?
@@ -50,7 +82,6 @@ function Buy () {
         </div>`
     }
 
-    var cart = new Cart({ key: KEY })
 
     var products = cart.products()
     var subTotal = price.subTotal(products)
@@ -62,8 +93,8 @@ function Buy () {
         currency: 'USD'
     }).format((total/100).toFixed(2))
 
-    var text = document.createTextNode(cart.products().length +
-        (cart.products().length === 1 ? ' thing — ' : ' things – ') +
+    var text = document.createTextNode(products.length +
+        (products.length === 1 ? ' thing — ' : ' things – ') +
             '$' + subTotal/100 + ' + $' + shippingCost/100 + ' shipping = ' +
             priceString)
 
