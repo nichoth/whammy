@@ -26,7 +26,8 @@ exports.handler = function (ev, ctx, cb) {
         include_related_objects: true
     })
         .then(res => {
-            // console.log('***cat res***', res)
+            // todo -- in here, map the resp with the req body so you can
+            // get the desired quantity for each
             createOrder(createOrderReqBody(res.objects))
             return res.objects
         })
@@ -53,7 +54,9 @@ exports.handler = function (ev, ctx, cb) {
                 line_items: products.map(p => {
                     var _prod = xtend(p, {
                         name: p.item_data.name,
+                        // @TODO -- use a real quantity
                         quantity: '1',
+                        // @TODO -- get this from the product object
                         "base_price_money": {
                             "amount": 1599,
                             "currency": "USD"
@@ -62,13 +65,6 @@ exports.handler = function (ev, ctx, cb) {
                     return _prod
                 }),
                 
-                // products.map(prod => {
-                //     return {
-                //         quantity: '1',
-                //         catalog_object_id: prod.catalogObjectId
-                //         // base_price_money: 1000
-                //     }
-                // }),
                 fulfillments: [{
                     type: 'SHIPMENT',
                     shipment_details: {

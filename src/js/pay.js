@@ -38,8 +38,8 @@ class Payment extends Component {
     }
 
     render (props) {
-        var { products } = props
-        var total = price.total(products)
+        var { products, orderID } = props
+        var total = price.total(products, orderID)
 
         return html`<div id="form-container">
             <div id="sq-card-number"></div>
