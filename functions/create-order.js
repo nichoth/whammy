@@ -22,7 +22,7 @@ exports.handler = function (ev, ctx, cb) {
 
     var orderRequestBody = {
         // Unique identifier for request
-        idempotency_key: randomBytes(45).toString("hex"),
+        idempotency_key: randomBytes(45).toString('hex'),
         order: {
             line_items: products.map(prod => {
                 return {
@@ -47,7 +47,7 @@ exports.handler = function (ev, ctx, cb) {
                             last_name: shipping.lastName,
                             postal_code: shipping.zipCode
                         },
-                        display_name: 'foo',
+                        display_name: shipping.address1,
                         email_address: email
                     }
                 },

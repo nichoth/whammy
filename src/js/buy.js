@@ -22,14 +22,25 @@ function Buy () {
             setValid(_isValid)
         }
 
+        function onAdvance (ev) {
+            setState({ step: 1 })
+            // call create-order here
+        }
+
+        function onGotShipping(shipping) {
+            console.log('got shipping', shipping)
+        }
+
         return html`<div>
             <${steps[state.step]} onValidityChange=${validChange}
-                products=${products} />
+                onAdvance=${onGotShipping}
+                products=${products}
+            />
             <div className="form-steps">
                 ${state.step === 0 ?
                     (html`<button className="next-step"
                         disabled=${!isValid}
-                        onClick=${() => setState({ step: 1 })}
+                        onClick=${onAdvance}
                     >
                         pay >
                     </button>`) :
@@ -68,8 +79,6 @@ function Buy () {
     menu.appendChild(div)
     // ------------------------------------
 
-
-    // window.renderWaitingScreen = renderWaitingScreen
 
     // function onSubmit ({ shipping }, makePayment) {
     //     var doneWaiting = renderWaitingScreen()

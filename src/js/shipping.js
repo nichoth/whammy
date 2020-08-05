@@ -1,24 +1,6 @@
 import { Component } from 'preact'
 import { html } from 'htm/preact';
 
-// function formIsValid (inputs) {
-//     return Array.prototype.reduce.call(inputs, (acc, input) => {
-//         return acc && input.validity.valid
-//     }, true)
-// }
-
-// Array.prototype.forEach.call(inputs, function (input) {
-//     // input.addEventListener('blur', function (ev) {
-//     //     input.classList.add('has-focused')
-//     // })
-
-//     input.addEventListener('input', function (ev) {
-//         btn.disabled = !formIsValid(inputs)
-//     })
-// })
-
-
-var isValid = false
 function formIsValid (inputs) {
     return Array.prototype.reduce.call(inputs, (acc, input) => {
         return acc && input.validity.valid
@@ -29,12 +11,21 @@ class Shipping extends Component {
     ref = null;
     setRef = (dom) => this.ref = dom;
 
+    componentWillUnmount () {
+        // use this hook to send the shipping state to the parent
+        var inputs = this.ref.querySelectorAll('input')
+        var shipping = Array.prototype.reduce.call(inputs, (acc, input) => {
+            console.log('value', input.value)
+            acc[input['name']] = input.value
+            return acc
+        }, {})
+        this.props.onAdvance(shipping)
+    }
+
     componentDidMount () {
         if (!this.ref) return
+        var isValid = false
         var inputs = this.ref.querySelectorAll('input')
-        console.log('inputs', inputs)
-        console.log('ref', this.ref)
-        console.log('props', this.props)
 
         Array.prototype.forEach.call(inputs, function (input) {
             input.addEventListener('input', handleInput)

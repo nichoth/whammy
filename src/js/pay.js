@@ -31,7 +31,7 @@ class Payment extends Component {
         btn.addEventListener('click', ev => {
             doneWaiting = renderWaitingScreen()
             ev.preventDefault()
-            console.log('pay a dollar click')
+            console.log('payment click')
             paymentForm.requestCardNonce();
         })
     }
