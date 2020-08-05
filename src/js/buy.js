@@ -32,7 +32,7 @@ function Buy () {
         function onGotShipping(shipping) {
             console.log('got shipping', shipping)
 
-            // call create-order here
+
 
 
 
@@ -46,15 +46,20 @@ function Buy () {
                 })
             })
             .then(function (res) {
-                console.log('create order res', res)
+                console.log('res', res)
                 res.json().then(r => {
-                    console.log('aaaaaa', r.response.text)
                     console.log('creating', r)
+                    if (r && r.response && r.response.text) {
+                        console.log('aaaaaa', r.response.text)
+                    }
                 })
             })
             .catch(function(err) {
                 console.log('errrrrr', err)
             })
+
+
+
 
 
 
