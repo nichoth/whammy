@@ -23,23 +23,26 @@ class Payment extends Component {
         }
     }
 
-    componentDidMount () {
+    componentDidUpdate (prevProps) {
         var { orderID } = this.props
+        if (!orderID) return
+        if (prevProps.orderID) return
         var paymentForm = this.paymentForm = createPaymentForm(orderID)
         paymentForm.build();
 
         var btn = document.getElementById('sq-creditcard')
-        btn.addEventListener('click', ev => {
-            doneWaiting = renderWaitingScreen()
-            ev.preventDefault()
-            console.log('payment click')
-            paymentForm.requestCardNonce();
-        })
+        // btn.addEventListener('click', ev => {
+        //     doneWaiting = renderWaitingScreen()
+        //     ev.preventDefault()
+        //     console.log('payment click', orderID)
+        //     paymentForm.requestCardNonce();
+        // })
     }
 
     render (props) {
         var { products, orderID } = props
         var total = price.total(products, orderID)
+        console.log('in render order id', props.orderID)
 
         return html`<div id="form-container">
             <div id="sq-card-number"></div>
@@ -47,7 +50,14 @@ class Payment extends Component {
             <div class="third" id="sq-cvv"></div>
             <div class="third" id="sq-postal-code"></div>
             <button id="sq-creditcard" class="button-credit-card"
-                disabled=${!this.state.hasLoaded}>
+                disabled=${!this.state.hasLoaded}
+                onclick=${ev => {
+                    ev.preventDefault()
+                    doneWaiting = renderWaitingScreen()
+                    this.paymentForm.requestCardNonce()
+                    console.log('payment click', orderID)
+                }}
+            >
                 pay ${price.format(total)}
             </button>
         </div>`
@@ -158,11 +168,13 @@ function createPaymentForm (orderId) {
                     method: 'POST',
                     body: JSON.stringify({
                         nonce: nonce,
+                        // in here, this is null and it's not supposed to be
                         orderId: orderId
                     })
                 })
                     .then(res => {
                         console.log('pay res', res)
+                        res.json().then(r => console.log('json', r))
                         doneWaiting()
                     })
                     .catch(err => {

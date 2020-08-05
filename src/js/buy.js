@@ -44,10 +44,10 @@ function Buy () {
             })
                 .then(function (res) {
                     res.json().then(r => {
-                        console.log('creating', r)
+                        console.log('******creating****', r)
                         setOrderID(r.order.id)
                         if (r && r.response && r.response.text) {
-                            console.log('aaaaaa', r.response.text)
+                            console.log('aaaaaaaaaaa', r.response.text)
                         }
                     })
                 })
@@ -56,7 +56,7 @@ function Buy () {
                 })
         }
 
-        console.log('orderID', orderID)
+        // console.log('orderID', orderID)
 
         return html`<div>
             <${steps[step]} onValidityChange=${validChange}
