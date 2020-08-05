@@ -27,7 +27,7 @@ exports.handler = function (ev, ctx, cb) {
     ]
 
     var _body = createBody({ locationId, lineItems })
-    console.log('***___body***', _body)
+    // console.log('***___body***', _body)
 
     var body = new SquareConnect.CreateCheckoutRequest(idempotencyKey, _body)
     console.log('***body***', body)
@@ -67,12 +67,12 @@ exports.handler = function (ev, ctx, cb) {
     //     })
 
     checkoutApi.createCheckout(locationId, body)
-        .then(function (data) {
-            console.log('**checkout successful**', data);
-            console.log('******shipping*****', data.checkout.ask_for_shipping_address)
+        .then(function (res) {
+            console.log('**checkout successful**', res);
+            console.log('******shipping*****', res.checkout.ask_for_shipping_address)
             return cb(null, {
                 statusCode: 200,
-                body: JSON.stringify(data)
+                body: JSON.stringify(res)
             })
         }, function onErr (err) {
             console.error('errriii', err);
@@ -85,11 +85,11 @@ exports.handler = function (ev, ctx, cb) {
 
 function createBody ({ locationId, lineItems }) {
     return {
-        "idempotency_key": "86ae1696-b1e3-4328-af6d-f1e04d947ad6",
+        "idempotency_key": '' + randomBytes(45),
         "redirect_url": "http://localhost:8888/",
         "ask_for_shipping_address": true,
         "order": {
-            "idempotency_key": "12ae1696-z1e3-4328-af6d-f1e04d947gd4",
+            "idempotency_key": '' + randomBytes(45),
             "location_id": locationId,
             "line_items": lineItems.map(item => {
                 return xtend(item, { quantity: item.quantity + '' })

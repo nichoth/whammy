@@ -120,7 +120,7 @@ function renderControls (el, cart) {
         })
             .then(res => {
                 return res.json().then(function (r) {
-                    console.log('rrrrrrr', r)
+                    console.log('***res***', r)
                     window.checkout = r
                     return r
                 })
