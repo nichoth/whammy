@@ -17,7 +17,7 @@ exports.handler = function (ev, ctx, cb) {
     // sandbox loca'tion
     var locationId = 'PR4NVQPCRMEYP'
     var { catalog_object_ids } = JSON.parse(ev.body)
-    var idempotencyKey = '' + randomBytes(45)
+    var idempotencyKey = '' + randomBytes(20)
 
     var lineItems = [
         {
@@ -85,11 +85,11 @@ exports.handler = function (ev, ctx, cb) {
 
 function createBody ({ locationId, lineItems }) {
     return {
-        "idempotency_key": '' + randomBytes(45),
+        "idempotency_key": '' + randomBytes(20),
         "redirect_url": "http://localhost:8888/",
         "ask_for_shipping_address": true,
         "order": {
-            "idempotency_key": '' + randomBytes(45),
+            "idempotency_key": '' + randomBytes(20),
             "location_id": locationId,
             "line_items": lineItems.map(item => {
                 return xtend(item, { quantity: item.quantity + '' })
