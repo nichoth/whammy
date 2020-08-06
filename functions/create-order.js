@@ -28,7 +28,8 @@ exports.handler = function (ev, ctx, cb) {
         .then(res => {
             // todo -- in here, map the resp with the req body so you can
             // get the desired quantity for each
-            createOrder(createOrderReqBody(res.objects))
+            var orderReq = createOrderReqBody(res.objects)
+            createOrder(orderReq)
             return res.objects
         })
         .catch(err => {
@@ -47,10 +48,13 @@ exports.handler = function (ev, ctx, cb) {
     // https://developer.squareup.com/docs/orders-api/create-orders#add-fulfillment-details
 
     function createOrderReqBody (products) {
-        var price = products[0].item_data.variations[0].item_variation_data
-            .price_money
+        var totPrice = products.reduce(function (acc, prod) {
+            var itemPrice = (prod.item_data.variations[0].item_variation_data
+                .price_money.amount)
+            return acc + itemPrice
+        }, 0)
 
-        return  {
+        return {
             // Unique identifier for request
             idempotency_key: randomBytes(22).toString('hex'),
             order: {
@@ -60,7 +64,10 @@ exports.handler = function (ev, ctx, cb) {
                         // @TODO -- use a real quantity
                         quantity: '1',
                         // @TODO -- get this from the product object
-                        "base_price_money": price
+                        "base_price_money": {
+                            amount: totPrice,
+                            currency: 'USD'
+                        }
                     })
                     return _prod
                 }),

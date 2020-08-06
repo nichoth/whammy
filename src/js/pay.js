@@ -147,7 +147,6 @@ function createPaymentForm (orderId) {
             * Triggered when: SqPaymentForm completes a card nonce request
             */
             cardNonceResponseReceived: function (errors, nonce, cardData) {
-
                 // TODO -- in here, call netlify/pay with the nonce, which
                 // calls payments_api.createPayment
                 // https://developer.squareup.com/docs/payment-form/payment-form-walkthrough#22-configure-the-backend-with-your-access-token
