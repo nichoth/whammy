@@ -66,11 +66,10 @@ exports.handler = function (ev, ctx, cb) {
             order: {
                 line_items: products.map(p => {
                     return {
-                        // name: p.item_data.name,
-                        // "catalog_object_id": p.id,
                         "catalog_object_id": p.item_data.variations[0].id,
                         "quantity": "1"
                     }
+
                     // var _prod = xtend(p, {
                     //     name: p.item_data.name,
                     //     // @TODO -- use a real quantity
