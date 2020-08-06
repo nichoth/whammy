@@ -1,6 +1,6 @@
 import { html } from 'htm/preact'
 import { Component } from 'preact'
-import price from './price'
+var price = require('./price')
 var APP_ID = 'sandbox-sq0idb-SYHgUy2XZm6PJjhsp116Cg'
 
 // var hasLoaded = false

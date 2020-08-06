@@ -36,7 +36,14 @@ function format (n) {
     return priceString
 }
 
-export default {
+// export default {
+//     subTotal,
+//     shipping: getShippingCost,
+//     total,
+//     format
+// }
+
+module.exports = {
     subTotal,
     shipping: getShippingCost,
     total,

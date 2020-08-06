@@ -8,7 +8,7 @@ import Payment from './pay'
 var _ = {
     get: require('lodash/get')
 }
-import price from './price'
+var price = require('./price')
 
 Buy()
 

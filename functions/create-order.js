@@ -1,10 +1,11 @@
 // var xtend = require('xtend')
 const { randomBytes } = require('crypto')
 // var fetch = require('node-fetch');
-var SquareConnect = require('square-connect');
+var SquareConnect = require('square-connect')
 const xtend = require('xtend');
 // var timestamp = require('monotonic-timestamp')
 const config = require("./config.json")[process.env.NODE_ENV];
+var price = require('../src/js/price')
 const defaultClient = SquareConnect.ApiClient.instance;
 var oauth2 = defaultClient.authentications['oauth2'];
 defaultClient.basePath = config.path;
@@ -48,28 +49,39 @@ exports.handler = function (ev, ctx, cb) {
     // https://developer.squareup.com/docs/orders-api/create-orders#add-fulfillment-details
 
     function createOrderReqBody (products) {
-        var totPrice = products.reduce(function (acc, prod) {
+        var subTot = products.reduce(function (acc, prod) {
             var itemPrice = (prod.item_data.variations[0].item_variation_data
                 .price_money.amount)
             return acc + itemPrice
         }, 0)
+        var totPrice = subTot + price.shipping(products)
+
+        console.log('****products****', products)
+        console.log('****products var****', products[0].item_data.variations[0])
+        // console.log(products[0].item_data.variations[0])
 
         return {
             // Unique identifier for request
             idempotency_key: randomBytes(22).toString('hex'),
             order: {
                 line_items: products.map(p => {
-                    var _prod = xtend(p, {
-                        name: p.item_data.name,
-                        // @TODO -- use a real quantity
-                        quantity: '1',
-                        // @TODO -- get this from the product object
-                        "base_price_money": {
-                            amount: totPrice,
-                            currency: 'USD'
-                        }
-                    })
-                    return _prod
+                    return {
+                        // name: p.item_data.name,
+                        // "catalog_object_id": p.id,
+                        "catalog_object_id": p.item_data.variations[0].id,
+                        "quantity": "1"
+                    }
+                    // var _prod = xtend(p, {
+                    //     name: p.item_data.name,
+                    //     // @TODO -- use a real quantity
+                    //     quantity: '1',
+                    //     // @TODO -- get this from the product object
+                    //     "base_price_money": {
+                    //         amount: totPrice,
+                    //         currency: 'USD'
+                    //     }
+                    // })
+                    // return _prod
                 }),
                 
                 fulfillments: [{
