@@ -11,7 +11,7 @@ var paymentsApi = new SquareConnect.PaymentsApi();
 var locationId = 'PR4NVQPCRMEYP'
 
 exports.handler = function (ev, ctx, cb) {
-    console.log('***req***', ev.body)
+    // console.log('***req***', ev.body)
     var { nonce, orderId } = JSON.parse(ev.body)
 
     orderApi.batchRetrieveOrders(locationId, { order_ids: [orderId] })

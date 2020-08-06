@@ -30,7 +30,7 @@ class Payment extends Component {
         var paymentForm = this.paymentForm = createPaymentForm(orderID)
         paymentForm.build();
 
-        var btn = document.getElementById('sq-creditcard')
+        // var btn = document.getElementById('sq-creditcard')
         // btn.addEventListener('click', ev => {
         //     doneWaiting = renderWaitingScreen()
         //     ev.preventDefault()

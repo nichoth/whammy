@@ -47,9 +47,12 @@ exports.handler = function (ev, ctx, cb) {
     // https://developer.squareup.com/docs/orders-api/create-orders#add-fulfillment-details
 
     function createOrderReqBody (products) {
+        var price = products[0].item_data.variations[0].item_variation_data
+            .price_money
+
         return  {
             // Unique identifier for request
-            idempotency_key: randomBytes(45).toString('hex'),
+            idempotency_key: randomBytes(22).toString('hex'),
             order: {
                 line_items: products.map(p => {
                     var _prod = xtend(p, {
@@ -57,10 +60,7 @@ exports.handler = function (ev, ctx, cb) {
                         // @TODO -- use a real quantity
                         quantity: '1',
                         // @TODO -- get this from the product object
-                        "base_price_money": {
-                            "amount": 1599,
-                            "currency": "USD"
-                        }
+                        "base_price_money": price
                     })
                     return _prod
                 }),
