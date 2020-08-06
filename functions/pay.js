@@ -10,40 +10,77 @@ var orderApi = new SquareConnect.OrdersApi();
 var paymentsApi = new SquareConnect.PaymentsApi();
 var locationId = 'PR4NVQPCRMEYP'
 
-exports.handler = async function (ev, ctx, cb) {
+exports.handler = function (ev, ctx, cb) {
     console.log('***req***', ev.body)
     var { nonce, orderId } = JSON.parse(ev.body)
 
-    const res = await orderApi.batchRetrieveOrders(locationId, {
-        order_ids: [orderId],
-    })
-    var { orders } = res
+    orderApi.batchRetrieveOrders(locationId, { order_ids: [orderId] })
+        .then(res => {
+            // console.log('***retrieve orders res***', res)
+            var { orders } = res
+            var order = orders[0]
+            makePayment(nonce, order)
+        })
+        .catch(err => console.log('errrr', err))
 
-    const order = orders[0]
+    function makePayment (nonce, order) {
+        var body = {
+            source_id: nonce,
+            idempotency_key: randomBytes(20).toString("hex"),
+            amount_money: order.total_money, 
+            order_id: order.id
+        }
 
-    console.log('**order**', order)
-
-    var body = {
-        source_id: nonce,
-        idempotency_key: randomBytes(20).toString("hex"),
-        amount_money: order.total_money, 
-        order_id: order.id
+        paymentsApi.createPayment(body)
+            .then(function (res) {
+                console.log('**pay success**', res);
+                return cb(null, {
+                    statusCode: 200,
+                    body: JSON.stringify(res)
+                })
+            })
+            .catch(function (err) {
+                console.error('pay error', err);
+                return cb(null, {
+                    statusCode: 500,
+                    body: JSON.stringify(err)
+                })
+            })
     }
 
-    paymentsApi.createPayment(body)
-        .then(function (res) {
-            console.log('pay success', res);
-            return cb(null, {
-                statusCode: 200,
-                body: JSON.stringify(res)
-            })
-        })
-        .catch(function (err) {
-            console.error('pay error', err);
-            return cb(null, {
-                statusCode: 500,
-                body: JSON.stringify(err)
-            })
-        })
+
+
+
+    // const res = await orderApi.batchRetrieveOrders(locationId, {
+    //     order_ids: [orderId],
+    // })
+    // var { orders } = res
+
+    // const order = orders[0]
+
+    // console.log('**order**', order)
+
+    // var body = {
+    //     source_id: nonce,
+    //     idempotency_key: randomBytes(20).toString("hex"),
+    //     amount_money: order.total_money, 
+    //     order_id: order.id
+    // }
+
+    // paymentsApi.createPayment(body)
+    //     .then(function (res) {
+    //         console.log('pay success', res);
+    //         return cb(null, {
+    //             statusCode: 200,
+    //             body: JSON.stringify(res)
+    //         })
+    //     })
+    //     .catch(function (err) {
+    //         console.error('pay error', err);
+    //         return cb(null, {
+    //             statusCode: 500,
+    //             body: JSON.stringify(err)
+    //         })
+    //     })
 
 }
