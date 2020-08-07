@@ -14,10 +14,9 @@ var checkoutApi = new SquareConnect.CheckoutApi();
 // var ordersApi = new SquareConnect.OrdersApi();
 
 exports.handler = function (ev, ctx, cb) {
-    // sandbox loca'tion
+    // sandbox location
     var locationId = 'PR4NVQPCRMEYP'
     var { catalog_object_ids } = JSON.parse(ev.body)
-    var idempotencyKey = '' + randomBytes(20)
 
     var lineItems = [
         {
@@ -27,10 +26,7 @@ exports.handler = function (ev, ctx, cb) {
     ]
 
     var body = createBody({ locationId, lineItems })
-    // console.log('***___body***', _body)
-
     // var body = new SquareConnect.CreateCheckoutRequest(idempotencyKey, _body)
-    console.log('***body***', body)
 
     checkoutApi.createCheckout(locationId, body)
         .then(function (res) {
