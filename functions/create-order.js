@@ -26,12 +26,59 @@ exports.handler = function (ev, ctx, cb) {
         }
     ]
 
-    var _body = createBody({ locationId, lineItems })
+    var body = createBody({ locationId, lineItems })
     // console.log('***___body***', _body)
 
-    var body = new SquareConnect.CreateCheckoutRequest(idempotencyKey, _body)
+    // var body = new SquareConnect.CreateCheckoutRequest(idempotencyKey, _body)
     console.log('***body***', body)
 
+    checkoutApi.createCheckout(locationId, body)
+        .then(function (res) {
+            console.log('**checkout successful**', res);
+            console.log('******shipping*****', res.checkout.ask_for_shipping_address)
+            return cb(null, {
+                statusCode: 200,
+                body: JSON.stringify(res)
+            })
+        }, function onErr (err) {
+            console.error('errriii', err);
+            cb(null, {
+                statusCode: 500,
+                body: JSON.stringify(err)
+            })
+        })
+}
+
+function createBody ({ locationId, lineItems }) {
+    return {
+        "idempotency_key": '' + randomBytes(20),
+        "redirect_url": "http://localhost:8888/",
+        "ask_for_shipping_address": true,
+        "order": {
+            "order": {
+                "idempotency_key": '' + randomBytes(20),
+                "location_id": locationId,
+                "line_items": lineItems.map(item => {
+                    return xtend(item, { quantity: item.quantity + '' })
+                })
+            }
+        },
+        "merchant_support_email": "merchant+support@website.com",
+        // "pre_populate_buyer_email": "example@email.com",
+        // "pre_populate_shipping_address": {
+        //     "address_line_1": "1455 Market St.",
+        //     "address_line_2": "Suite 600",
+        //     "locality": "San Francisco",
+        //     "administrative_district_level_1": "CA",
+        //     "postal_code": "94103",
+        //     "country": "US",
+        //     "first_name": "Jane",
+        //     "last_name": "Doe"
+        // }
+    }
+}
+
+// the api call version -- 
     // var headers = {
     //     'Square-Version': '2020-07-22',
     //     'Content-Type': 'application/json',
@@ -65,47 +112,3 @@ exports.handler = function (ev, ctx, cb) {
     //             body: JSON.stringify(err)
     //         })
     //     })
-
-    checkoutApi.createCheckout(locationId, body)
-        .then(function (res) {
-            console.log('**checkout successful**', res);
-            console.log('******shipping*****', res.checkout.ask_for_shipping_address)
-            return cb(null, {
-                statusCode: 200,
-                body: JSON.stringify(res)
-            })
-        }, function onErr (err) {
-            console.error('errriii', err);
-            cb(null, {
-                statusCode: 500,
-                body: JSON.stringify(err)
-            })
-        })
-}
-
-function createBody ({ locationId, lineItems }) {
-    return {
-        "idempotency_key": '' + randomBytes(20),
-        "redirect_url": "http://localhost:8888/",
-        "ask_for_shipping_address": true,
-        "order": {
-            "idempotency_key": '' + randomBytes(20),
-            "location_id": locationId,
-            "line_items": lineItems.map(item => {
-                return xtend(item, { quantity: item.quantity + '' })
-            })
-        },
-        "merchant_support_email": "merchant+support@website.com",
-        "pre_populate_buyer_email": "example@email.com",
-        // "pre_populate_shipping_address": {
-        //     "address_line_1": "1455 Market St.",
-        //     "address_line_2": "Suite 600",
-        //     "locality": "San Francisco",
-        //     "administrative_district_level_1": "CA",
-        //     "postal_code": "94103",
-        //     "country": "US",
-        //     "first_name": "Jane",
-        //     "last_name": "Doe"
-        // }
-    }
-}
