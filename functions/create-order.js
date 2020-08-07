@@ -100,7 +100,8 @@ exports.handler = function (ev, ctx, cb) {
                                 last_name: shipping.lastName,
                                 postal_code: shipping['zip-code']
                             },
-                            display_name: 'foo',
+                            display_name: (shipping.firstName + ' ' +
+                                shipping.lastName),
                             email_address: email
                         }
                     },
