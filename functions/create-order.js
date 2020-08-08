@@ -2,14 +2,17 @@
 const { randomBytes } = require('crypto')
 // var fetch = require('node-fetch');
 var SquareConnect = require('square-connect')
-const xtend = require('xtend');
+// const xtend = require('xtend');
 // var timestamp = require('monotonic-timestamp')
-const config = require("./config.json")[process.env.NODE_ENV];
 var price = require('../src/js/price')
 const defaultClient = SquareConnect.ApiClient.instance;
 var oauth2 = defaultClient.authentications['oauth2'];
+const config = require("./config.json")[process.env.NODE_ENV];
+
 defaultClient.basePath = config.path;
 oauth2.accessToken = config.squareAccessToken;
+
+console.log('config', config)
 
 // var checkoutApi = new SquareConnect.CheckoutApi();
 var ordersApi = new SquareConnect.OrdersApi();

@@ -1,13 +1,15 @@
 const SquareConnect = require("square-connect");
 const xtend = require("xtend");
 const config = require("./config.json")[process.env.NODE_ENV];
-
-// Set Square Connect credentials
 const defaultClient = SquareConnect.ApiClient.instance;
-defaultClient.basePath = config.path;
 // Configure OAuth2 access token for authorization: oauth2
 const oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = config.squareAccessToken;
+
+// defaultClient.basePath = config.path;
+// oauth2.accessToken = config.squareAccessToken;
+
+defaultClient.basePath = process.env.SQUARE_PATH
+oauth2.accessToken = process.env.SQUARE_ACCESS_TOKEN
 
 const catalogApi = new SquareConnect.CatalogApi()
 var inventoryApi = new SquareConnect.InventoryApi();
