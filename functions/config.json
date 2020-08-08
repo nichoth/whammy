@@ -6,8 +6,8 @@
     },
     "production": {
       "path": "https://connect.squareup.com",
-      "squareApplicationId": "YOUR_APPLICATION_ID",
-      "squareAccessToken": "YOUR_ACCESS_TOKEN"
+      "squareApplicationId": "",
+      "squareAccessToken": ""
     }
   }
   

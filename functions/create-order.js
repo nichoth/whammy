@@ -7,13 +7,13 @@ var SquareConnect = require('square-connect')
 var price = require('../src/js/price')
 const defaultClient = SquareConnect.ApiClient.instance;
 var oauth2 = defaultClient.authentications['oauth2'];
-// const config = require("./config.json")[process.env.NODE_ENV];
+const config = require("./config.json")[process.env.NODE_ENV];
 
-defaultClient.basePath = process.env.SQUARE_PATH
-oauth2.accessToken = process.env.SQUARE_ACCESS_TOKEN
+// defaultClient.basePath = process.env.SQUARE_PATH
+// oauth2.accessToken = process.env.SQUARE_ACCESS_TOKEN
 
-// defaultClient.basePath = config.path;
-// oauth2.accessToken = config.squareAccessToken;
+defaultClient.basePath = config.path;
+oauth2.accessToken = config.squareAccessToken;
 
 // console.log('config', config)
 

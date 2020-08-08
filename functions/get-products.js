@@ -5,11 +5,11 @@ const defaultClient = SquareConnect.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 const oauth2 = defaultClient.authentications['oauth2'];
 
-// defaultClient.basePath = config.path;
-// oauth2.accessToken = config.squareAccessToken;
+defaultClient.basePath = config.path;
+oauth2.accessToken = config.squareAccessToken;
 
-defaultClient.basePath = process.env.SQUARE_PATH
-oauth2.accessToken = process.env.SQUARE_ACCESS_TOKEN
+// defaultClient.basePath = process.env.SQUARE_PATH
+// oauth2.accessToken = process.env.SQUARE_ACCESS_TOKEN
 // oauth2.accessToken = process.env.SQUARE_APP_SECRET
 
 const catalogApi = new SquareConnect.CatalogApi()

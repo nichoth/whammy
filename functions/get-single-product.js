@@ -1,14 +1,14 @@
 var xtend = require('xtend')
-// const config = require("./config.json")[process.env.NODE_ENV]
+const config = require("./config.json")[process.env.NODE_ENV]
 var unslug = require('unslug')
 var SquareConnect = require('square-connect')
 var defaultClient = SquareConnect.ApiClient.instance
 var oauth2 = defaultClient.authentications['oauth2']
 
-// defaultClient.basePath = config.path
-// oauth2.accessToken = config.squareAccessToken;
-defaultClient.basePath = process.env.SQUARE_PATH
-oauth2.accessToken = process.env.SQUARE_ACCESS_TOKEN
+defaultClient.basePath = config.path
+oauth2.accessToken = config.squareAccessToken;
+// defaultClient.basePath = process.env.SQUARE_PATH
+// oauth2.accessToken = process.env.SQUARE_ACCESS_TOKEN
 
 const catalogApi = new SquareConnect.CatalogApi()
 const inventoryApi = new SquareConnect.InventoryApi()

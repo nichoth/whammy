@@ -2,9 +2,13 @@ var SquareConnect = require('square-connect');
 const { randomBytes } = require('crypto')
 const config = require("./config.json")[process.env.NODE_ENV];
 const defaultClient = SquareConnect.ApiClient.instance;
-defaultClient.basePath = config.path;
 var oauth2 = defaultClient.authentications['oauth2'];
+
+// defaultClient.basePath = process.env.SQUARE_PATH
+// oauth2.accessToken = process.env.SQUARE_ACCESS_TOKEN
+
 oauth2.accessToken = config.squareAccessToken;
+defaultClient.basePath = config.path;
 
 var orderApi = new SquareConnect.OrdersApi();
 var paymentsApi = new SquareConnect.PaymentsApi();
