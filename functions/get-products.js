@@ -10,6 +10,7 @@ const oauth2 = defaultClient.authentications['oauth2'];
 
 defaultClient.basePath = process.env.SQUARE_PATH
 oauth2.accessToken = process.env.SQUARE_ACCESS_TOKEN
+// oauth2.accessToken = process.env.SQUARE_APP_SECRET
 
 const catalogApi = new SquareConnect.CatalogApi()
 var inventoryApi = new SquareConnect.InventoryApi();

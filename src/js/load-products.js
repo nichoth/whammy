@@ -17,7 +17,7 @@ function createProductFromTemplate (item) {
 
     var price = _.get(itemData,
         'variations[0].item_variation_data.price_money.amount')
-    console.log('price', price)
+    // console.log('price', price)
     product.querySelector('.price').innerText = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD'
