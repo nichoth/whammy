@@ -44,7 +44,7 @@ function Buy () {
             })
                 .then(function (res) {
                     res.json().then(r => {
-                        console.log('******creating****', r)
+                        console.log('******creat order resp****', r)
                         setOrderID(r.order.id)
                         if (r && r.response && r.response.text) {
                             console.log('aaaaaaaaaaa', r.response.text)

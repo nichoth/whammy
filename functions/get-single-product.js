@@ -5,10 +5,10 @@ var SquareConnect = require('square-connect')
 var defaultClient = SquareConnect.ApiClient.instance
 var oauth2 = defaultClient.authentications['oauth2']
 
-defaultClient.basePath = config.path
-oauth2.accessToken = config.squareAccessToken;
 // defaultClient.basePath = process.env.SQUARE_PATH
 // oauth2.accessToken = process.env.SQUARE_ACCESS_TOKEN
+defaultClient.basePath = config.path
+oauth2.accessToken = config.squareAccessToken;
 
 const catalogApi = new SquareConnect.CatalogApi()
 const inventoryApi = new SquareConnect.InventoryApi()

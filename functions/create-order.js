@@ -1,3 +1,4 @@
+require('dotenv').config()
 // var xtend = require('xtend')
 const { randomBytes } = require('crypto')
 // var fetch = require('node-fetch');
@@ -12,10 +13,26 @@ const config = require("./config.json")[process.env.NODE_ENV];
 // defaultClient.basePath = process.env.SQUARE_PATH
 // oauth2.accessToken = process.env.SQUARE_ACCESS_TOKEN
 
+console.log('**node env**', process.env.NODE_ENV)
+// console.log(process.env.SQUARE_PATH === config.path)
+// console.log(process.env.SQUARE_ACCESS_TOKEN === config.squareAccessToken)
+// console.log(process.env.SQUARE_APP_ID === config.squareApplicationId)
+
+// if (process.env.SQUARE_PATH === config.path &&
+// process.env.SQUARE_ACCESS_TOKEN === config.squareAccessToken &&
+// process.env.SQUARE_APP_ID === config.squareApplicationId) {
+//         console.log('******fml*********')
+// } else {
+//     console.log('**foooob**')
+// }
+
 defaultClient.basePath = config.path;
 oauth2.accessToken = config.squareAccessToken;
 
-// console.log('config', config)
+// console.log('**path**', process.env.SQUARE_PATH)
+// console.log('***access-tok***', process.env.SQUARE_ACCESS_TOKEN)
+// console.log('**app-id**', process.env.SQUARE_APP_ID)
+// console.log('**config**', config)
 
 // var checkoutApi = new SquareConnect.CheckoutApi();
 var ordersApi = new SquareConnect.OrdersApi();
@@ -25,8 +42,6 @@ var catalogApi = new SquareConnect.CatalogApi();
 exports.handler = function (ev, ctx, cb) {
     var locationId = 'PR4NVQPCRMEYP'
     var { products, shipping, email } = JSON.parse(ev.body)
-
-    // console.log('***products***', products)
 
     catalogApi.batchRetrieveCatalogObjects({
         object_ids: products.map(prod => prod.id),
@@ -55,16 +70,12 @@ exports.handler = function (ev, ctx, cb) {
     // https://developer.squareup.com/docs/orders-api/create-orders#add-fulfillment-details
 
     function createOrderReqBody (products) {
-        var subTot = products.reduce(function (acc, prod) {
-            var itemPrice = (prod.item_data.variations[0].item_variation_data
-                .price_money.amount)
-            return acc + itemPrice
-        }, 0)
-        var totPrice = subTot + price.shipping(products)
-
-        console.log('****products****', products)
-        console.log('****products var****', products[0].item_data.variations[0])
-        // console.log(products[0].item_data.variations[0])
+        // var subTot = products.reduce(function (acc, prod) {
+        //     var itemPrice = (prod.item_data.variations[0].item_variation_data
+        //         .price_money.amount)
+        //     return acc + itemPrice
+        // }, 0)
+        // var totPrice = subTot + price.shipping(products)
 
         return {
             // Unique identifier for request
@@ -113,15 +124,30 @@ exports.handler = function (ev, ctx, cb) {
                     },
                     state: 'PROPOSED'
                 }],
+                service_charges: [{
+                    // uid: order.service_charges && order.service_charges[0] ?
+                    //   order.service_charges[0].uid :
+                    //   undefined,
+                    name: "delivery fee",
+                    amount_money: {
+                      amount: 300,
+                      currency: "USD"
+                    },
+                    taxable: true,
+                    calculation_phase: "SUBTOTAL_PHASE"
+                }],
                 state: 'OPEN'
             }
         }
     }
 
     function createOrder (orderRequestBody) {
+        console.log('***order req***', orderRequestBody)
         return ordersApi.createOrder(locationId, orderRequestBody)
             .then(res => {
-                // console.log('***create order***', res)
+                console.log('***create order resp***', res)
+                console.log('***create resp net amounts***', (res.order.
+                    net_amounts.service_charge_money))
                 return cb(null, {
                     statusCode: 200,
                     body: JSON.stringify(res)

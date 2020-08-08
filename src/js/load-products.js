@@ -46,6 +46,7 @@ export async function loadProducts() {
 
     const container = document.querySelector('.products');
 
+    if (!products) return
     products
         // for some reason we don't display products with no variations
         .filter(prod => prod.item_data.variations)

@@ -14,6 +14,11 @@ var orderApi = new SquareConnect.OrdersApi();
 var paymentsApi = new SquareConnect.PaymentsApi();
 var locationId = 'PR4NVQPCRMEYP'
 
+console.log('**path env**', process.env.SQUARE_PATH)
+console.log('***access-tok***', process.env.SQUARE_ACCESS_TOKEN)
+console.log('app-id', process.env.SQUARE_APP_ID)
+console.log('config', config)
+
 exports.handler = function (ev, ctx, cb) {
     // console.log('***req***', ev.body)
     var { nonce, orderId } = JSON.parse(ev.body)

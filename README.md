@@ -131,4 +131,23 @@ Use the order ID to pay for the order with that square order input
 
 -------------------------------------------
 
+it's the production permissions that don't work. maybe because we don't have an
+account setup that they can charge/pay
+
+Can add a 'service charges' section to the createOrder request to add a
+shipping fee
+```
+service_charges: [{
+    name: "delivery fee",
+    amount_money: {
+        amount: 300,
+        currency: "USD"
+    },
+    taxable: true,
+    calculation_phase: "SUBTOTAL_PHASE"
+}]
+```
+
+
+
 
