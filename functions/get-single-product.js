@@ -1,5 +1,5 @@
 var xtend = require('xtend')
-const config = require("./config.json")[process.env.NODE_ENV]
+// const config = require("./config.json")[process.env.NODE_ENV]
 var unslug = require('unslug')
 var SquareConnect = require('square-connect')
 var defaultClient = SquareConnect.ApiClient.instance
