@@ -62,20 +62,12 @@ exports.handler = function (ev, ctx, cb) {
             })
         })
 
-
-
-
     // see
     // https://developer.squareup.com/reference/square/orders-api/create-order
     // https://developer.squareup.com/docs/orders-api/create-orders#add-fulfillment-details
 
     function createOrderReqBody (products) {
-        // var subTot = products.reduce(function (acc, prod) {
-        //     var itemPrice = (prod.item_data.variations[0].item_variation_data
-        //         .price_money.amount)
-        //     return acc + itemPrice
-        // }, 0)
-        // var totPrice = subTot + price.shipping(products)
+        var shippingPrice = price.shipping(products)
 
         return {
             // Unique identifier for request
@@ -86,18 +78,6 @@ exports.handler = function (ev, ctx, cb) {
                         "catalog_object_id": p.item_data.variations[0].id,
                         "quantity": "1"
                     }
-
-                    // var _prod = xtend(p, {
-                    //     name: p.item_data.name,
-                    //     // @TODO -- use a real quantity
-                    //     quantity: '1',
-                    //     // @TODO -- get this from the product object
-                    //     "base_price_money": {
-                    //         amount: totPrice,
-                    //         currency: 'USD'
-                    //     }
-                    // })
-                    // return _prod
                 }),
                 
                 fulfillments: [{
@@ -124,13 +104,11 @@ exports.handler = function (ev, ctx, cb) {
                     },
                     state: 'PROPOSED'
                 }],
+
                 service_charges: [{
-                    // uid: order.service_charges && order.service_charges[0] ?
-                    //   order.service_charges[0].uid :
-                    //   undefined,
                     name: "delivery fee",
                     amount_money: {
-                      amount: 300,
+                      amount: shippingPrice,
                       currency: "USD"
                     },
                     taxable: true,

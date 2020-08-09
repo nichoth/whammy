@@ -3,7 +3,6 @@ import { Component } from 'preact'
 var price = require('./price')
 var APP_ID = 'sandbox-sq0idb-SYHgUy2XZm6PJjhsp116Cg'
 
-// var hasLoaded = false
 var doneWaiting
 
 // test card
@@ -14,7 +13,6 @@ var setState
 class Payment extends Component {
     constructor () {
         super()
-        // this.state.time = Date.now();
         this.state = {}
         this.state.hasLoaded = false
         var self = this
@@ -29,20 +27,12 @@ class Payment extends Component {
         if (prevProps.orderID) return
         var paymentForm = this.paymentForm = createPaymentForm(orderID)
         paymentForm.build();
-
-        // var btn = document.getElementById('sq-creditcard')
-        // btn.addEventListener('click', ev => {
-        //     doneWaiting = renderWaitingScreen()
-        //     ev.preventDefault()
-        //     console.log('payment click', orderID)
-        //     paymentForm.requestCardNonce();
-        // })
     }
 
     render (props) {
         var { products, orderID } = props
-        var total = price.total(products, orderID)
-        console.log('in render order id', props.orderID)
+        var total = price.total(products)
+        console.log('**in render order id**', props.orderID)
 
         return html`<div id="form-container">
             <div id="sq-card-number"></div>
@@ -167,13 +157,11 @@ function createPaymentForm (orderId) {
                     method: 'POST',
                     body: JSON.stringify({
                         nonce: nonce,
-                        // in here, this is null and it's not supposed to be
                         orderId: orderId
                     })
                 })
                     .then(res => {
-                        console.log('pay res', res)
-                        res.json().then(r => console.log('json', r))
+                        res.json().then(r => console.log('pay res json', r))
                         doneWaiting()
                     })
                     .catch(err => {

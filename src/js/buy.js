@@ -12,7 +12,6 @@ var price = require('./price')
 
 Buy()
 
-
 function Buy () {
     var cart = new Cart({ key: KEY })
 
@@ -56,8 +55,6 @@ function Buy () {
                 })
         }
 
-        // console.log('orderID', orderID)
-
         return html`<div>
             <${steps[step]} onValidityChange=${validChange}
                 onGotShipping=${onGotShipping}
@@ -77,7 +74,6 @@ function Buy () {
             </div>
         </div>`
     }
-
 
     var products = cart.products()
     var subTotal = price.subTotal(products)
@@ -105,92 +101,4 @@ function Buy () {
     div.appendChild(text)
     menu.appendChild(div)
     // ------------------------------------
-
-
-    // function onSubmit ({ shipping }, makePayment) {
-    //     var doneWaiting = renderWaitingScreen()
-    //     makePayment({ card, shipping }, (err, res) => {
-    //         cart.empty()
-    //         doneWaiting()
-    //         if (err) {
-    //             renderError(err)
-    //             return console.log('err', err)
-    //         }
-    //         if (res.type === 'StripeCardError') {
-    //             console.log('***err here***', err, res)
-    //             return renderError(res)
-    //         }
-    //     })
-    // }
-
-    // var form = document.querySelector('form')
-    // form.addEventListener('submit', ev => {
-    //     ev.preventDefault()
-
-    //     var els = ev.target.elements
-    //     var shipping = {
-    //         name: els.name.value,
-    //         email: els.email.value,
-    //         address: els.address.value,
-    //         city: els.city.value,
-    //         state: els.state.value,
-    //         zipCode: els['zip-code'].value
-    //     }
-
-    //     onSubmit({ shipping }, makePayment)
-    // })
-
-    // function makePayment ({ card, shipping }, cb) {
-    //     // @TODO - quantity input
-    //     var products = cart.products().map(prod => xtend(prod, { quantity: 1 }))
-    //     console.log('products', products)
-    //     console.log('products in order', products)
-    //     // https://stripe.com/docs/js/payment_methods/create_payment_method
-    //     stripe.createPaymentMethod({
-    //         type: 'card',
-    //         card: card,
-    //         billing_details: {
-    //             // name: 'Jenny Rosen',
-    //             // address: '123 street'
-    //         }
-    //     })
-    //         .then(function (res) {
-    //             // console.log('payment method res', res)
-    //             if (res.error) return console.log('oh no', res.error)
-    //             var opts = {
-    //                 shipping,
-    //                 paymentMethodID: res.paymentMethod.id,
-    //                 products
-    //             }
-    //             pay(opts).then(res => {
-    //                 // console.log('....res in here......', res)
-    //                 cb(null, res)
-    //                 // window.location.href = '/success'
-    //             })
-    //         })
-    //         .catch(err => {
-    //             // @TODO show error
-    //             console.log('errrorrr', err)
-    //             cb(err)
-    //         })
-    // }
-
-    // function pay ({ shipping, paymentMethodID, products }) {
-    //     return fetch('/.netlify/functions/create-order', {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({
-    //             shipping,
-    //             paymentMethodID,
-    //             // @TODO -- use a real quantity input
-    //             products
-    //         })
-    //     })
-    //     .then(function (result) {
-    //         return result.json()
-    //     })
-    //     .catch(function(err) {
-    //         console.log('errrrrr', err)
-    //     })
-    // }
 }
