@@ -5,6 +5,7 @@ var slugify = require('@sindresorhus/slugify')
 var _ = {
     get: require('lodash/get')
 }
+var price = require('./price')
 
 var cartContainer = document.getElementById('cart-page-container')
 var cart = new Cart({ key: KEY })
@@ -53,17 +54,8 @@ function renderTotals (el, cart) {
         return acc + price
     }, 0)
 
-    function getShipping (l) {
-        if (l === 0) return 0
-        if (l === 1) return 300
-        if (l === 2) return 400
-        if (l >= 3 && l <= 8) return 500
-        if (l > 8) return 600
-    }
-
-    // var ship = makeDiv('shipping $0')
     el.appendChild(makeDiv('subtotal $' + (subTotal/100).toFixed(2)))
-    var shippingCost = getShipping(cart.products().length)
+    var shippingCost = price.shipping(cart.products())
     el.appendChild(makeDiv('shipping $' + (shippingCost/100).toFixed(2)))
     el.appendChild(makeDiv('total $' +
         ((subTotal + shippingCost)/100).toFixed(2)))
@@ -83,50 +75,6 @@ function renderControls (el, cart) {
     link.classList.add('buy')
     link.appendChild(document.createTextNode('buy things'))
     el.appendChild(link)
-
-    // var btn = document.createElement('button')
-    // btn.appendChild(document.createTextNode('buy things'))
-    // btn.classList.add('buy')
-    // el.appendChild(btn)
-
-    // btn.addEventListener('click', function (ev) {
-    //     ev.preventDefault()
-    //     console.log('click')
-
-    //     var ids = cart.products().map(function (prod) {
-    //         console.log('a product', prod)
-    //         return prod.item_data.variations[0].id
-    //     })
-
-    //     console.log('ids', ids)
-
-    //     fetch('/.netlify/functions/create-order', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             products: ids.map(function (id) {
-    //                 return {
-    //                     catalogObjectId: id,
-    //                     // @TODO real quantity
-    //                     itemQuantity: 1
-    //                 }
-    //             }),
-    //             shipping: {
-
-    //             }
-    //         })
-    //     })
-    //         .then(res => {
-    //             return res.json().then(function (r) {
-    //                 console.log('rrrrrrr', r)
-    //                 window.checkout = r
-    //                 return r
-    //             })
-    //         })
-    //         .catch((err) => console.error('errrr', err))
-    // })
 }
 
 var el = document.getElementById('cart-totals')
