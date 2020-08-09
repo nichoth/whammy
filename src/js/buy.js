@@ -18,6 +18,7 @@ function Buy () {
     function ShipAndPay ({ products }) {
         var [step, setStep] = useState(0)
         var [orderID, setOrderID] = useState(null)
+        var [order, setOrder] = useState(null)
         var [isValid, setValid] = useState(false)
         var steps = [Shipping, Payment]
 
@@ -45,6 +46,7 @@ function Buy () {
                     res.json().then(r => {
                         console.log('******creat order resp****', r)
                         setOrderID(r.order.id)
+                        setOrder(r.order)
                         if (r && r.response && r.response.text) {
                             console.log('aaaaaaaaaaa', r.response.text)
                         }
@@ -60,6 +62,7 @@ function Buy () {
                 onGotShipping=${onGotShipping}
                 products=${products}
                 orderID=${orderID}
+                order=${order}
             />
             <div className="form-steps">
                 ${step === 0 ?
@@ -85,16 +88,15 @@ function Buy () {
         currency: 'USD'
     }).format((total/100).toFixed(2))
 
+    render(html`<${ShipAndPay} products=${products} />`,
+        document.getElementById('content'))
+
+    // ------------- menu part -----------
     var text = document.createTextNode(products.length +
         (products.length === 1 ? ' thing — ' : ' things – ') +
             '$' + subTotal/100 + ' + $' + shippingCost/100 + ' shipping = ' +
             priceString)
 
-    render(html`<${ShipAndPay} products=${products} />`,
-        document.getElementById('content'))
-
-
-    // ------------- menu part -----------
     var menu = document.getElementById('menu')
     var div = document.createElement('div')
     div.classList.add('summary')

@@ -67,8 +67,6 @@ exports.handler = function (ev, ctx, cb) {
     // https://developer.squareup.com/docs/orders-api/create-orders#add-fulfillment-details
 
     function createOrderReqBody (products) {
-        var shippingPrice = price.shipping(products)
-
         return {
             // Unique identifier for request
             idempotency_key: randomBytes(22).toString('hex'),
@@ -108,7 +106,7 @@ exports.handler = function (ev, ctx, cb) {
                 service_charges: [{
                     name: "delivery fee",
                     amount_money: {
-                      amount: shippingPrice,
+                      amount: price.shipping(products),
                       currency: "USD"
                     },
                     taxable: true,
