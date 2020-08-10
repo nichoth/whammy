@@ -30,28 +30,14 @@ class Payment extends Component {
     }
 
     render (props) {
-        var { products, orderID } = props
-        var total = price.total(products)
-        console.log('**in render**', props.orderID, props)
-
         if (!props.order) return null
 
-        return html`<div class="summary">
-            <!-- <table>
-                <tr>
-                    <td>Hi, I'm your first cell.</td>
-                    <td>I'm your second cell.</td>
-                    <td>I'm your third cell.</td>
-                    <td>I'm your fourth cell.</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                </tr>
-            </table> -->
+        console.log('props', props)
+        var { orderID, order } = props
+        var total = price.total(order)
+        console.log('**in render**', props.orderID, props)
 
+        return html`<div class="summary">
             <ul>
                 ${props.order.line_items.map(function (item) {
                     return html`<li>
@@ -67,6 +53,11 @@ class Payment extends Component {
                 <li>
                     <em class="item-name">Shipping </em>${price.format(
                         props.order.total_service_charge_money.amount)}
+                </li>
+
+                <li>
+                    <em class="item-name">Tax </em>
+                    ${price.format(props.order.total_tax_money.amount)}
                 </li>
 
                 <li>

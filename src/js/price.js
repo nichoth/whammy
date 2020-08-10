@@ -21,11 +21,8 @@ function getShippingCost (products) {
     if (l > 8) return 600
 }
 
-function total (products) {
-    var sub = subTotal(products)
-    var ship = getShippingCost(products)
-    var tot = sub + ship
-    return tot
+function total (order) {
+    return order.total_money.amount
 }
 
 function format (n) {

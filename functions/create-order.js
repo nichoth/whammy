@@ -1,40 +1,16 @@
 require('dotenv').config()
-// var xtend = require('xtend')
 const { randomBytes } = require('crypto')
-// var fetch = require('node-fetch');
 var SquareConnect = require('square-connect')
-// const xtend = require('xtend');
-// var timestamp = require('monotonic-timestamp')
 var price = require('../src/js/price')
 const defaultClient = SquareConnect.ApiClient.instance;
 var oauth2 = defaultClient.authentications['oauth2'];
 const config = require("./config.json")[process.env.NODE_ENV];
 
-// defaultClient.basePath = process.env.SQUARE_PATH
-// oauth2.accessToken = process.env.SQUARE_ACCESS_TOKEN
-
 console.log('**node env**', process.env.NODE_ENV)
-// console.log(process.env.SQUARE_PATH === config.path)
-// console.log(process.env.SQUARE_ACCESS_TOKEN === config.squareAccessToken)
-// console.log(process.env.SQUARE_APP_ID === config.squareApplicationId)
-
-// if (process.env.SQUARE_PATH === config.path &&
-// process.env.SQUARE_ACCESS_TOKEN === config.squareAccessToken &&
-// process.env.SQUARE_APP_ID === config.squareApplicationId) {
-//         console.log('******fml*********')
-// } else {
-//     console.log('**foooob**')
-// }
 
 defaultClient.basePath = config.path;
 oauth2.accessToken = config.squareAccessToken;
 
-// console.log('**path**', process.env.SQUARE_PATH)
-// console.log('***access-tok***', process.env.SQUARE_ACCESS_TOKEN)
-// console.log('**app-id**', process.env.SQUARE_APP_ID)
-// console.log('**config**', config)
-
-// var checkoutApi = new SquareConnect.CheckoutApi();
 var ordersApi = new SquareConnect.OrdersApi();
 var catalogApi = new SquareConnect.CatalogApi();
 
@@ -67,6 +43,7 @@ exports.handler = function (ev, ctx, cb) {
     // https://developer.squareup.com/docs/orders-api/create-orders#add-fulfillment-details
 
     function createOrderReqBody (products) {
+        console.log('***products***')
         return {
             // Unique identifier for request
             idempotency_key: randomBytes(22).toString('hex'),
@@ -105,7 +82,7 @@ exports.handler = function (ev, ctx, cb) {
 
                 taxes: [
                     {
-                        "catalog_object_id": "STATE_SALES_TAX",
+                        "catalog_object_id": "R5DUEVVRRTSINCKI27POCYPU",
                         "scope": "ORDER"
                     }
                 ],
