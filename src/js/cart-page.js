@@ -68,6 +68,10 @@ function makeDiv (text) {
 }
 
 function renderControls (el, cart) {
+    console.log('in here', cart.products())
+    console.log('****', cart.products().length)
+    var _link = document.querySelector('.buy')
+    if (_link) _link.remove()
     if (cart.products().length < 1) return
 
     var link = document.createElement('a')

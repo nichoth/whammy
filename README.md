@@ -149,5 +149,21 @@ service_charges: [{
 ```
 
 
+---------------------------------------
+
+taxes
+https://developer.squareup.com/docs/api/connect/v2/2018-07-12#endpoint-listcatalog
+https://developer.squareup.com/docs/orders-api/create-orders#apply-taxes-and-discounts
+
+```js
+ "taxes": [
+    {
+      "uid": "STATE_SALES_TAX_UID",
+      "catalog_object_id": "STATE_SALES_TAX_CATALOG_ID",
+      "scope": "ORDER"
+    }
+  ]
+```
+
 
 
