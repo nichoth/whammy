@@ -31,18 +31,17 @@ exports.handler = function (ev, ctx, cb) {
         console.log('*** catalog api res: ***',  res);
         var item = res.objects[0]
         var image = res.related_objects.find(obj => obj.type === 'IMAGE')
-
         var id = item.item_data.variations[0].id
 
         var inv = await inventoryApi.retrieveInventoryCount(id, {})
-            .then(inv => inv)
             .catch(err => console.log('errrrrooooo', err))
 
         cb(null, {
             statusCode: 200,
             body: JSON.stringify(xtend(item, {
                 imageUrl: image.image_data.url,
-                inventory: inv.counts[0]
+                inventory: inv.counts[0],
+                tax: res.related_objects.find(obj => obj.type === 'TAX')
             }))
         })
 

@@ -8,7 +8,7 @@ var _ = {
 
 function createSingleProduct (item) {
     var itemData = item.item_data
-    console.log('item', item)
+    // console.log('item', item)
     const template = document.querySelector('#single-product');
     const product = template.content.cloneNode(true);
 

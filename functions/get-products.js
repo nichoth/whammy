@@ -24,7 +24,7 @@ exports.handler = async function (ev, ctx, cb) {
                 console.error('errrrrr', error)
             })
 
-        const opts = { types: "ITEM,IMAGE" };
+        const opts = { types: "ITEM,IMAGE,TAX" };
         var catalogList = await catalogApi.listCatalog(opts);
 
         var images = catalogList.objects.filter(item => item.type === 'IMAGE')
@@ -54,7 +54,11 @@ exports.handler = async function (ev, ctx, cb) {
 
         return cb(null, {
             statusCode: 200,
-            body: JSON.stringify({ products })
+            body: JSON.stringify({
+                products,
+                images: imagesById,
+                tax: catalogList.objects.filter(thing => thing.type === 'TAX')
+            })
         })
     } catch (err) {
         console.log('errrr', err)

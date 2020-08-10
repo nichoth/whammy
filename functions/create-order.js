@@ -103,6 +103,13 @@ exports.handler = function (ev, ctx, cb) {
                     state: 'PROPOSED'
                 }],
 
+                taxes: [
+                    {
+                        "catalog_object_id": "STATE_SALES_TAX",
+                        "scope": "ORDER"
+                    }
+                ],
+
                 service_charges: [{
                     name: "delivery fee",
                     amount_money: {
@@ -124,6 +131,7 @@ exports.handler = function (ev, ctx, cb) {
                 console.log('***create order resp***', res)
                 console.log('***create resp net amounts***', (res.order.
                     net_amounts.service_charge_money))
+                console.log('***taxes***', res.order.total_tax_money)
                 return cb(null, {
                     statusCode: 200,
                     body: JSON.stringify(res)

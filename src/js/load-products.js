@@ -38,11 +38,13 @@ function createProductFromTemplate (item) {
 }
 
 export async function loadProducts() {
-    var { products } = await fetch('/.netlify/functions/get-products')
+    var { products,
+        images,
+        tax } = await fetch('/.netlify/functions/get-products')
         .then(res => res.json())
         .catch(err => console.log('errrrororor', err))
 
-    console.log('cat list', products)
+    console.log('cat list', products, images, tax)
 
     const container = document.querySelector('.products');
 
