@@ -22,10 +22,10 @@ class Payment extends Component {
     }
 
     componentDidUpdate (prevProps) {
-        var { orderID } = this.props
+        var { orderID, cart } = this.props
         if (!orderID) return
         if (prevProps.orderID) return
-        var paymentForm = this.paymentForm = createPaymentForm(orderID)
+        var paymentForm = this.paymentForm = createPaymentForm(orderID, cart)
         paymentForm.build();
     }
 
@@ -129,7 +129,7 @@ function renderError (err) {
 window.renderError = renderError
 window.renderWaitingScreen = renderWaitingScreen
 
-function createPaymentForm (orderId) {
+function createPaymentForm (orderId, cart) {
     return new SqPaymentForm({
         applicationId: APP_ID,
         inputClass: 'sq-input',
@@ -196,6 +196,7 @@ function createPaymentForm (orderId) {
                 })
                     .then(res => {
                         res.json().then(r => console.log('pay res json', r))
+                        cart.empty()
                         doneWaiting()
                     })
                     .catch(err => {

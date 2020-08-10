@@ -8,7 +8,6 @@ import Payment from './pay'
 var _ = {
     get: require('lodash/get')
 }
-var price = require('./price')
 
 Buy()
 
@@ -79,29 +78,7 @@ function Buy () {
     }
 
     var products = cart.products()
-    // var subTotal = price.subTotal(products)
-    // var shippingCost = price.shipping(products)
-
-    // var total = order ? price.total(order) : null
-
-    // var priceString = new Intl.NumberFormat('en-US', {
-    //     style: 'currency',
-    //     currency: 'USD'
-    // }).format((total/100).toFixed(2))
 
     render(html`<${ShipAndPay} products=${products} />`,
         document.getElementById('content'))
-
-    // ------------- menu part -----------
-    // var text = document.createTextNode(products.length +
-    //     (products.length === 1 ? ' thing — ' : ' things – ') +
-    //         '$' + subTotal/100 + ' + $' + shippingCost/100 + ' shipping = ' +
-    //         priceString)
-
-    // var menu = document.getElementById('menu')
-    // var div = document.createElement('div')
-    // div.classList.add('summary')
-    // div.appendChild(text)
-    // menu.appendChild(div)
-    // ------------------------------------
 }

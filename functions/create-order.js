@@ -54,6 +54,13 @@ exports.handler = function (ev, ctx, cb) {
                         "quantity": "1"
                     }
                 }),
+
+                taxes: [
+                    {
+                        "catalog_object_id": "R5DUEVVRRTSINCKI27POCYPU",
+                        "scope": "ORDER"
+                    }
+                ],
                 
                 fulfillments: [{
                     type: 'SHIPMENT',
@@ -79,13 +86,6 @@ exports.handler = function (ev, ctx, cb) {
                     },
                     state: 'PROPOSED'
                 }],
-
-                taxes: [
-                    {
-                        "catalog_object_id": "R5DUEVVRRTSINCKI27POCYPU",
-                        "scope": "ORDER"
-                    }
-                ],
 
                 service_charges: [{
                     name: "delivery fee",
