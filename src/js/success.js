@@ -60,7 +60,9 @@ function Success (props) {
             <span class="item-price">${price.format(
                 order.total_money.amount)}</span>
         </li>
-    </ul>`
+    </ul>
+    
+    <p class="email-warning">you will get an email</p>`
 }
 
 render(html`<${Success} orderId=${order_id} />`,
