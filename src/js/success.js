@@ -34,9 +34,32 @@ function Success (props) {
 
     return html`<ul class="receipt">
         ${order.line_items.map(item => {
-            return html`<li><span>${item.name}</span> <span>${price.format(
-            item.base_price_money.amount)}</span></li>`
+            return html`<li>
+                <span class="item-name">${item.name}</span>
+                <span class="item-price">${price.format(
+                    item.base_price_money.amount)}</span>
+            </li>`
         })}
+    </ul>
+
+    <hr />
+
+    <ul class="receipt">
+        <li>
+            <span class="item-name">shipping</span>
+            <span class="item-price">${price.format(
+                order.service_charges[0].amount_money.amount)}</span>
+        </li>
+        <li>
+            <span class="item-name">tax</span>
+            <span class="item-price">${price.format(
+                order.taxes[0].applied_money.amount)}</span>
+        </li>
+        <li>
+            <span class="item-name">total</span>
+            <span class="item-price">${price.format(
+                order.total_money.amount)}</span>
+        </li>
     </ul>`
 }
 

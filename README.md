@@ -166,4 +166,10 @@ https://developer.squareup.com/docs/orders-api/create-orders#apply-taxes-and-dis
 ```
 
 
+-------------------------------------------
+success page
+
+http://localhost:8888/success?order_id=JldSjJDZt82sfwETtmd4UhEmvaB
+
+
 
