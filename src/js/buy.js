@@ -11,10 +11,11 @@ var _ = {
 
 Buy()
 
+
 function Buy () {
     var cart = new Cart({ key: KEY })
 
-    function ShipAndPay ({ products }) {
+    function ShipAndPay ({ products, cart }) {
         var [step, setStep] = useState(0)
         var [orderID, setOrderID] = useState(null)
         var [order, setOrder] = useState(null)
@@ -62,6 +63,7 @@ function Buy () {
                 products=${products}
                 orderID=${orderID}
                 order=${order}
+                cart=${cart}
             />
             <div className="form-steps">
                 ${step === 0 ?
@@ -79,6 +81,6 @@ function Buy () {
 
     var products = cart.products()
 
-    render(html`<${ShipAndPay} products=${products} />`,
+    render(html`<${ShipAndPay} products=${products} cart=${cart} />`,
         document.getElementById('content'))
 }

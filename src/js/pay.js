@@ -32,7 +32,6 @@ class Payment extends Component {
     render (props) {
         if (!props.order) return null
 
-        console.log('props', props)
         var { orderID, order } = props
         var total = price.total(order)
         console.log('**in render**', props.orderID, props)
@@ -198,6 +197,8 @@ function createPaymentForm (orderId, cart) {
                         res.json().then(r => console.log('pay res json', r))
                         cart.empty()
                         doneWaiting()
+                        console.log('made payment', orderId)
+                        window.location.href = ('/success?order_id=' + orderId)
                     })
                     .catch(err => {
                         console.log('pay err', err)

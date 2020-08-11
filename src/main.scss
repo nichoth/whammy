@@ -467,6 +467,10 @@ body.waiting {
 
 // success page
 #success {
+  hr {
+    border-style: solid;
+  }
+
   h1 {
     max-width: 20rem;
     border-bottom: 1px solid black;
