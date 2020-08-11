@@ -465,3 +465,16 @@ body.waiting {
   }
 }
 
+// success page
+
+.receipt {
+  max-width: 20em;
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
