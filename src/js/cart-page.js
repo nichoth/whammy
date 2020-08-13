@@ -13,9 +13,6 @@ var cart = new Cart({ key: KEY })
 cart.createPage(cartContainer, mapper)
 window.cart = cart
 
-// var iconContainer = document.getElementById('cart-icon-container')
-// cart.createIcon(iconContainer)
-
 function getImgUrl (item) {
     return item.imageUrl
 }
@@ -27,18 +24,6 @@ checkInventory(cart)
         inventory = _inventory
         if (allInStock) return
 
-        // var outOfStockProducts = _inventory
-        //     .filter(inv => inv.quantity <= 0)
-        //     .map(function (inv) {
-        //         // inventory = inv
-        //         var prod = products.find(product => {
-        //             return (inv.catalog_object_id ===
-        //                 product.item_data.variations[0].id)
-        //         })
-        //         return prod
-        //     })
-
-        // console.log('oos', outOfStockProducts)
         cart.createPage(cartContainer, mapper)
         renderControls(document.querySelector('.cart-controls'), cart,
             allInStock)
@@ -48,7 +33,6 @@ checkInventory(cart)
     })
 
 function mapper (html, product) {
-    // console.log('***product***', product)
     var oos
     if (inventory) {
         var inv = inventory.find(_inv => (_inv.catalog_object_id ===
@@ -124,6 +108,5 @@ function renderControls (el, cart, allInStock) {
 }
 
 var el = document.getElementById('cart-totals')
-var products = cart.products()
 renderTotals(el, cart)
 renderControls(document.querySelector('.cart-controls'), cart)
