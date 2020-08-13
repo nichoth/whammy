@@ -16,7 +16,7 @@ function checkInventory (cart) {
                 return (acc && count.quantity > 0)
             }, true)
             if (!allInStock) cart.ohno()
-            return allInStock
+            return { allInStock, inventory: res }
         })
 }
 

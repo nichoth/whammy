@@ -6,10 +6,12 @@ var _ = {
     get: require('lodash/get')
 }
 var price = require('./price')
+import checkInventory from './check-inventory'
 
 var cartContainer = document.getElementById('cart-page-container')
 var cart = new Cart({ key: KEY })
 cart.createPage(cartContainer, mapper)
+window.cart = cart
 
 // var iconContainer = document.getElementById('cart-icon-container')
 // cart.createIcon(iconContainer)
@@ -18,11 +20,47 @@ function getImgUrl (item) {
     return item.imageUrl
 }
 
-function mapper (html, product, i) {
-    console.log('***product***', product)
+var inventory
+checkInventory(cart)
+    .then(({ allInStock, inventory: _inventory }) => {
+        console.log('inventory', _inventory)
+        inventory = _inventory
+        if (allInStock) return
+
+        // var outOfStockProducts = _inventory
+        //     .filter(inv => inv.quantity <= 0)
+        //     .map(function (inv) {
+        //         // inventory = inv
+        //         var prod = products.find(product => {
+        //             return (inv.catalog_object_id ===
+        //                 product.item_data.variations[0].id)
+        //         })
+        //         return prod
+        //     })
+
+        // console.log('oos', outOfStockProducts)
+        cart.createPage(cartContainer, mapper)
+        renderControls(document.querySelector('.cart-controls'), cart,
+            allInStock)
+    })
+    .catch(err => {
+        console.log('err', err)
+    })
+
+function mapper (html, product) {
+    // console.log('***product***', product)
+    var oos
+    if (inventory) {
+        var inv = inventory.find(_inv => (_inv.catalog_object_id ===
+            product.item_data.variations[0].id))
+        var oos = inv.quantity <= 0
+        console.log('oos', oos)
+    }
+
     var itemData = product.item_data
     var price = _.get(itemData,
         'variations[0].item_variation_data.price_money.amount')
+
     function Quantity (props) {
         var { item } = props
         if (item.quantity > 1) {
@@ -31,7 +69,7 @@ function mapper (html, product, i) {
         return html`<span class="quantity">Qty 1</span>`
     }
 
-    return html`<span class="item-controls">
+    return html`<span class="item-controls ${oos ? 'out-of-stock' : ''}">
         <img src="${getImgUrl(product)}" alt=${product.name} />
         <h2><a href=${slugify(itemData.name)}>${itemData.name}</a></h2>
         <${Quantity} item=${product} />
@@ -68,20 +106,24 @@ function makeDiv (text) {
     return div
 }
 
-function renderControls (el, cart) {
-    console.log('in here', cart.products())
-    console.log('****', cart.products().length)
+function renderControls (el, cart, allInStock) {
     var _link = document.querySelector('.buy')
     if (_link) _link.remove()
     if (cart.products().length < 1) return
 
     var link = document.createElement('a')
-    link.href = '/buy-things'
+    if (allInStock !== false) {
+        link.href = '/buy-things'
+    }
+    if (allInStock === false) {
+        link.classList.add('disabled')
+    }
     link.classList.add('buy')
     link.appendChild(document.createTextNode('buy things'))
     el.appendChild(link)
 }
 
 var el = document.getElementById('cart-totals')
+var products = cart.products()
 renderTotals(el, cart)
 renderControls(document.querySelector('.cart-controls'), cart)
