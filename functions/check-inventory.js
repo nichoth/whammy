@@ -10,18 +10,22 @@ oauth2.accessToken = config.squareAccessToken;
 
 const inventoryApi = new SquareConnect.InventoryApi()
 
-exports.handler = async function (ev, ctx, cb) {
-    var products = JSON.parse(ev.body)
+exports.handler = function (ev, ctx, cb) {
+    var { products } = JSON.parse(ev.body)
 
-    inventoryApi.retrieveInventoryCount({
-        catalog_object_ids: products.map(prod => {
-            return prod.item_data.variations[0].id
-        })
+    var ids = products.map(prod => {
+        return prod.item_data.variations[0].id
+    })
+    console.log('**ids**', ids)
+
+    inventoryApi.batchRetrieveInventoryCounts({
+        catalog_object_ids: ids
+    })
         .then(res => {
             console.log('**inv**', res)
             return cb(null, {
                 statusCode: 200,
-                body: JSON.stringify(res)
+                body: JSON.stringify(res.counts)
             })
         })
         .catch(err => {
@@ -31,6 +35,5 @@ exports.handler = async function (ev, ctx, cb) {
                 body: JSON.stringify(err)
             })
         })
-    })
         
 }

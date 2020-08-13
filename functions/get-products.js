@@ -49,7 +49,7 @@ exports.handler = async function (ev, ctx, cb) {
             }))
             // only list things with stock
             .filter(prod => {
-                console.log('**product**', prod)
+                // console.log('**product**', prod)
                 return prod.inventory && prod.inventory.quantity > 0
             })
 

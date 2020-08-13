@@ -96,7 +96,6 @@ main {
   border-bottom: 1px solid black;
   text-align: right;
   background-color: #73f24beb;
-  // background-color: #8e5626b5;
 
   z-index: 1;
 
@@ -187,6 +186,13 @@ main {
 }
 
 // ------ copy pasted from the cart repo ------------
+#cart-icon {
+    &.ohno {
+      fill: red;
+      color: red;
+    }
+}
+
 #cart-icon-icon {
     position: relative;
     top: 7px;
@@ -194,8 +200,13 @@ main {
 
 #cart-quantity {
     position: relative;
-    left: 20px;
+    left: 16px;
     bottom: 17px;
+    font-weight: bold;
+
+    &.ohno {
+      bottom: 15px
+    }
 }
 // --------------------------------------
 
