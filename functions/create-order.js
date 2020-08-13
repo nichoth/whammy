@@ -43,7 +43,7 @@ exports.handler = function (ev, ctx, cb) {
     // https://developer.squareup.com/docs/orders-api/create-orders#add-fulfillment-details
 
     function createOrderReqBody (products) {
-        console.log('***products***')
+        console.log('***products***', products)
         return {
             // Unique identifier for request
             idempotency_key: randomBytes(22).toString('hex'),
@@ -106,9 +106,9 @@ exports.handler = function (ev, ctx, cb) {
         return ordersApi.createOrder(locationId, orderRequestBody)
             .then(res => {
                 console.log('***create order resp***', res)
-                console.log('***create resp net amounts***', (res.order.
-                    net_amounts.service_charge_money))
-                console.log('***taxes***', res.order.total_tax_money)
+                // console.log('***create resp net amounts***', (res.order.
+                    // net_amounts.service_charge_money))
+                // console.log('***taxes***', res.order.total_tax_money)
                 return cb(null, {
                     statusCode: 200,
                     body: JSON.stringify(res)

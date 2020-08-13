@@ -28,13 +28,21 @@ describe('add to cart', function () {
     })
 })
 
-describe('buy something', function () {
-    cy.wait(5000)
+describe('shipping', function () {
+    it('should be a form', function () {
+        cy.get('form')
+    })
+})
 
-    cy.getWithinIframe('[name="cardnumber"]').type('4242424242424242');
-    cy.getWithinIframe('[name="exp-date"]').type('1222');
-    cy.getWithinIframe('[name="cvc"]').type('123');
-    cy.getWithinIframe('[name="postal"]').type('12345');
+describe('buy something', function () {
+    it('should do something', function () {
+        cy.wait(5000)
+        cy.getWithinIframe('[name="cardnumber"]').type('4242424242424242');
+        cy.getWithinIframe('[name="exp-date"]').type('1222');
+        cy.getWithinIframe('[name="cvc"]').type('123');
+        cy.getWithinIframe('[name="postal"]').type('12345');
+    })
+
 })
 
 // context('Actions', () => {

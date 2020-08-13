@@ -28,7 +28,7 @@ exports.handler = function (ev, ctx, cb) {
     }
 
     catalogApi.searchCatalogObjects(body).then(async function (res) {
-        console.log('*** catalog api res: ***',  res);
+        // console.log('*** catalog api res: ***',  res);
         var item = res.objects[0]
         var image = res.related_objects.find(obj => obj.type === 'IMAGE')
         var id = item.item_data.variations[0].id
