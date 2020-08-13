@@ -1,6 +1,5 @@
 var SquareConnect = require('square-connect');
 const { randomBytes } = require('crypto');
-const { count } = require('console');
 const config = require("./config.json")[process.env.NODE_ENV];
 const defaultClient = SquareConnect.ApiClient.instance;
 var oauth2 = defaultClient.authentications['oauth2'];

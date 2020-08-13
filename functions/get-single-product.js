@@ -39,8 +39,8 @@ exports.handler = function (ev, ctx, cb) {
         cb(null, {
             statusCode: 200,
             body: JSON.stringify(xtend(item, {
-                imageUrl: image.image_data.url,
-                inventory: inv.counts[0],
+                imageUrl: image && image.image_data.url,
+                inventory: (inv && inv.counts && inv.counts[0]),
                 tax: res.related_objects.find(obj => obj.type === 'TAX')
             }))
         })

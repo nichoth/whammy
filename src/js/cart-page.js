@@ -59,6 +59,7 @@ function renderTotals (el, cart) {
     el.appendChild(makeDiv('shipping $' + (shippingCost/100).toFixed(2)))
     el.appendChild(makeDiv('total $' +
         ((subTotal + shippingCost)/100).toFixed(2)))
+    el.appendChild(makeDiv('+ tax'))
 }
 
 function makeDiv (text) {

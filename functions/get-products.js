@@ -48,7 +48,10 @@ exports.handler = async function (ev, ctx, cb) {
                     imagesById[prod.image_id].image_data.url)
             }))
             // only list things with stock
-            .filter(prod => prod.inventory.quantity > 0)
+            .filter(prod => {
+                console.log('**product**', prod)
+                return prod.inventory && prod.inventory.quantity > 0
+            })
 
         // console.log('***product list***', products)
 
