@@ -1,6 +1,6 @@
+import checkInventory from "./check-inventory";
 import Cart from '@nichoth/shopping-cart'
 import KEY from './KEY'
-import { countBy } from 'lodash'
 var _ = {
     get: require('lodash/get')
 }
@@ -68,28 +68,11 @@ cart.createIcon(cartContainer, { link: '/cart' })
 
 window.cart = cart
 
-// check inventory
-// fetch inventory for the cart items, and if necessary call cart.ohno
-fetch('/.netlify/functions/check-inventory', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        products: cart.products()
-    })
-})
-    .then(res => res.json())
-    .then(res => {
-        console.log('**inventory**', res)
-        var hasStock = res.reduce(function (acc, count) {
-            return (acc && count.quantity > 0)
-        }, true)
+checkInventory(cart.products())
+    .then(hasStock => {
         console.log('has stock', hasStock)
         if (!hasStock) cart.ohno()
     })
     .catch(err => {
         return console.log('errrr', err)
     })
-
-
