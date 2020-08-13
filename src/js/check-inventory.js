@@ -1,11 +1,11 @@
-function checkInventory (products) {
+function checkInventory (cart) {
     return fetch('/.netlify/functions/check-inventory', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            products: products
+            products: cart.products()
         })
     })
         .then(res => res.json())
@@ -13,6 +13,7 @@ function checkInventory (products) {
             var allInStock = res.reduce(function (acc, count) {
                 return (acc && count.quantity > 0)
             }, true)
+            if (!allInStock) cart.ohno()
             return allInStock
         })
 }

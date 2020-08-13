@@ -68,10 +68,9 @@ cart.createIcon(cartContainer, { link: '/cart' })
 
 window.cart = cart
 
-checkInventory(cart.products())
+checkInventory(cart)
     .then(hasStock => {
         console.log('has stock', hasStock)
-        if (!hasStock) cart.ohno()
     })
     .catch(err => {
         return console.log('errrr', err)
