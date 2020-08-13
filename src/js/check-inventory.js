@@ -1,4 +1,6 @@
 function checkInventory (cart) {
+    if (cart.products().length === 0) return Promise.resolve(true)
+
     return fetch('/.netlify/functions/check-inventory', {
         method: 'POST',
         headers: {
