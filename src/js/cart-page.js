@@ -52,19 +52,19 @@ function mapper (html, product) {
             var inv = inventory.find(_inv => (_inv.catalog_object_id ===
                 product.item_data.variations[0].id))
             if (inv.quantity > 1) {
-                return html`<input type="number" max=${inv.quantity} value=1
-                    />`
+                return html`<span>Qty: <input type="number" max=${inv.quantity} value=1
+                    /> of ${inv.quantity}</span>`
             }
-            return html`<span class="quantity">Qty 1 of ${inv.quantity}</span>`
+            return html`<span class="quantity">Qty: 1 of ${inv.quantity}</span>`
         }
-        return html`<span class="quantity">Qty 1</span>`
+        return html`<span class="quantity">Qty: 1</span>`
     }
 
     return html`<span class="item-controls ${oos ? 'out-of-stock' : ''}">
         <img src="${getImgUrl(product)}" alt=${product.name} />
         <h2><a href=${slugify(itemData.name)}>${itemData.name}</a></h2>
         <${Quantity} item=${product} />
-        <span class="price">$${(price/100).toFixed(2)}</span>
+        <span class="price"> $${(price/100).toFixed(2)}</span>
     </span>`
 }
 
