@@ -154,6 +154,13 @@ main {
     border: 1px solid black;
     padding: 0.5em;
 
+    .ohno-stock {
+      width: 100%;
+      text-align: center;
+      margin-bottom: -1em;
+      font-weight: bold;
+    }
+
     .item-controls {
       &.out-of-stock {
         opacity: 0.5;

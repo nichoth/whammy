@@ -57,8 +57,6 @@ function mapper (html, product, i) {
                     max=${inv.quantity}
                     value=${item.quantity || 1}
                     onChange=${ev => {
-                        console.log('change', ev)
-                        console.log('wooor', ev.target.value)
                         cart.changeQuantity(i, ev.target.value)
                     }}
                 /> of ${inv.quantity}</span>`
@@ -68,12 +66,14 @@ function mapper (html, product, i) {
         return html`<span class="quantity">Qty: 1</span>`
     }
 
-    return html`<span class="item-controls ${oos ? 'out-of-stock' : ''}">
-        <img src="${getImgUrl(product)}" alt=${product.name} />
-        <h2><a href=${slugify(itemData.name)}>${itemData.name}</a></h2>
-        <${Quantity} item=${product} />
-        <span class="price"> $${(price/100).toFixed(2)}</span>
-    </span>`
+    return html`${oos ? html`<div class="ohno-stock">out of stock</div>` : ''}
+        <span class="item-controls ${oos ? 'out-of-stock' : ''}">
+            <img src="${getImgUrl(product)}" alt=${product.name} />
+            <h2><a href=${slugify(itemData.name)}>${itemData.name}</a></h2>
+            <${Quantity} item=${product} />
+            <span class="price"> $${(price/100).toFixed(2)}</span>
+        </span>
+    `
 }
 
 cart.on(EVENTS.cart.remove, function (i) {
