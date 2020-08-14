@@ -44,6 +44,7 @@ function mapper (html, product, i) {
     var itemData = product.item_data
     var price = _.get(itemData,
         'variations[0].item_variation_data.price_money.amount')
+    price = (price * (product.quantity || 0))
 
     function Quantity (props) {
         var { item } = props
@@ -81,6 +82,12 @@ cart.on(EVENTS.cart.remove, function (i) {
     renderControls(document.querySelector('.cart-controls'), cart)
 })
 
+cart.on(EVENTS.quantity.change, ev => {
+    renderTotals(document.getElementById('cart-totals'), cart)
+    // should work better than this
+    // cart.createPage(cartContainer, mapper)
+})
+
 function renderTotals (el, cart) {
     el.innerHTML = ''
     if (cart.products().length === 0) return
@@ -88,7 +95,7 @@ function renderTotals (el, cart) {
         var itemData = prod.item_data
         var price = _.get(itemData,
             'variations[0].item_variation_data.price_money.amount')
-        return acc + price
+        return acc + (price * prod.quantity || 0)
     }, 0)
 
     el.appendChild(makeDiv('subtotal $' + (subTotal/100).toFixed(2)))

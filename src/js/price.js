@@ -13,12 +13,14 @@ function subTotal (products) {
 }
 
 function getShippingCost (products) {
-    var l = products.length
-    if (l === 0) return 0
-    if (l === 1) return 300
-    if (l === 2) return 400
-    if (l >= 3 && l <= 8) return 500
-    if (l > 8) return 600
+    var totQuantity = products.reduce(function (acc, prod) {
+        return acc + parseInt(prod.quantity || 0)
+    }, 0)
+    if (totQuantity === 0) return 0
+    if (totQuantity === 1) return 300
+    if (totQuantity === 2) return 400
+    if (totQuantity >= 3 && totQuantity <= 8) return 500
+    if (totQuantity > 8) return 600
 }
 
 function total (order) {
