@@ -84,8 +84,6 @@ cart.on(EVENTS.cart.remove, function (i) {
 
 cart.on(EVENTS.quantity.change, ev => {
     renderTotals(document.getElementById('cart-totals'), cart)
-    // should work better than this
-    // cart.createPage(cartContainer, mapper)
 })
 
 function renderTotals (el, cart) {
