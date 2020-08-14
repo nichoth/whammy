@@ -31,7 +31,7 @@
     "test:open": "run-p -r serve cypress:open"
   },
   "dependencies": {
-    "@nichoth/shopping-cart": "0.0.16",
+    "@nichoth/shopping-cart": "0.0.17",
     "@sindresorhus/slugify": "^1.1.0",
     "dotenv": "^8.2.0",
     "htm": "^3.0.4",

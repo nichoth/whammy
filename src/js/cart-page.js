@@ -32,12 +32,12 @@ checkInventory(cart)
         console.log('err', err)
     })
 
-function mapper (html, product) {
+function mapper (html, product, i) {
     var oos
     if (inventory) {
         var inv = inventory.find(_inv => (_inv.catalog_object_id ===
             product.item_data.variations[0].id))
-        var oos = inv.quantity <= 0
+        oos = inv.quantity <= 0
         console.log('oos', oos)
     }
 
@@ -52,8 +52,16 @@ function mapper (html, product) {
             var inv = inventory.find(_inv => (_inv.catalog_object_id ===
                 product.item_data.variations[0].id))
             if (inv.quantity > 1) {
-                return html`<span>Qty: <input type="number" max=${inv.quantity} value=1
-                    /> of ${inv.quantity}</span>`
+                return html`<span>Qty: <input type="number"
+                    min=1
+                    max=${inv.quantity}
+                    value=${item.quantity || 1}
+                    onChange=${ev => {
+                        console.log('change', ev)
+                        console.log('wooor', ev.target.value)
+                        cart.changeQuantity(i, ev.target.value)
+                    }}
+                /> of ${inv.quantity}</span>`
             }
             return html`<span class="quantity">Qty: 1 of ${inv.quantity}</span>`
         }

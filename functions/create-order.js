@@ -1,7 +1,8 @@
 require('dotenv').config()
 const { randomBytes } = require('crypto')
 var SquareConnect = require('square-connect')
-var price = require('../src/js/price')
+var price = require('../src/js/price');
+const xtend = require('xtend');
 const defaultClient = SquareConnect.ApiClient.instance;
 var oauth2 = defaultClient.authentications['oauth2'];
 const config = require("./config.json")[process.env.NODE_ENV];
@@ -24,9 +25,17 @@ exports.handler = function (ev, ctx, cb) {
         include_related_objects: true
     })
         .then(res => {
-            // todo -- in here, map the resp with the req body so you can
-            // get the desired quantity for each
-            var orderReq = createOrderReqBody(res.objects)
+            // here -- pass in the quantity being ordered for each product
+            // need to add a quantity field to each product in the resp
+
+            var prods = res.objects.map(prod => {
+                var reqProd = products.find(p => p.id === prod.id)
+                return xtend(prod, {
+                    quantity: reqProd.quantity
+                })
+            })
+
+            var orderReq = createOrderReqBody(prods)
             createOrder(orderReq)
             return res.objects
         })
@@ -51,6 +60,7 @@ exports.handler = function (ev, ctx, cb) {
                 line_items: products.map(p => {
                     return {
                         "catalog_object_id": p.item_data.variations[0].id,
+                        // here -- take quantity input
                         "quantity": "1"
                     }
                 }),
@@ -106,9 +116,6 @@ exports.handler = function (ev, ctx, cb) {
         return ordersApi.createOrder(locationId, orderRequestBody)
             .then(res => {
                 console.log('***create order resp***', res)
-                // console.log('***create resp net amounts***', (res.order.
-                    // net_amounts.service_charge_money))
-                // console.log('***taxes***', res.order.total_tax_money)
                 return cb(null, {
                     statusCode: 200,
                     body: JSON.stringify(res)

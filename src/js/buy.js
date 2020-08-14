@@ -79,8 +79,6 @@ function Buy () {
         </div>`
     }
 
-    var products = cart.products()
-
-    render(html`<${ShipAndPay} products=${products} cart=${cart} />`,
+    render(html`<${ShipAndPay} products=${cart.products()} cart=${cart} />`,
         document.getElementById('content'))
 }
