@@ -26,20 +26,15 @@ header a {
 
 main {
   margin: 4rem auto 6rem;
-  max-width: 650px;
+  // max-width: 650px;
   width: 90vw;
   margin-top: 6em;
-
-    /* display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(2, 1fr);
-    margin-top: 3rem; */
 }
 
 .products {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    grid-template-columns: repeat(2, 1fr);
     margin-top: 3rem;
 }
 
