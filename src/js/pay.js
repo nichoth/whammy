@@ -40,7 +40,13 @@ class Payment extends Component {
             <ul>
                 ${props.order.line_items.map(function (item) {
                     return html`<li>
-                        <em class="item-name">${item.name}</em>
+                        <em class="item-name">
+                            <span class="name">${item.name}</span>
+                            ${item.quantity > 1 ?
+                                html`<span> × ${item.quantity}</span>` :
+                                null
+                            }
+                        </em>
                         ${price.format(item.variation_total_price_money.amount)}
                     </li>`
                 })}

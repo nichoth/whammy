@@ -61,7 +61,7 @@ exports.handler = function (ev, ctx, cb) {
                     return {
                         "catalog_object_id": p.item_data.variations[0].id,
                         // here -- take quantity input
-                        "quantity": "1"
+                        "quantity": p.quantity
                     }
                 }),
 

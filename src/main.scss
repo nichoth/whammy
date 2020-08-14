@@ -299,7 +299,11 @@ body.cart-page {
 
     .item-name {
       font-style: initial;
-      font-weight: bold;
+
+      .name {
+        font-style: italic;
+        font-weight: bold;
+      }
     }
 
     li {
