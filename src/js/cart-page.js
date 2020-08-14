@@ -47,8 +47,15 @@ function mapper (html, product) {
 
     function Quantity (props) {
         var { item } = props
-        if (item.quantity > 1) {
-            return html`<input type="number" max=${item.quantity} value=1 />`
+        console.log('**item***', item)
+        if (inventory) {
+            var inv = inventory.find(_inv => (_inv.catalog_object_id ===
+                product.item_data.variations[0].id))
+            if (inv.quantity > 1) {
+                return html`<input type="number" max=${inv.quantity} value=1
+                    />`
+            }
+            return html`<span class="quantity">Qty 1 of ${inv.quantity}</span>`
         }
         return html`<span class="quantity">Qty 1</span>`
     }
