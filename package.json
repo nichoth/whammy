@@ -37,7 +37,7 @@
     "browserify": "^16.5.1",
     "chromedriver": "^84.0.1",
     "concurrently": "^5.2.0",
-    "cypress": "^4.11.0",
+    "cypress": "^13.3.3",
     "esmify": "^2.1.1",
     "inline-htmlify": "^2.0.1",
     "netlify-cli": "^2.51.0",
